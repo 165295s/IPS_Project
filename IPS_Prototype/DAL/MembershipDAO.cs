@@ -19,7 +19,7 @@ namespace IPS_Prototype.DAL
         {
             List<SqlCommand> transcommand = new List<SqlCommand>();
             SqlCommand mycmd = new SqlCommand();
-            string commandtext = "  Select pa.Honorific as Honorific,pa.first_name as First_Name,pa.surname as Surname, Pa.Tel_Num as Telephone from membership.TBL_PERSONAL_ASSISTANT PA INNER JOIN  membership.TBL_CA_REP_PA crp on pa.PA_Id = crp.PA_Id INNER JOIN membership.TBL_Org_Ca_Rep OCR on OCR.CA_Rep_Id = crp.CA_Rep_Id INNER JOIN membership.TBL_ORGANISATION org on org.Org_Id = OCR.Org_Id where OCR.CA_Rep_Id = @caRepId;";
+            string commandtext = "  Select pa.PA_ID,pa.Honorific as Honorific,pa.first_name as First_Name,pa.surname as Surname, Pa.Tel_Num as Telephone from membership.TBL_PERSONAL_ASSISTANT PA INNER JOIN  membership.TBL_CA_REP_PA crp on pa.PA_Id = crp.PA_Id INNER JOIN membership.TBL_Org_Ca_Rep OCR on OCR.CA_Rep_Id = crp.CA_Rep_Id INNER JOIN membership.TBL_ORGANISATION org on org.Org_Id = OCR.Org_Id where OCR.CA_Rep_Id = @caRepId;";
 
             DataTable dt = dbhelp.ExecDataReader(commandtext, "@caRepId", caRepID);
 
@@ -458,6 +458,20 @@ namespace IPS_Prototype.DAL
             result = dbhelp.ExecTrans(transcommand);
 
             return result;
+        }
+        public int DeleteCAREPPA(string pa_id) {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            string commandtext = "DELETE FROM membership.TBL_PERSONAL_ASSISTANT WHERE PA_ID = @pa_id; " +
+                                   "DELETE FROM membership.TBL_CA_REP_PA WHERE PA_ID = @pa_id; ";
+
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@pa_id", pa_id);
+            transcommand.Add(mycmd);
+            result = dbhelp.ExecTrans(transcommand);
+
+            return result;
+
         }
 
         public int DeleteIARecord(int personid)

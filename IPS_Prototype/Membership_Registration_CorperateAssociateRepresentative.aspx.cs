@@ -407,6 +407,44 @@ namespace IPS_Prototype
                 //upPanel.Update();
             }
         }
+        protected void RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            bindPAtable();
+            string pa_ID = PA_GridView.Rows[e.RowIndex].Cells[0].Text;
+            //string expirydate = gvOrg.Rows[e.RowIndex].Cells[2].Text;
+
+            int check = 0;
+            try
+            {
+                check = db.DeleteCAREPPA(pa_ID);
+                bindPAtable();
+
+                if (check == 1)
+                {
+                    //bindtable();
+
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deketed Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+
+                }
+                else if (check == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+            }
+
+
+        }
+
+
 
         public void Add_Pa_Command(object sender, EventArgs e)
         {
@@ -429,7 +467,7 @@ namespace IPS_Prototype
             caID.InnerText = row.Cells[1].Text; // CA_REP ID
             orgID.InnerText = row.Cells[2].Text; // ORG ID
 
-            //bindPAtable();
+            bindPAtable();
 
         }
 
