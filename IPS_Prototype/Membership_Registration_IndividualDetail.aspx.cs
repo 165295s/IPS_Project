@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace IPS_Prototype
@@ -63,6 +64,7 @@ namespace IPS_Prototype
                     //VALUES SUCCESFULY PASSED
                     pList = (ArrayList)Session["Person"];
                     hiddentext.Value = pList[0].ToString();
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
 
                 }
                 if (Session["IndivEdit"] != null)
@@ -421,8 +423,59 @@ namespace IPS_Prototype
         }
 
 
+        public void deleteINDIV(object sender, EventArgs e)
+        {
+            //GridViewRow row = (GridViewRow)((HtmlButton)sender).NamingContainer;
+            int indid = int.Parse(hiddentext.Value);
+            if (indid != 0)
+            {
+                BindEventRepeater(indid);
+                string name = txtFullNameNameTag.Value;
+                lblmodaltitlenameInd.InnerText = name;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "modalDeleteIND();", true);
+            }
+
+        }
+
+        // show IND PAs in delete modal
+        private void BindEventRepeater(int personId)
+        {
+            DALMembership db = new DALMembership();
+            rptrIAdets.DataSource = db.GetIndivPAInfo(personId);
+            rptrIAdets.DataBind();
+        }
+
+        public void btnDeleteInd_ServerClick(object sender, EventArgs e)
+        {
+            int personId = Int32.Parse(hiddentext.Value);
+            MembershipDAO d1 = new MembershipDAO();
+            if (personId > 0)
+            {
+                int check = d1.DeleteIARecord(personId);
+                if (check == 1 || check == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deleted');", true);
+                    Response.Redirect("Member_MemberManagement.aspx");
+                    //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
+                    //gvPerson.DataBind();
+                    //gvPerson.HeaderRow.TableSection = TableRowSection.TableHeader;
+                }
+                else
+                {
+                    //  Response.Write("<script>alert('Delete Unsuccessful.');</script>");
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                }
+            }
+
+
+        }
+
+       
 
 
 
     }
-    }
+
+
+
+}

@@ -177,6 +177,13 @@ where p.PERSON_ID ="+personId+";";
             return dt;
         }
 
+        public DataTable GetCAREPPAInfo(int personId)
+        {
+            string commandtext = "SELECT pa.HONORIFIC, CONCAT(pa.FIRST_NAME, ' ', pa.SURNAME) AS FULLNAME, pa.EMAIL_ADDR, pa.TEL_NUM from membership.TBL_PERSONAL_ASSISTANT pa INNER JOIN membership.TBL_CA_REP_PA ppa on pa.PA_ID = ppa.PA_ID INNER JOIN membership.TBL_ORG_CA_REP p ON p.PERSON_ID = ppa.PERSON_ID where p.PERSON_ID = @pid";
+            DataTable dt = dbhelp.ExecDataReader(commandtext, "@pid", personId);
+            return dt;
+        }
+
         public DataTable getAllMembershipDetailOrg()
         {
             //CHRIS CHANGE: added CA_REP_ID to SQL Query 

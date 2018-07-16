@@ -3,15 +3,20 @@
 <%@ Register TagPrefix="UserControl" TagName="AddPA" Src="~/Modal/AddPa_Modal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-        <link href="css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <link href="css/bootstrap2-toggle.min.css" rel="stylesheet" />
     <style>
-         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
-  .toggle.ios .toggle-handle { border-radius: 20px; }
-  /*.toggle.ios{display:none;}*/
+        .toggle.ios, .toggle-on.ios, .toggle-off.ios {
+            border-radius: 20px;
+        }
+
+            .toggle.ios .toggle-handle {
+                border-radius: 20px;
+            }
+        /*.toggle.ios{display:none;}*/
     </style>
     <script>
         $(document).ready(function () {
-           
+
             $('#UserRegisterHeader > .fas').toggleClass('active');
             $('#UserRegister').collapse();
 
@@ -73,8 +78,8 @@
                     // $('#ContentPlaceHolder1_FacilitatorBriefed').prop('disabled',true);
                     //$('#ContentPlaceHolder1_welcomeEmail').prop('disabled',true);
                 }
-                
-                 });
+
+            });
 
 
 
@@ -136,7 +141,7 @@
                                     cat1: value.cat1,
                                     cat2: value.cat2,
                                     personStatus: value.status
-                                  
+
                                 }
                             }));
                         },
@@ -172,16 +177,15 @@
                             $('#ContentPlaceHolder1_ddlSource').val(ui.item.src);
                             $('#ContentPlaceHolder1_ddlCat1').val(ui.item.cat1);
                             $('#ContentPlaceHolder1_ddlCat2').val(ui.item.cat2);
-                           
+
                             if (ui.item.gender === "M") {
-                                 $('input:radio[value=M]').prop("checked",true);
+                                $('input:radio[value=M]').prop("checked", true);
 
 
                             }
-                            else
-                            {
+                            else {
 
-                                  $('input:radio[value=F]').prop("checked",true);
+                                $('input:radio[value=F]').prop("checked", true);
                             }
 
                             return false;
@@ -204,7 +208,13 @@
             });
         }
 
+        function modalDeleteIND() {
+            $('#Member_DeleteInd').modal('show');
+        };
 
+         function hideToggle() {
+            $('#ContentPlaceHolder1_sliderToggle').attr('display', 'none');
+        }
 
     </script>
 </asp:Content>
@@ -229,15 +239,15 @@
             <%--            <asp:Label id="memType" runat="server" ></asp:Label>--%>
 
             <div class="wrapper">
-                <input type="text" id="hiddentext" runat="server" class="none"  />
+                <input type="text" id="hiddentext" runat="server" class="none" />
 
 
                 <div class="left_div" style="float: left; margin-top: -27px;">
 
-                     <div class="form-group" id="slidertoggleDIV" runat="server">
+                    <div class="form-group" id="slidertoggleDIV" runat="server">
 
-       <input id="sliderToggle"  enableviewstate="true" type="checkbox" runat="server"  data-toggle="toggle" data-width="150" data-height="40" data-style="ios" data-offstyle="danger" data-onstyle="success" data-on="Edit Mode On" data-off="Edit Mode Off" >
-            </div>
+                        <input id="sliderToggle" enableviewstate="true" type="checkbox" runat="server" data-toggle="toggle" data-width="150" data-height="40" data-style="ios" data-offstyle="danger" data-onstyle="success" data-on="Edit Mode On" data-off="Edit Mode Off">
+                    </div>
 
                     <label for="Honorific">Honourific</label>
                     <div class="form-group">
@@ -310,25 +320,28 @@
                     </div>
 
 
-                    <div class="form-group" style="float: left; margin-top:122px;">
-                        <button type="button" runat="server" id="btnUpdate"  class="btn btn-primary" onserverclick="updateINDIV" style="width: 150px; height: 40px; display:none;">
-                             Update
-                         </button>
+                    <div class="form-group" style="float: left; margin-top: 122px;">
+                        <button type="button" runat="server" id="btnUpdate" class="btn btn-primary" onserverclick="updateINDIV" style="width: 150px; height: 40px; display: none;">
+                            Update
+                        </button>
                         <button type="button" id="AddPA" runat="server" data-toggle="modal" data-target="#Add_PA" class="btn btn-primary" style="width: 150px; height: 40px;">
                             Add PA
                         </button>
 
-                            <button type="button" runat="server" id="btnSave" onserverclick="Button_Save" class="btn btn-primary" style="width: 150px; height: 40px;">
+                        <button type="button" runat="server" id="btnSave" onserverclick="Button_Save" class="btn btn-primary" style="width: 150px; height: 40px;">
                             Save
                         </button>
 
+                         <button type="button" runat="server" id="btnDel" onserverclick="deleteINDIV" class="btn btn-primary" style="width: 150px; height: 40px;">
+                            Delete
+                        </button>
+
+
                     </div>
-               <%--     <div class="form-group" style="float: right;">
+                    <%--     <div class="form-group" style="float: right;">
                     
 
                     </div>--%>
-
-
                 </div>
 
 
@@ -519,6 +532,114 @@
         </div>
 
 
+    </div>
+
+    <div id="Modal_Container_DELETE">
+        <%--            <UserControl:Member_DeleteInd runat="server"/>--%>
+        <!-- Modal For Individual Associate Below-->
+        <div class="modal fade" id="Member_DeleteInd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-confirm" style="max-width: 700px;" role="document">
+                <div class="modal-content">
+                    <%-- <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLongTitleInd" style="color: white">Individual Associate:
+                            <label for="lblmodaltitlenameInd" runat="server" id="lblmodaltitlenameInd"></label>
+                        </h5>
+<%--                            <h5 class="modal-title" id="ModalLongTitleInd" style="color:white">Individual Associate: <label for="lblmodaltitlenameInd" class="modal_name" runat="server" id="lblmodaltitlenameInd" ></label></h5>--%>
+
+                    <%--   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>--%>
+
+                    <div class="modal-header">
+                        <div class="icon-box">
+                            <i class="material-icons">&#xE5CD;</i>
+                        </div>
+                        <h4 class="modal-title" style="margin-top: 85px; margin-left: 233px;">Are you sure?</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+
+                    <div class="modal-body" style="margin-top: 10px;">
+                        <%--                        <label style="float: left; margin-top: 10px; margin-right: auto;">**Note: All details above will be deleted once you click remove.</label>--%>
+                        <p>If you delete
+                            <label for="lblmodaltitlenameInd" runat="server" id="lblmodaltitlenameInd"></label>
+                            , all information below will also be deleted:</p>
+                        <div class="container">
+                            <div class="panel panel-default">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="row toggle" id="dropdown-detail-2" data-toggle="detail-2">
+                                            <div class="col-xs-10">
+                                                Personal Assistant
+                                            </div>
+                                            <div class="col-xs-2"><i style="padding-left: 450px" class="fa fa-chevron-down pull-right"></i></div>
+                                        </div>
+                                        <div id="detail-2">
+                                            <hr />
+                                            <div class="container">
+                                                <div class="fluid-row">
+                                                    <asp:HiddenField ID="hdnPersonToDelete" runat="server" />
+                                                    <asp:Repeater ID="rptrIAdets" runat="server">
+                                                        <HeaderTemplate>
+
+                                                            <table class="table">
+                                                                <thead>
+
+                                                                    <% if (rptrIAdets.Items.Count < 1)
+                                                                        { %>
+                                                                    <tr>
+                                                                        <th>No Personal Assistant</th>
+                                                                    </tr>
+                                                                    <% }
+                                                                        else
+                                                                        { %>
+                                                                    <tr>
+                                                                        <th>Honorific</th>
+                                                                        <th>Name</th>
+                                                                        <th>Email</th>
+                                                                        <th>Telephone</th>
+                                                                    </tr>
+                                                                    <% } %>
+                                                                </thead>
+                                                        </HeaderTemplate>
+                                                        <ItemTemplate>
+                                                            <tr>
+                                                                <td><%# Eval("HONORIFIC") %></td>
+                                                                <td><%# Eval("FULLNAME") %></td>
+                                                                <td><%#Eval("EMAIL_ADDR") %></td>
+                                                                <td><%#Eval("TEL_NUM") %></td>
+                                                            </tr>
+                                                        </ItemTemplate>
+                                                        <FooterTemplate>
+                                                            </table>
+                                                        </FooterTemplate>
+                                                    </asp:Repeater>
+                                                </div>
+
+
+                                                <asp:GridView runat="server" EnableViewState="false" ID="PA_GridView" ShowHeaderWhenEmpty="true" EmptyDataText="No Records Found" CssClass="table table-hover BlueTable" AutoGenerateColumns="false" AutoGenerateEditButton="false" AutoGenerateDeleteButton="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
+                                                    <Columns>
+                                                        <asp:BoundField DataField="HONORIFIC" HeaderText="Honorific" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                                                        <asp:BoundField DataField="FULLNAME" HeaderText="Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                                                        <asp:BoundField DataField="EMAIL_ADDR" HeaderText="Email" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                                                        <asp:BoundField DataField="TEL_NUM" HeaderText="Telephone" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" style="margin-right: 189px" class="btn btn-danger" runat="server" id="btnDeleteInd" onserverclick="btnDeleteInd_ServerClick">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 

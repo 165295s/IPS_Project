@@ -460,6 +460,49 @@ namespace IPS_Prototype.DAL
             return result;
         }
 
+        public int DeleteIARecord(int personid)
+        {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            //string commandtext = "delete from membership.TBL_PERSON_PA where PERSON_ID=1;" + 
+            //                     "delete from membership.TBL_PERSONAL_ASSISTANT where PA_ID=(Select PA_ID from membership.TBL_PERSON_PA where PERSON_ID=1); " +
+            //                     "delete from membership.TBL_MEMBERSHIP where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=1); " +
+            //                     "delete from event.TBL_EVENT_GUEST_INVITE where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=1); " +
+            //                     "delete from TBL_PERSON where PERSON_ID=1; ";
+            string commandtext = "delete from membership.TBL_PERSONAL_ASSISTANT where PA_ID=(Select top 1 PA_ID from membership.TBL_PERSON_PA where PERSON_ID=@id); " +
+                                 "delete from membership.TBL_PERSON_PA where PERSON_ID=@id;" +
+                                 "delete from membership.TBL_MEMBERSHIP where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=@id); " +
+                                 "delete from event.TBL_EVENT_GUEST_INVITE where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=@id); " +
+                                 "delete from membership.TBL_PERSON where PERSON_ID=@id;";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@id", personid);
+            transcommand.Add(mycmd);
+            result = dbhelp.ExecTrans(transcommand);
+
+            return result;
+        }
+        public int DeleteCAREPRecord(int personid)
+        {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            //string commandtext = "delete from membership.TBL_PERSON_PA where PERSON_ID=1;" + 
+            //                     "delete from membership.TBL_PERSONAL_ASSISTANT where PA_ID=(Select PA_ID from membership.TBL_PERSON_PA where PERSON_ID=1); " +
+            //                     "delete from membership.TBL_MEMBERSHIP where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=1); " +
+            //                     "delete from event.TBL_EVENT_GUEST_INVITE where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=1); " +
+            //                     "delete from TBL_PERSON where PERSON_ID=1; ";
+            string commandtext = "delete from membership.TBL_PERSONAL_ASSISTANT where PA_ID=(Select top 1 PA_ID from membership.TBL_PERSON_PA where PERSON_ID=@id); " +
+                                 "delete from membership.TBL_CA_REP_PA where PERSON_ID=@id;" +
+                                 "delete from membership.TBL_MEMBERSHIP where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=@id); " +
+                                 "delete from event.TBL_EVENT_GUEST_INVITE where PERSON_ID=(Select PERSON_ID from membership.TBL_PERSON where PERSON_ID=@id); " +
+                                 "delete from membership.TBL_PERSON where PERSON_ID=@id;" +
+                                 "delete from membership.TBL_ORG_CA_REP where PERSON_ID=@id";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@id", personid);
+            transcommand.Add(mycmd);
+            result = dbhelp.ExecTrans(transcommand);
+
+            return result;
+        }
 
 
     }
