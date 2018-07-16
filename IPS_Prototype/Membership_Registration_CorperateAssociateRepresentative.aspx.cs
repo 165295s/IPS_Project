@@ -495,6 +495,50 @@ namespace IPS_Prototype
 
         public void updateCAREP(object sender, EventArgs e)
         {
+            string genderChk,faciChk,emailChk;
+            if (Male.Checked == true)
+            {
+                genderChk = Male.Value;
+            }
+            else                    //2
+            {
+                genderChk = Female.Value;
+            }
+
+            if (FacilitatorBriefed.Checked)
+            {
+                faciChk=FacilitatorBriefed.Value; //18
+            }
+            else
+            {
+                faciChk="NA";
+            }
+            if (welcomeEmail.Checked)
+            {
+                emailChk=welcomeEmail.Value; //19
+            }
+            else
+            {
+                emailChk="NA";
+
+            }
+
+            int personId = int.Parse(hiddentext.Value);
+            MembershipDAO d1 = new MembershipDAO();
+            //DALMembership user = new DALMembership();
+            int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value,ddlRole.SelectedValue,ddlStatus.SelectedValue,faciChk,emailChk);
+            if (check == 2)
+            {
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Coporate Associate: " + txtFullNameNameTag.Value + "');", true);
+                //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
+                //gvPerson.DataBind();
+                //gvPerson.HeaderRow.TableSection = TableRowSection.TableHeader;
+            }
+            else if (check == 0)
+            {
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+            }
+
 
 
 

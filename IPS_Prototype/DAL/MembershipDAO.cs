@@ -129,7 +129,7 @@ namespace IPS_Prototype.DAL
         {
             PersonModel person = new PersonModel();
             DataTable dt;
-            string commandtext = " SELECT o.NAME,p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, ca.FULLNAME_NAMETAGS, ca.STATUS,CA.FACILITATOR_BRIEFED,CA.EMAIL_SENT,CA.ROLE FROM membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP ca ON p.PERSON_ID = ca.PERSON_ID INNER JOIN membership.TBL_ORGANISATION o on o.ORG_ID = ca.ORG_ID  WHERE ca.CA_REP_ID =  @carepid";
+            string commandtext = " SELECT o.NAME,p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, ca.FULLNAME_NAMETAGS, ca.STATUS,CA.FACILITATOR_BRIEFED,CA.EMAIL_SENT,CA.ROLE FROM membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP ca ON p.PERSON_ID = ca.PERSON_ID INNER JOIN membership.TBL_ORGANISATION o on o.ORG_ID = ca.ORG_ID  WHERE ca.PERSON_ID =  @carepid";
             dt = dbhelp.ExecDataReader(commandtext, "@carepid", carepid);
             person.orgName = dt.Rows[0]["NAME"].ToString();
             person.firstName = dt.Rows[0]["FIRST_NAME"].ToString();
@@ -423,5 +423,44 @@ namespace IPS_Prototype.DAL
             return result;
 
         }
+
+        public int UpdateCAREP(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags,string role, string status, string faciBriefed, string emailSent)
+        {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            SqlCommand mycmd1 = new SqlCommand();
+            string commandtext = "UPDATE membership.TBL_PERSON SET FIRST_NAME = @firstname, SURNAME = @surname, GENDER = @gender, SOURCE = @source, HONORIFIC = @honorific, SALUTATION = @salutation, TEL_NUM = @telnum, EMAIL_ADDR = @email, NATIONALITY = @nationality, Modified_DT = @modified_date, DESIGNATION_1 = @des1, DEPARTMENT_1 = @dep1, ORGANISATION_1 = @org1, DESIGNATION_2 = @des2, DEPARTMENT_2 = @dep2, ORGANISATION_2 = @org2, SPECIAL_DIETARY_REQUIREMENT = @sdr, FULLNAME_NAMETAGS = @fullnamenametags WHERE PERSON_ID = @pid;";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@firstname", fname, "@surname", sname, "@gender", gender, "@source", source, "@honorific", honorific, "@salutation", salutation, "@telnum", telnum, "@email", email, "@nationality", nationality, "@modified_date", modified, "@des1", des1, "@dep1", dep1, "@org1", org1, "@des2", des2, "@dep2", dep2, "@org2", org2, "@sdr", sdr, "@fullnamenametags", fnametags, "@pid", pid);
+            string carepCMDTxt = "UPDATE membership.TBL_ORG_CA_REP SET ROLE = @role, FULLNAME_NAMETAGS = @fullnameNT, STATUS = @status, FACILITATOR_BRIEFED = @faciBriefed, EMAIL_SENT = @emailSent WHERE PERSON_ID = @pid;";
+            mycmd1 = dbhelp.CreateCommand(carepCMDTxt, CommandType.Text, "@role", role, "@fullnameNT", fnametags, "@status", status, "@faciBriefed", faciBriefed, "@emailSent", emailSent, "@pid", pid);
+
+            transcommand.Add(mycmd);
+            transcommand.Add(mycmd1);
+            result = dbhelp.ExecTrans(transcommand);
+
+            return result;
+        }
+
+        public int UpdateIndividual(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags, string status)
+        {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            SqlCommand mycmd1 = new SqlCommand();
+            string commandtext = "UPDATE membership.TBL_PERSON SET FIRST_NAME = @firstname, SURNAME = @surname, GENDER = @gender, SOURCE = @source, HONORIFIC = @honorific, SALUTATION = @salutation, TEL_NUM = @telnum, EMAIL_ADDR = @email, NATIONALITY = @nationality, Modified_DT = @modified_date, DESIGNATION_1 = @des1, DEPARTMENT_1 = @dep1, ORGANISATION_1 = @org1, DESIGNATION_2 = @des2, DEPARTMENT_2 = @dep2, ORGANISATION_2 = @org2, SPECIAL_DIETARY_REQUIREMENT = @sdr, FULLNAME_NAMETAGS = @fullnamenametags WHERE PERSON_ID = @pid;";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@firstname", fname, "@surname", sname, "@gender", gender, "@source", source, "@honorific", honorific, "@salutation", salutation, "@telnum", telnum, "@email", email, "@nationality", nationality, "@modified_date", modified, "@des1", des1, "@dep1", dep1, "@org1", org1, "@des2", des2, "@dep2", dep2, "@org2", org2, "@sdr", sdr, "@fullnamenametags", fnametags, "@pid", pid);
+            string commandtext1 = "UPDATE membership.TBL_MEMBERSHIP SET STATUS = @status, DESIGNATION = @desig WHERE PERSON_ID = @pid;";
+            mycmd1 = dbhelp.CreateCommand(commandtext1, CommandType.Text, "@status", status, "@desig",des1,"@pid", pid);
+
+            transcommand.Add(mycmd);
+            transcommand.Add(mycmd1);
+            result = dbhelp.ExecTrans(transcommand);
+
+            return result;
+        }
+
+
+
     }
 }

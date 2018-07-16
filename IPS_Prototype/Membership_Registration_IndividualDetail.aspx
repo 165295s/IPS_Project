@@ -3,11 +3,80 @@
 <%@ Register TagPrefix="UserControl" TagName="AddPA" Src="~/Modal/AddPa_Modal.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+        <link href="css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <style>
+         .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+  .toggle.ios .toggle-handle { border-radius: 20px; }
+  /*.toggle.ios{display:none;}*/
+    </style>
     <script>
         $(document).ready(function () {
            
             $('#UserRegisterHeader > .fas').toggleClass('active');
             $('#UserRegister').collapse();
+
+
+            $('#ContentPlaceHolder1_sliderToggle').change(function () {
+                if ($('#ContentPlaceHolder1_sliderToggle').is(':checked')) {
+                    $('#ContentPlaceHolder1_txtFirstName').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtSalutationField').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtSurname').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtFullNameNameTag').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtTelephone').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtOrg1').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtDept1').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtDesig1').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtOrg2').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtDept2').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtDesig2').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtSDR').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlList').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlNationality').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlSource').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlCat1').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlCat2').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlStatus').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_ddlRole').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtEmail').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_btnSave').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_AddPA').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_btnSave').remove();
+                    $('#ContentPlaceHolder1_btnUpdate').show();
+                    $('#ContentPlaceHolder1_btnUpdate').removeAttr('disabled');
+                    //$('#ContentPlaceHolder1_FacilitatorBriefed').prop('disabled',false);
+                    //$('#ContentPlaceHolder1_welcomeEmail').prop('disabled',false);
+
+                } else {
+                    $('#ContentPlaceHolder1_txtFirstName').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtSalutationField').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtSurname').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtFullNameNameTag').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtTelephone').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtOrg1').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtDept1').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtDesig1').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtOrg2').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtDept2').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtDesig2').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtSDR').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlList').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlNationality').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlSource').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlCat1').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlCat2').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlStatus').attr("disabled", true);
+                    $('#ContentPlaceHolder1_ddlRole').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtEmail').attr("disabled", true);
+                    $('#ContentPlaceHolder1_btnSave').attr("disabled", true);
+                    $('#ContentPlaceHolder1_AddPA').attr("disabled", true);
+                    $('#ContentPlaceHolder1_btnUpdate').attr("disabled", true);
+                    // $('#ContentPlaceHolder1_FacilitatorBriefed').prop('disabled',true);
+                    //$('#ContentPlaceHolder1_welcomeEmail').prop('disabled',true);
+                }
+                
+                 });
+
+
 
         });
 
@@ -165,6 +234,11 @@
 
                 <div class="left_div" style="float: left; margin-top: -27px;">
 
+                     <div class="form-group" id="slidertoggleDIV" runat="server">
+
+       <input id="sliderToggle"  enableviewstate="true" type="checkbox" runat="server"  data-toggle="toggle" data-width="150" data-height="40" data-style="ios" data-offstyle="danger" data-onstyle="success" data-on="Edit Mode On" data-off="Edit Mode Off" >
+            </div>
+
                     <label for="Honorific">Honourific</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlList" runat="server" class="ddlStyle"></asp:DropDownList>
@@ -237,6 +311,9 @@
 
 
                     <div class="form-group" style="float: left; margin-top:122px;">
+                        <button type="button" runat="server" id="btnUpdate"  class="btn btn-primary" onserverclick="updateINDIV" style="width: 150px; height: 40px; display:none;">
+                             Update
+                         </button>
                         <button type="button" id="AddPA" runat="server" data-toggle="modal" data-target="#Add_PA" class="btn btn-primary" style="width: 150px; height: 40px;">
                             Add PA
                         </button>

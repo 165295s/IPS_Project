@@ -301,7 +301,7 @@ namespace IPS_Prototype
 
             //Get Person Data from GetPersonData Method in DALMembership
             GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
-            int CAREP_ID = int.Parse(row.Cells[0].Text);
+            int CAREP_PERSON_ID = int.Parse(row.Cells[0].Text);
 
             //FIRST GET ID ON ROW CLICK
             //SECOND SEARCH FOR HONOURIFIC BASED ON ID FROM PERSON TABLE
@@ -335,13 +335,13 @@ namespace IPS_Prototype
             //}
             //IndDdlHonorific.DataBind();
 
-            if (CAREP_ID != 0)
+            if (CAREP_PERSON_ID != 0)
             {
                 //    string name = row.Cells[1].Text;
                 //    lblmodalnameInd.InnerText = name;
-                Session["CAREPEDIT"] = CAREP_ID;
+                Session["CAREPEDIT"] = CAREP_PERSON_ID;
                 Response.Redirect("Membership_Registration_CorperateAssociateRepresentative.aspx");
-                personmodal = mem.GetPersonData(CAREP_ID);
+                personmodal = mem.GetPersonData(CAREP_PERSON_ID);
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "modalEditIND();", true);
                 if (personmodal.email != null)
                 {
@@ -383,7 +383,7 @@ namespace IPS_Prototype
                 person.Attributes.CssStyle.Add("display", "block");
                 organisation.Attributes.CssStyle.Add("display", "none");
                 grouping.Attributes.CssStyle.Add("display", "none");
-                hdnPersonEdit.Value = CAREP_ID.ToString();
+                hdnPersonEdit.Value = CAREP_PERSON_ID.ToString();
             }
         }
 

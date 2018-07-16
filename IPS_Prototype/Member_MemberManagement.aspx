@@ -404,6 +404,7 @@
     <div runat="server" id="organisation">
         <asp:GridView CssClass="table table-hover BlueTable" ID="gvOrg" OnRowDataBound="gvOrg_OnRowDataBound" OnSelectedIndexChanged="gvOrg_OnSelectedIndexChanged" runat="server" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvOrg_RowEditing" OnRowDeleting="gvOrg_RowDeleting" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
             <Columns>
+                <asp:BoundField DataField="PERSON_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
                 <asp:BoundField DataField="CA_REP_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
                 <asp:BoundField DataField="FULLNAME_NAMETAGS" HeaderText="CA Rep" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                 <asp:TemplateField HeaderText="Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">

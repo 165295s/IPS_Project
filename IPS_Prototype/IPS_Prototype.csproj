@@ -85,7 +85,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Autocomplete_INDIV.asmx" />
     <Content Include="css\bootstrap2-toggle.min.css" />
     <Content Include="css\jquery-ui.css" />
     <Content Include="css\TimePicker.css" />
@@ -215,10 +214,6 @@
     <Content Include="webfonts\fa-solid-900.svg" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autocomplete_INDIV.asmx.cs">
-      <DependentUpon>Autocomplete_INDIV.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Class\DbHelper.cs" />
     <Compile Include="CustomErrorPage.aspx.cs">
       <DependentUpon>CustomErrorPage.aspx</DependentUpon>

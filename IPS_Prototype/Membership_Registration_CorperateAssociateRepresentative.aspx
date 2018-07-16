@@ -382,7 +382,7 @@
 
             </div>--%>
                      <div class="form-group" style="margin-top:50px;">
-                         <button type="button" runat="server" id="btnUpdate" class="btn btn-primary" onserverclick="button_save" style="width: 150px; height: 40px; float:left; display:none;">
+                         <button type="button" runat="server" id="btnUpdate"  class="btn btn-primary" onserverclick="updateCAREP" style="width: 150px; height: 40px; float:left; display:none;">
                              Update
                          </button>
                          <button type="button" runat="server" id="btnSave" class="btn btn-primary" onserverclick="button_save" style="width: 150px; height: 40px; float:left;">
@@ -407,7 +407,7 @@
 
         <div class="right_div" style="float:left; margin-top:40px; margin-left:55px;">
 
-            <input type="text" id="hiddentext" runat="server"   />
+            <input type="text" id="hiddentext" runat="server" class="none"  />
 
 
             <label for="Source">Source:</label>
