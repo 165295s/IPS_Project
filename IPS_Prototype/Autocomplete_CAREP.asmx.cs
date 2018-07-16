@@ -29,17 +29,15 @@ namespace IPS_Prototype
         public List<PersonModel> GetAutoCompleteData(string txt)
         {
             // your code to query the database goes here
-            //List<PersonModel> result = new List<PersonModel>();
+
             List<PersonModel> result = new List<PersonModel>();
             List<PersonModel> resultReturn = new List<PersonModel>();
 
-            //PersonModel p1 = new PersonModel();
             PersonModel person = new PersonModel();
             string con = System.Configuration.ConfigurationManager.ConnectionStrings["IPS"].ToString();
             string sqlQuery = "Select p.person_id,p.First_Name, p.surname,ca.fullname_nametags, p.gender, p.honorific,p.salutation,p.tel_num,p.email_addr, p.nationality,p.designation_1,p.department_1,p.organisation_1,p.designation_2,p.department_2,p.organisation_2,p.special_dietary_requirement, ca.role,ca.status,p.source,p.cat_1,p.cat_2,ca.role,ca.email_sent,ca.facilitator_briefed from membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP ca on p.person_id = ca.person_id where p.first_name like  @SearchText + '%'";
             using (SqlConnection obj_SqlConnection = new SqlConnection(con))
             {
-                //"Select CONCAT(first_name,' ', last_name) as txt from person where first_name like '%'+@SearchText+'%';"
 
                 using (SqlCommand obj_Sqlcommand = new SqlCommand(sqlQuery, obj_SqlConnection))
                 {
@@ -48,7 +46,6 @@ namespace IPS_Prototype
                     SqlDataReader obj_result = obj_Sqlcommand.ExecuteReader();
                     while (obj_result.Read())
                     {
-                        //result.Add(string.Format("{0}/{1}/{2}", obj_result["txt"], obj_result["email"], obj_result["pid"].ToString()));
 
 
                         person.id = obj_result["person_id"].ToString();
@@ -87,42 +84,11 @@ namespace IPS_Prototype
 
                     }
 
-                    //foreach (PersonModel p1 in result)
-                    //{
-                    //    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-                    //    var objectAsJsonString = serializer.Serialize(p1);
-                    //    PersonModel deserializedObject = serializer.Deserialize<PersonModel>(objectAsJsonString);
-                    //    resultReturn.Add(deserializedObject);
-
-                    //}
                 }
                 return resultReturn;
 
-                //PersonModel p1 = new PersonModel();
-                //MemoryStream stream1 = new MemoryStream();
-                //DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(PersonModel));
-                //ser.WriteObject(stream1, p1);
-                //stream1.SetLength(0);
-                //PersonModel p2 = (PersonModel)ser.ReadObject(stream1);
-
-                //var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                //var objectAsJsonString = serializer.Serialize(person);
-                //PersonModel deserializedObject = serializer.Deserialize<PersonModel>(objectAsJsonString);
-
-
-
-
-                //JavaScriptSerializer js = new JavaScriptSerializer();
-                //Context.Response.Write(js.Serialize(person));
-
             }
-            //DataContractJsonSerializer serializer = new DataContractJsonSerializer(result.GetType());
-            //MemoryStream memoryStream = new MemoryStream();
-            //serializer.WriteObject(memoryStream, result);
-            //var json =  new JavaScriptSerializer().Serialize(result);
-            //Context.Response.Write(json)
-
 
         }
 
@@ -187,50 +153,14 @@ namespace IPS_Prototype
 
                     }
 
-                    //foreach (PersonModel p1 in result)
-                    //{
-                    //    var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-
-                    //    var objectAsJsonString = serializer.Serialize(p1);
-                    //    PersonModel deserializedObject = serializer.Deserialize<PersonModel>(objectAsJsonString);
-                    //    resultReturn.Add(deserializedObject);
-
-                    //}
                 }
                 return resultReturn;
 
-                //PersonModel p1 = new PersonModel();
-                //MemoryStream stream1 = new MemoryStream();
-                //DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(PersonModel));
-                //ser.WriteObject(stream1, p1);
-                //stream1.SetLength(0);
-                //PersonModel p2 = (PersonModel)ser.ReadObject(stream1);
-
-                //var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                //var objectAsJsonString = serializer.Serialize(person);
-                //PersonModel deserializedObject = serializer.Deserialize<PersonModel>(objectAsJsonString);
-
-
-
-
-                //JavaScriptSerializer js = new JavaScriptSerializer();
-                //Context.Response.Write(js.Serialize(person));
-
             }
-            //DataContractJsonSerializer serializer = new DataContractJsonSerializer(result.GetType());
-            //MemoryStream memoryStream = new MemoryStream();
-            //serializer.WriteObject(memoryStream, result);
-            //var json =  new JavaScriptSerializer().Serialize(result);
-            //Context.Response.Write(json)
 
 
         }
 
-
-
-
     }
-
-
 
 }

@@ -407,7 +407,7 @@
 
         <div class="right_div" style="float:left; margin-top:40px; margin-left:55px;">
 
-            <input type="text" id="hiddentext" runat="server" class="none"  />
+            <input type="text" id="hiddentext" runat="server"   />
 
 
             <label for="Source">Source:</label>
