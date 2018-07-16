@@ -1,0 +1,24 @@
+﻿{
+  "MenuItems": [
+    {
+      "Title": "SuperAdmin",
+      "Collapse": [
+        "index2.aspx",
+        "MembershipRenewal",
+        "MembershipNominees",
+        "UpcomingEvents",
+        "PastEvents",
+        "Report",
+        "Admin"
+      ]
+    },
+    {
+      "Title": "Executive",
+      "Collapse": [ "UpcomingEvents", "PastEvents", "Report" ]
+    },
+    {
+      "Title": "TempStaff",
+      "Collapse": [ "Report" ]
+    }
+  ]
+}

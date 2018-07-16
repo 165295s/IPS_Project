@@ -1,0 +1,291 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="IPS_Vertical.master.cs" Inherits="IPS_Prototype.IPS_Vertical" %>
+<%@ Register TagPrefix="UserControl" TagName="UserLogout" Src="~/Modal/Logout_Modal.ascx" %>
+<%@ Register TagPrefix="EM" TagName="ErrorModal" Src="~/Modal/Error_Modal.ascx" %>
+
+<!DOCTYPE html>
+
+<html id="html" runat="server">
+    <head runat="server">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="Script/jquery-3.3.1.min.js"></script>
+        <script src="Script/bootstrap.bundle.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/IPS_vertical.css" rel="stylesheet" />
+        <link href="css/fontawesome-all.css" rel="stylesheet" />
+        <script src="Script/jquery-ui.js"></script>
+        <script src="Script/TimePicker.js"></script>
+        <link href="css/TimePicker.css" rel="stylesheet" />
+        <link href="css/jquery-ui.css" rel="stylesheet" />
+        <script src="Script/Moment.js"></script>
+        <script src="Script/bootstrap2-toggle.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+
+//Make the DIV element draggagle:
+dragElement(document.getElementById(("draggable_btn")));
+
+function dragElement(elmnt) {
+    
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        
+    } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+        
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+ 
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        
+    }
+
+    function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+        
+    }
+}
+
+    $(".navbar-close").click(function () {
+    $('#sidebar').toggleClass('active');
+    $('#sidebarCollapse').toggleClass('active');
+    $('#content').toggleClass('active');
+    $('.statistics').toggleClass('expand-card');
+    $('.linechart').toggleClass('chart');
+    $('#footer-image').toggleClass('active');
+    $('.sidebar-btn').toggleClass('active');
+    $('.sidebar-toggle').toggleClass('active');
+});
+
+$('#cardsCollapse').click(function () {
+    $('.stat_drop').toggleClass('rotate180');
+});
+
+$('.user_info_btn').click(function () {
+    $('.user').toggleClass('rotate180');
+});
+
+$('#logout').click(function () {
+    $('.user').toggleClass('rotate180');
+});
+
+$('#draggable_btn').click(function (event) {
+    if ($(this).hasClass('dragging')) {
+        $('.sidebar-toggle').css('left', '10px');
+        
+        $(this).removeClass('dragging');
+        }
+        else {
+        //alert("real click");
+        $('#sidebar').toggleClass('active');
+        $('#sidebarCollapse').toggleClass('active');
+        $('#content').toggleClass('active');
+        $('.statistics').toggleClass('expand-card');
+        $('.linechart').toggleClass('chart');
+        $('#footer-image').toggleClass('active');
+        $('.sidebar-btn').toggleClass('active');
+        $('.sidebar-toggle').toggleClass('active');
+    }
+});
+
+$('.sidebar-toggle').mouseleave(function () {
+    $('.sidebar-toggle').addClass('dragging');
+});
+
+$('#treeview > table:nth-child(1) > tbody > tr > td').click(function () {
+    $('#treeviewn0Nodes > table > tbody > tr > td').toggleClass('active');
+    
+});
+
+$('#treeview > table:nth-child(3) > tbody > tr > td').click(function () {
+    $('#treeviewn4Nodes > table > tbody > tr > td').toggleClass('active');
+   
+});
+
+$('#treeview > table:nth-child(5) > tbody > tr > td').click(function () {
+    $('#treeviewn7Nodes > table > tbody > tr > td').toggleClass('active');
+    
+});
+
+$('#treeview > table:nth-child(7) > tbody > tr > td').click(function () {
+    $('#treeviewn9Nodes > table > tbody > tr > td').toggleClass('active');
+
+        });
+});
+ 
+    </script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>IPS Vertical</title>
+
+   
+      <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    </head>
+    <body onunload="func()">
+        <div id="page">
+        <form runat="server">
+        
+        
+        <div class="wrapper">
+            
+            <!-- Sidebar Holder -->
+            <nav id="sidebar" class="">
+                <div class="sidebar-header">
+                   <%-- <button type="button" class="btn btn-primary" id="logout" data-toggle="modal" data-target="#logout_confirmation"><i class="fas fa-power-off"></i></button>--%>
+                    <a href="index2.aspx" id="logo"><img style="width:190px;" src="../Images/IPS_Logo_Long.png"/>  </a>
+                     
+                       </div>
+
+                <asp:TreeView runat="server" ID="treeview" DataSourceID="SiteMapdataSource1" ShowExpandCollapse="false"></asp:TreeView>
+               
+                 <%--<asp:Menu ID="navbar_menu" runat="server" CssClass="navbar-nav mr-auto navbar-menu" StaticEnableDefaultPopOutImage="false" StaticMenuStyle-CssClass="nav-item" StaticSelectedStyle-CssClass="nav-item" StaticSubMenuIndent="16px" DynamicMenuStyle-CssClass="nav-item dropdown-menu" RenderingMode="List" role="menu" DataSourceID="SiteMapDataSource1">
+                                 <LevelMenuItemStyles>
+                                 <asp:MenuItemStyle CssClass="dropdown-item menu" HorizontalPadding="15px" Height="50px" VerticalPadding="15px"/>
+                                 </LevelMenuItemStyles>
+                                 
+                                 <LevelSelectedStyles>
+                                 <asp:MenuItemStyle CssClass="nav-item active" Font-Underline="False" />
+                                 </LevelSelectedStyles>
+                                 <StaticHoverStyle Font-Underline="false" />
+                                 <StaticSelectedStyle Font-Bold="true"   />
+                                 <DynamicMenuItemStyle CssClass="dropdown-item" />
+                                 </asp:Menu>--%>
+                                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />
+
+
+                                 <button type="button" class="btn btn-primary navbar-close" id="navbar-close"><i class="fas fa-angle-double-left"></i></button>
+                                     </nav>
+
+          
+
+            
+            <!-- Page Content Holder -->
+            <div id="content" class="">
+                  
+                <!-- NavBar Holder-->
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+
+                        <div class="navbar-header">
+                           
+                           
+                            
+                             <asp:Menu ID="Menu1" runat="server" CssClass="navbar-nav mr-auto" StaticMenuStyle-CssClass="nav-item" StaticSelectedStyle-CssClass="nav-item" StaticSubMenuIndent="16px" DynamicMenuStyle-CssClass="nav-item dropdown-menu" RenderingMode="List" role="menu" Orientation="Horizontal" DataSourceID="SiteMapDataSource1">
+                                    
+                                 <LevelMenuItemStyles>
+                                 <asp:MenuItemStyle CssClass="dropdown-item menu" HorizontalPadding="15px" Height="50px" VerticalPadding="15px"/>
+                                 </LevelMenuItemStyles>
+                                 <LevelSelectedStyles>
+                                 <asp:MenuItemStyle CssClass="nav-item active" Font-Underline="False" />
+                                 </LevelSelectedStyles>
+                                 <StaticHoverStyle Font-Underline="false" />
+                                 <StaticSelectedStyle Font-Bold="true"   />
+                                 <DynamicMenuItemStyle CssClass="dropdown-item" />
+                                 </asp:Menu>
+                           
+                        </div>
+
+                        <div id="statistics_right">
+                        
+                      
+                           
+                       
+
+                        <!--User info dropdown-->
+                          <div class="btn-group">
+                          <button type="button" class="btn btn-outline user_info_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-user display"></i><strong><asp:Label runat="server" ID="name">Kai Jie</asp:Label></strong> <i class="fas fa-angle-up user"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                              <div id="dropdown_menu_info">
+                            <table>
+                                <tr>
+                                    <td rowspan="2"><i class="fas fa-user-circle user_image"></i></td><td><strong><asp:Label runat="server" ID="full_name">Neo Kai Jie</asp:Label></strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><asp:Label runat="server" ID="user_level">Administrator</asp:Label></strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td><td><asp:Label runat="server" ID="email">cavenkj@gmail.com</asp:Label></td>
+                                </tr>
+                            </table>
+                                    </div>
+                              <button type="button" class="btn btn-primary" id="logout" data-toggle="modal" data-target="#logout_confirmation"><i class="fas fa-power-off"></i></button>
+                              
+    
+                          </div>
+                        </div>
+                            </div>
+
+                    </div> 
+                </nav>
+
+                <button type="button" id="draggable_btn" class="sidebar-toggle"><i class="fas fa-arrow-right sidebar-btn"></i></button>
+                <div>
+                
+                    </div>
+                
+               
+            
+                <!--Content Place Holder-->
+                
+                <div class="content-area">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+
+            </asp:ContentPlaceHolder>
+            </div>
+                <img src="../Images/singapore4.PNG" id="footer-image" style="display:block;"/>
+                </div>
+                
+                
+              
+        </div>
+            
+
+        <!--Modal Import Goes Here-->
+        <div id="Modal_Container"><UserControl:UserLogout runat="server" /><EM:ErrorModal runat="server" /></div>
+
+
+        
+        <script src="Script/IPS_Vertical.js"></script>
+          
+            </form>
+                </div>
+           
+            
+            
+        
+</body>
+
+</html>
+
+

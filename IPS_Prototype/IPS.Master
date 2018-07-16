@@ -1,0 +1,82 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="IPS.master.cs" Inherits="IPS_Prototype.IPS" %>
+<%@ Register TagPrefix="UserControl" TagName="UserLogout" Src="~/Modal/Logout_Modal.ascx" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <script src="Script/jquery-3.3.1.min.js"></script>
+    <script src="Script/bootstrap.bundle.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/fontawesome-all.css" rel="stylesheet" />
+    <link href="css/IPS.css" rel="stylesheet" />
+    <script src="Script/Chart.bundle.js"></script>
+    <title>IPS Horizontal</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+     
+        <div>
+            
+                <img src="../Images/IPS_Logo_Horizontal.PNG" id="Image_Logo"/>
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                                 <asp:Menu ID="navbar_menu" runat="server" CssClass="navbar-nav mr-auto" StaticMenuStyle-CssClass="nav-item" StaticSelectedStyle-CssClass="nav-item" StaticSubMenuIndent="16px" DynamicMenuStyle-CssClass="nav-item dropdown-menu" RenderingMode="List" role="menu" Orientation="Horizontal" StaticEnableDefaultPopOutImage="false" DataSourceID="SiteMapDataSource1">
+                                 <StaticMenuItemStyle HorizontalPadding="20px" />
+                                 
+                                 </asp:Menu>
+                                 <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" ShowStartingNode="False" />
+
+                        
+
+                      <div class="navbar-right">
+                                  <div class="btn-group">
+                          <button type="button" class="btn btn-outline user_info_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-user display"></i><strong><asp:Label runat="server" ID="name">Kai Jie</asp:Label></strong> <i class="fas fa-angle-up user"></i>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                              <div id="dropdown_menu_info">
+                            <table>
+                                <tr>
+                                    <td rowspan="2"><i class="fas fa-user-circle user_image"></i></td><td><strong><asp:Label runat="server" ID="full_name">Neo Kai Jie</asp:Label></strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><asp:Label runat="server" ID="user_level">Administrator</asp:Label></strong></td>
+                                </tr>
+                                <tr>
+                                    <td></td><td><asp:Label runat="server" ID="email">cavenkj@gmail.com</asp:Label></td>
+                                </tr>
+                            </table>
+                                    </div>
+                              <button type="button" class="btn btn-primary" id="logout" data-toggle="modal" data-target="#logout_confirmation"><i class="fas fa-power-off"></i></button>
+    
+                          </div>
+                        </div>
+                     </div>
+                        </div>
+                </nav>
+                <div style="width:100%; height:9em; background-color:#233E99; transition-duration:0.3s;" class="collapse" id="nav-barDrop"></div>
+           
+                
+            <div id="content" class="content-wrapper">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                
+            </asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+
+        <!--Modal Import Goes Here-->
+        <div id="Modal_Container"><UserControl:UserLogout runat="server" /></div>
+  
+    <script src="Script/IPS.js"></script>
+       <div id="footer_container">
+        <img src="../Images/singapore4.PNG" id="footer-image" />
+           </div>
+           
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,34 @@
+
+{
+  "accessRight": [
+    {
+      "role": "SuperAdmin",
+      "page": [
+        "index2.aspx",
+        "User_Add.aspx",
+        "User_Management.aspx",
+        "Maintainence_Management.aspx",
+        "Maintainence_Add.aspx",
+        "Admin",
+        "Membership_Registration.aspx",
+        "Membership_Registration_OrganisationDetail.aspx",
+        "Membership_Registration_IndividualDetail.aspx",
+        "Membership_Registration_CorperateAssociateRepresentative.aspx",
+        "Member_MemberManagement.aspx",
+        "Member_MemberRenewalInd.aspx",
+        "Member_MemberRenewalOrg.aspx"
+
+      ]
+    },
+    {
+      "role": "Executive",
+      "page": [ "User_Management.aspx" ]
+    },
+    {
+      "role": "TempStaff",
+      "page": [ "Report" ]
+    }
+  ]
+}
+
+
