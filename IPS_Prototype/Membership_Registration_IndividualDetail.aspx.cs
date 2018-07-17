@@ -62,6 +62,7 @@ namespace IPS_Prototype
                 if (Session["Person"] != null) {
                     //IF Session not null, means page is triggered by the add IA from member Registration page
                     //VALUES SUCCESFULY PASSED
+                    Session["IndivEdit"] = null;
                     pList = (ArrayList)Session["Person"];
                     hiddentext.Value = pList[0].ToString();
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
@@ -70,11 +71,11 @@ namespace IPS_Prototype
                 if (Session["IndivEdit"] != null)
                 {
                     // IF Session not null means that page is triggered by member management page 
-                    hiddentext.Value = Session["IndivEdit"].ToString();
+                    hiddentextPersonID.Value = Session["IndivEdit"].ToString();
                     MembershipDAO dalMem = new MembershipDAO();
                     PersonModel perModel = new PersonModel();
-
-                    perModel = dalMem.GetPersonData(hiddentext.Value.ToString());
+                    hiddentext.Value = "Individual Associate";
+                    perModel = dalMem.GetPersonData(hiddentextPersonID.Value.ToString());
                     txtSalutationField.Value = perModel.salutation.ToString();
                     txtFirstName.Value = perModel.firstName.ToString();
                     txtSurname.Value = perModel.surname.ToString();
@@ -149,7 +150,7 @@ namespace IPS_Prototype
             else
             {
 
-                upPanel.Update();
+                //upPanel.Update();
                 bindtable();
 
             }
@@ -340,7 +341,7 @@ namespace IPS_Prototype
             {
                 UserTable.DataSource = db.GetIndivPAInfo();
                 UserTable.DataBind();
-                upPanel.Update();
+                //upPanel.Update();
             }
         }
 
@@ -350,8 +351,14 @@ namespace IPS_Prototype
             try
             {
                 MembershipDAO user_PA = new MembershipDAO();
-                check = user_PA.AddPA(modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
-
+                if (Session["Person"] != null)
+                {
+                    check = user_PA.AddPA(modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
+                }
+                if (Session["IndivEdit"] != null)
+                {
+                    check = user_PA.AddPALater(hiddentextPersonID.Value,modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
+                }
                 if (check == 1 || check == 2)
                 {
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistant: " + modalSname.Value + " " + modalFName.Value + "');", true);
@@ -401,7 +408,7 @@ namespace IPS_Prototype
             }
 
 
-            int personId = int.Parse(hiddentext.Value);
+            int personId = int.Parse(hiddentextPersonID.Value);
             MembershipDAO d1 = new MembershipDAO();
             //DALMembership user = new DALMembership();
             int check = d1.UpdateIndividual(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value,ddlStatus.SelectedValue);
@@ -426,7 +433,7 @@ namespace IPS_Prototype
         public void deleteINDIV(object sender, EventArgs e)
         {
             //GridViewRow row = (GridViewRow)((HtmlButton)sender).NamingContainer;
-            int indid = int.Parse(hiddentext.Value);
+            int indid = int.Parse(hiddentextPersonID.Value);
             if (indid != 0)
             {
                 BindEventRepeater(indid);
@@ -447,7 +454,7 @@ namespace IPS_Prototype
 
         public void btnDeleteInd_ServerClick(object sender, EventArgs e)
         {
-            int personId = Int32.Parse(hiddentext.Value);
+            int personId = Int32.Parse(hiddentextPersonID.Value);
             MembershipDAO d1 = new MembershipDAO();
             if (personId > 0)
             {
@@ -470,12 +477,107 @@ namespace IPS_Prototype
 
         }
 
-       
+        protected void RowEditing(object sender,EventArgs eh)
+        {
+
+            string pa_ID = UserTable.DataKeys[0]["PA_ID"].ToString();
+            //string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
+            //string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
+            //string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
+            //string email = UserTable.Rows[e.RowIndex].Cells[4].Text;
+            //string tel_num = UserTable.Rows[e.RowIndex].Cells[5].Text;
+            //showPAModal
+            //bindtable();
+            ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showUpdatePA()", true);
+         
+            PersonModel p = new PersonModel();
+            p = db.getPAEdit(pa_ID);
+            hiddentextPA_ID.Value = pa_ID.ToString() ;
+            modalDDList.SelectedValue = p.honorific;
+            modalFName.Value = p.firstName;
+            modalSname.Value = p.surname;
+            modalEmail.Value = p.email;
+            modalTelNo.Value = p.telNum;
+           
+
+            
 
 
+
+        }
+
+
+
+        protected void RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            bindtable();
+            string pa_ID = UserTable.Rows[e.RowIndex].Cells[0].Text;
+            //string expirydate = gvOrg.Rows[e.RowIndex].Cells[2].Text;
+
+            int check = 0;
+            try
+            {
+                check = db.DeleteCAREPPA(pa_ID);
+                bindtable();
+
+                if (check == 1)
+                {
+                    //bindtable();
+
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deketed Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+
+                }
+                else if (check == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+            }
+
+
+        }
+
+        public void updatePA_ServerClick(object sender, EventArgs e)
+        {
+            int check = 0;
+            try
+            {
+                check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value,modalSname.Value,modalTelNo.Value, modalDDList.SelectedValue.ToString(),modalEmail.Value);
+                bindtable();
+
+                if (check == 1)
+                {
+                    //bindtable();
+
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+
+                }
+                else if (check == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+            }
+
+        }
 
     }
-
 
 
 }

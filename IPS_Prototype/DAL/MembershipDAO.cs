@@ -48,7 +48,7 @@ namespace IPS_Prototype.DAL
 
         public DataTable GetIndivPAInfo()
         {
-            string commandtext = "SELECT Honorific AS Honorific, First_Name AS First_Name, surname AS Surname, Email_Addr AS Email_Addr, Tel_Num AS Tel_Num from membership.TBL_PERSONAL_ASSISTANT; ";
+            string commandtext = "SELECT PA_ID as PA_ID, Honorific AS Honorific, First_Name AS First_Name, surname AS Surname, Email_Addr AS Email_Addr, Tel_Num AS Tel_Num from membership.TBL_PERSONAL_ASSISTANT; ";
             DataTable dt = dbhelp.ExecDataReader(commandtext);
 
 
@@ -95,14 +95,14 @@ namespace IPS_Prototype.DAL
             DataTable dt = dbhelp.ExecDataReader(commandtext);
             return dt;
         }
-
+        
 
         //Retrieve all Person Data at Edit Modal
         public PersonModel GetPersonData(string personid)
         {
             PersonModel person = new PersonModel();
             DataTable dt;
-            string commandtext = "SELECT p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, p.FULLNAME_NAMETAGS, m.STATUS FROM membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m ON p.PERSON_ID = m.MEMBER_ID  WHERE p.PERSON_ID = @personid";
+            string commandtext = "SELECT p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, p.FULLNAME_NAMETAGS, m.STATUS FROM membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m ON p.PERSON_ID = m.PERSON_ID  WHERE p.PERSON_ID = @personid";
             dt = dbhelp.ExecDataReader(commandtext, "@personid", personid);
             person.firstName = dt.Rows[0]["FIRST_NAME"].ToString();
             person.surname = dt.Rows[0]["SURNAME"].ToString();
@@ -124,6 +124,24 @@ namespace IPS_Prototype.DAL
             person.status = dt.Rows[0]["STATUS"].ToString();
             return person;
         }
+
+        public PersonModel getPAEdit(string pa_ID)
+        {
+            PersonModel pa = new PersonModel();
+            DataTable dt;
+            string commandtext = "SELECT FIRST_NAME, SURNAME,TEL_NUM,EMAIL_ADDR,HONORIFIC FROM membership.TBL_PERSONAL_ASSISTANT WHERE PA_ID = @pa_id;";
+            dt = dbhelp.ExecDataReader(commandtext, "@pa_id", pa_ID);
+            pa.firstName = dt.Rows[0]["FIRST_NAME"].ToString();
+            pa.surname = dt.Rows[0]["SURNAME"].ToString();
+            pa.telNum = dt.Rows[0]["TEL_NUM"].ToString();
+            pa.email = dt.Rows[0]["EMAIL_ADDR"].ToString();
+            pa.honorific = dt.Rows[0]["HONORIFIC"].ToString();
+
+            return pa;
+
+
+        }
+
 
         public PersonModel GetCAREPData(string carepid)
         {
@@ -423,6 +441,55 @@ namespace IPS_Prototype.DAL
             return result;
 
         }
+        public int AddPALater(string pid,string honorific, string fName, string sName, string tel_num, string email)
+        {
+
+            int result = 0;
+            //Object pa_ID;
+            string date = DateTime.Now.ToShortDateString();
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+                SqlCommand mycmd = new SqlCommand();
+                SqlCommand mycmd1 = new SqlCommand();
+                //paIdList = new List<Object>();
+
+
+                string commandtext = "INSERT INTO membership.TBL_PERSONAL_ASSISTANT (Honorific, First_Name, surname, Email_Addr, Tel_Num, Created_DT) VALUES(@honorific, @first_name, @last_name, @email, @tel_num, @create_date);";
+                //string commandtext_PA = "SELECT MAX(PA_Id) FROM Personal_Assistant";
+                string commandtext_PA = "INSERT INTO membership.TBL_PERSON_PA (Person_Id, PA_Id) VALUES ( @pid, (SELECT MAX(PA_ID) FROM membership.TBL_PERSONAL_ASSISTANT) )";
+
+                mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@honorific", honorific, "@first_name", fName, "@last_name", sName, "@email", email, "@tel_num", tel_num, "@create_date", date);
+             
+                //mycmd1 = dbhelp.CreateCommand(commandtext_PA, CommandType.Text);
+                mycmd1 = dbhelp.CreateCommand(commandtext_PA, CommandType.Text,"@pid",pid);
+                transcommand.Add(mycmd);
+                transcommand.Add(mycmd1);
+
+                result = dbhelp.ExecTrans(transcommand);
+                //pa_ID = new Object ();
+                //pa_ID = dbhelp.ExecScalar("SELECT MAX(PA_Id) FROM Personal_Assistant");
+                //paIdList.Add(pa_ID);
+
+
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLog.WriteErrorLog(ex.ToString());
+
+            }
+            return result;
+
+        }
+
+
 
         public int UpdateCAREP(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags,string role, string status, string faciBriefed, string emailSent)
         {
@@ -440,6 +507,19 @@ namespace IPS_Prototype.DAL
             result = dbhelp.ExecTrans(transcommand);
 
             return result;
+        }
+
+        public int updatePA(string pa_id, string fName, string sName, string tel_num, string honorific, string email)
+        {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            string commandtext = "UPDATE membership.tbl_PERSONAL_ASSISTANT SET FIRST_NAME = @fName, SURNAME = @sName, TEL_NUM = @telNum, EMAIL_ADDR = @emailAddr, HONORIFIC = @honorific WHERE PA_ID = @pa_id;";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@fNAme", fName, "@sName", sName, "@telNum", tel_num, "@emailAddr", email, "@honorific", honorific, "@pa_id", pa_id);
+            transcommand.Add(mycmd);
+            result = dbhelp.ExecTrans(transcommand);
+            return result;
+
         }
 
         public int UpdateIndividual(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags, string status)
@@ -465,6 +545,21 @@ namespace IPS_Prototype.DAL
             SqlCommand mycmd = new SqlCommand();
             string commandtext = "DELETE FROM membership.TBL_PERSONAL_ASSISTANT WHERE PA_ID = @pa_id; " +
                                    "DELETE FROM membership.TBL_CA_REP_PA WHERE PA_ID = @pa_id; ";
+
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@pa_id", pa_id);
+            transcommand.Add(mycmd);
+            result = dbhelp.ExecTrans(transcommand);
+
+            return result;
+
+        }
+        public int DeleteINDIVPA(string pa_id)
+        {
+            int result = 0;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            string commandtext = "DELETE FROM membership.TBL_PERSONAL_ASSISTANT WHERE PA_ID = @pa_id; " +
+                                   "DELETE FROM membership.TBL_PERSON_PA WHERE PA_ID = @pa_id; ";
 
             mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@pa_id", pa_id);
             transcommand.Add(mycmd);
@@ -517,6 +612,8 @@ namespace IPS_Prototype.DAL
 
             return result;
         }
+
+
 
 
     }

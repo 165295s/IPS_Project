@@ -416,7 +416,7 @@ namespace IPS_Prototype
             int check = 0;
             try
             {
-                check = db.DeleteCAREPPA(pa_ID);
+                check = db.DeleteINDIVPA(pa_ID);
                 bindPAtable();
 
                 if (check == 1)
@@ -605,7 +605,7 @@ namespace IPS_Prototype
             rptrIAdets.DataBind();
         }
 
-        public void btnDeleteInd_ServerClick(object sender, EventArgs e)
+        public void btnDeleteCAREP_ServerClick(object sender, EventArgs e)
         {
             int personId = Int32.Parse(hiddentext.Value);
             MembershipDAO d1 = new MembershipDAO();
@@ -628,9 +628,43 @@ namespace IPS_Prototype
             }
 
 
+
+
+
+
+
+
+
         }
 
+        protected void RowEditing(object sender, EventArgs eh)
+        {
 
+            //string pa_ID = PA_GridView.DataKeys[0]["PA_ID"].ToString();
+            ////string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
+            ////string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
+            ////string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
+            ////string email = UserTable.Rows[e.RowIndex].Cells[4].Text;
+            ////string tel_num = UserTable.Rows[e.RowIndex].Cells[5].Text;
+            ////showPAModal
+            ////bindtable();
+       
+
+            //PersonModel p = new PersonModel();
+            //p = db.getPAEdit(pa_ID);
+            //hiddentextPA_ID.Value = pa_ID.ToString();
+            //modalDDList.SelectedValue = p.honorific;
+            //modalFName.Value = p.firstName;
+            //modalSname.Value = p.surname;
+            //modalEmail.Value = p.email;
+            //modalTelNo.Value = p.telNum;
+            //ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showmodal()", true);
+
+
+
+
+
+        }
 
 
 

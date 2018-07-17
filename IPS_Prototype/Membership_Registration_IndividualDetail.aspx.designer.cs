@@ -49,6 +49,15 @@ namespace IPS_Prototype {
         protected global::System.Web.UI.HtmlControls.HtmlInputText hiddentext;
         
         /// <summary>
+        /// hiddentextPersonID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText hiddentextPersonID;
+        
+        /// <summary>
         /// slidertoggleDIV control.
         /// </summary>
         /// <remarks>
@@ -292,15 +301,6 @@ namespace IPS_Prototype {
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtSDR;
         
         /// <summary>
-        /// upPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel upPanel;
-        
-        /// <summary>
         /// UserTable control.
         /// </summary>
         /// <remarks>
@@ -308,6 +308,15 @@ namespace IPS_Prototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView UserTable;
+        
+        /// <summary>
+        /// hiddentextPA_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText hiddentextPA_ID;
         
         /// <summary>
         /// modalDDList control.
@@ -362,6 +371,15 @@ namespace IPS_Prototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton submitPA;
+        
+        /// <summary>
+        /// updatePA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton updatePA;
         
         /// <summary>
         /// lblmodaltitlenameInd control.

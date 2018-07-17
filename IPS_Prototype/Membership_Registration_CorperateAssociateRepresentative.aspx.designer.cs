@@ -373,6 +373,15 @@ namespace IPS_Prototype {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl orgID;
         
         /// <summary>
+        /// hiddentextPA_ID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText hiddentextPA_ID;
+        
+        /// <summary>
         /// modalDDList control.
         /// </summary>
         /// <remarks>
@@ -425,6 +434,15 @@ namespace IPS_Prototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlButton submitPA;
+        
+        /// <summary>
+        /// updatePA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton updatePA;
         
         /// <summary>
         /// PA_GridView control.
