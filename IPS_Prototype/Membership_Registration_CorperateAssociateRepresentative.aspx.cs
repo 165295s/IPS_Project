@@ -637,32 +637,66 @@ namespace IPS_Prototype
 
         }
 
-        protected void RowEditing(object sender, EventArgs eh)
+        protected void Editing(object sender, EventArgs e)
         {
 
-            //string pa_ID = PA_GridView.DataKeys[0]["PA_ID"].ToString();
-            ////string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
-            ////string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
-            ////string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
-            ////string email = UserTable.Rows[e.RowIndex].Cells[4].Text;
-            ////string tel_num = UserTable.Rows[e.RowIndex].Cells[5].Text;
+            bindPAtable();
+            string pa_ID = PA_GridView.DataKeys[0]["PA_ID"].ToString();
+
+
+            //string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
+            //string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
+            //string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
+            //string email = UserTable.Rows[e.RowIndex].Cells[4].Text;
+            //string tel_num = UserTable.Rows[e.RowIndex].Cells[5].Text;
             ////showPAModal
-            ////bindtable();
-       
+            //bindtable();
 
-            //PersonModel p = new PersonModel();
-            //p = db.getPAEdit(pa_ID);
-            //hiddentextPA_ID.Value = pa_ID.ToString();
-            //modalDDList.SelectedValue = p.honorific;
-            //modalFName.Value = p.firstName;
-            //modalSname.Value = p.surname;
-            //modalEmail.Value = p.email;
-            //modalTelNo.Value = p.telNum;
-            //ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showmodal()", true);
 
+            PersonModel p = new PersonModel();
+            p = db.getPAEdit(pa_ID);
+            hiddentextPA_ID.Value = pa_ID.ToString();
+            modalDDList.SelectedValue = p.honorific;
+            modalFName.Value = p.firstName;
+            modalSname.Value = p.surname;
+            modalEmail.Value = p.email;
+            modalTelNo.Value = p.telNum;
 
 
 
+            ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showmodalAgain();", true);
+
+        }
+
+        public void updatePA_ServerClick(object sender, EventArgs e)
+        {
+            int check = 0;
+            try
+            {
+                check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value, modalSname.Value, modalTelNo.Value, modalDDList.SelectedValue.ToString(), modalEmail.Value);
+                bindPAtable();
+
+                if (check == 1)
+                {
+                    //bindtable();
+
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+
+                }
+                else if (check == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+            }
 
         }
 

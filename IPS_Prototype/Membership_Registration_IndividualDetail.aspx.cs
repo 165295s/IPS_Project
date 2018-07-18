@@ -525,7 +525,7 @@ namespace IPS_Prototype
                     //bindtable();
 
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deketed Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
-
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showUpdatePA()", true);
                 }
                 else if (check == 0)
                 {
