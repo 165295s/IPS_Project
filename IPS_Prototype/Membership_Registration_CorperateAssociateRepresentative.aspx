@@ -651,7 +651,7 @@
                <asp:BoundField DataField="CA_Rep_id" HeaderText="" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                <asp:BoundField DataField="Org_Id" HeaderText=""  HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />--%>
                                                    
-               <asp:BoundField DataField="PA_ID" ItemStyle-CssClass="hiddencol data1"  HeaderStyle-CssClass="hiddencol"/>
+               <asp:BoundField DataField="PA_ID"/>
                <asp:BoundField DataField="Honorific" HeaderText="Honorific" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                <asp:BoundField DataField="First_Name" HeaderText="First Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                <asp:BoundField DataField="Surname" HeaderText="Surname" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
@@ -674,8 +674,8 @@
             <%--<asp:Button type="button"  ID="btnUpdate" class="btn btn-primary" CommandName="PA" CausesValidation="false" runat="server" OnClick="RowEditing" Style="height: 30px; padding-top: 3px;" Text="update pa"></asp:Button>
                  <input type="text" id="Text3" runat="server" class="none" />--%>
 
-        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="Editing">Update</asp:LinkButton>
-
+        <%--<asp:Button ID="LinkButton1" runat="server" CommandName="PA" OnClick="Editing">Update</asp:Button>--%>
+                <asp:Button runat="server" Text="Update PA" ID="AddPA" class="btn btn-primary" CommandName="Update" OnClick="Editing" Style="width: 60px; height: 30px; padding-top: 3px;"></asp:Button>
             </ItemTemplate>
         </asp:TemplateField>
                <asp:CommandField DeleteText="Delete" ShowDeleteButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White"/>

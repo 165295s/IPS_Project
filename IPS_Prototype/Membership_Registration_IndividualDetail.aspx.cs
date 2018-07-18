@@ -479,8 +479,8 @@ namespace IPS_Prototype
 
         protected void RowEditing(object sender,EventArgs eh)
         {
-
-            string pa_ID = UserTable.DataKeys[0]["PA_ID"].ToString();
+            GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
+            string pa_ID = row.Cells[0].Text;            
             //string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
             //string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
             //string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
@@ -525,7 +525,7 @@ namespace IPS_Prototype
                     //bindtable();
 
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deketed Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showUpdatePA()", true);
+                      
                 }
                 else if (check == 0)
                 {
@@ -558,7 +558,12 @@ namespace IPS_Prototype
                     //bindtable();
 
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
-
+                    hiddentextPA_ID.Value ="";
+                    modalDDList.SelectedValue ="";
+                    modalFName.Value ="";
+                    modalSname.Value = "";
+                    modalEmail.Value = "";
+                    modalTelNo.Value = "";
                 }
                 else if (check == 0)
                 {
