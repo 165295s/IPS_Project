@@ -17,6 +17,7 @@ namespace IPS_Prototype
     {
         private ArrayList pList;
         MembershipDAO db = new MembershipDAO();
+        string gender, memRegType, memRegDonorTier, memRegExpDate;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -65,6 +66,9 @@ namespace IPS_Prototype
                     Session["IndivEdit"] = null;
                     pList = (ArrayList)Session["Person"];
                     hiddentext.Value = pList[0].ToString();
+                    memRegType = pList[0].ToString();
+                    memRegDonorTier = pList[1].ToString();
+                    memRegExpDate = pList[2].ToString();
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
 
                 }
@@ -161,12 +165,12 @@ namespace IPS_Prototype
 
         protected void Button_Save(Object sender, EventArgs e)
         {
-            string gender, memRegType, memRegDonorTier, memRegExpDate;
+           
             pList = (ArrayList)Session["Person"];
+            Session["p1"] = Session["Person"];
 
-            memRegType = pList[0].ToString();
-            memRegDonorTier = pList[1].ToString();
-            memRegExpDate = pList[2].ToString();
+            pList = (ArrayList)Session["p1"];
+          
 
             if (Male.Checked == true)
             {
@@ -176,6 +180,7 @@ namespace IPS_Prototype
             {
                 gender = Female.Value;
             }
+
 
             pList.Add(txtFirstName.Value); //3
 
@@ -279,14 +284,14 @@ namespace IPS_Prototype
                 if (check == 2)
                 {
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
-
-
+                    
                 }
                 else if (check == 0)
                 {
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure('There seems to be an error! Please notify the Administrators.');", true);
                 }
 
+              
 
 
             }
@@ -298,6 +303,15 @@ namespace IPS_Prototype
             }
 
 
+            try
+            {
+                clearFields();
+                clearArrayList();
+            }
+            catch (Exception ex)
+            {
+
+            }
 
 
 
@@ -579,6 +593,50 @@ namespace IPS_Prototype
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
 
             }
+
+        }
+
+        protected void clearFields()
+        {
+           
+                Male.Checked = false;
+                Female.Checked = false;
+                txtFirstName.Value = "";
+                txtSurname.Value = "";
+                ddlList.SelectedIndex = 0;
+                txtSalutationField.Value = "";
+                txtTelephone.Value = "";
+                txtEmail.Value = "";
+                txtDesig1.Value = "";
+                txtDept1.Value = "";
+                txtOrg1.Value = "";
+                txtDesig2.Value = "";
+                txtDept2.Value = "";
+                txtOrg2.Value = "";
+                txtSDR.Value = "";
+                ddlNationality.SelectedIndex = 0;
+                txtFullNameNameTag.Value = "";
+                ddlStatus.SelectedIndex = 0;
+                ddlSource.SelectedIndex = 0;
+                ddlCat1.SelectedIndex = 0;
+                ddlCat2.SelectedIndex = 0;
+               
+          
+
+
+
+        }
+
+        protected void clearArrayList()
+        {
+            for (int i = 3; i <= pList.Count; i++)
+            {
+               
+                pList[i].Equals("");
+
+            }
+
+
 
         }
 

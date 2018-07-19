@@ -282,9 +282,14 @@
          function modalDeleteIND() {
             $('#Member_DeleteInd').modal('show');
         };
+        function hideToggle()
+        {
+            $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'none');
+        }
+        function showToggle()
+        {
+            $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'block');
 
-        function hideToggle() {
-            $('#ContentPlaceHolder1_sliderToggle').attr('display', 'none');
         }
         
    
@@ -597,7 +602,7 @@
                         <label for="personId" runat="server" id="pID" ></label>
                         <label for="caID" runat="server" id="caID" ></label>
                         <label for="orgID" runat="server" id="orgID" ></label>
-                        <input type="text" id="hiddentextPA_ID" runat="server" />
+                        <input type="text" id="hiddentextPA_ID" runat="server" class="none" />
                     </div>
                                 <div>
 

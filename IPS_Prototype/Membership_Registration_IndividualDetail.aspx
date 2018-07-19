@@ -87,7 +87,7 @@
 
         $(document).ready(function () {
             SearchText();
-            $("#AddPA").click(function () {
+            $("#ContentPlaceHolder1_AddPA").click(function () {
                 $("#associateName").text(": " + $("#ContentPlaceHolder1_txtFullNameNameTag").val());
                 $("#associateType").text($("#ContentPlaceHolder1_hiddentext").val());
             });
@@ -212,10 +212,7 @@
             $('#Member_DeleteInd').modal('show');
         };
 
-         function hideToggle() {
-            $('#ContentPlaceHolder1_sliderToggle').attr('display', 'none');
-        }
-
+   
         function showPAModal() {
             $('#Add_PA').modal('show');
         }
@@ -225,6 +222,16 @@
                   $('#Add_PA').modal('show');
             $('#ContentPlaceHolder1_submitPA').css('display','none')
             $('#ContentPlaceHolder1_updatePA').css('display','block');
+        }
+
+        function hideToggle()
+        {
+            $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'none');
+        }
+        function showToggle()
+        {
+            $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'block');
+
         }
     </script>
 </asp:Content>
@@ -249,8 +256,9 @@
             <%--            <asp:Label id="memType" runat="server" ></asp:Label>--%>
 
             <div class="wrapper">
-                <input type="text" id="hiddentext" runat="server"  />
-                <input type="text" id="hiddentextPersonID" runat="server"  />
+                <input type="text" id="hiddentext" runat="server"  class="none" />
+                <input type="text" id="hiddentextPersonID" runat="server"  class="none" />
+           
 
                 <div class="left_div" style="float: left; margin-top: -27px;">
 

@@ -19,6 +19,7 @@ namespace IPS_Prototype
     {
         private ArrayList orgList;
         MembershipDAO db = new MembershipDAO();
+        ArrayList carepList;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -69,7 +70,7 @@ namespace IPS_Prototype
                 DT = d1.GetCat2();
                 ddlCat2.DataSource = DT;
                 ddlCat2.DataTextField = "Code_Desc";
-                ddlCat2.DataTextField = "Code";
+                ddlCat2.DataValueField = "Code";
                 ddlCat2.DataBind();
 
 
@@ -257,7 +258,7 @@ namespace IPS_Prototype
         }
         public void button_save(object sender, EventArgs e)
         {
-            ArrayList carepList = new ArrayList();
+           carepList = new ArrayList();
             carepList.Add(txtFirstName.Value); //0
             carepList.Add(txtSurname.Value); //1
             if (Male.Checked == true)
@@ -324,6 +325,11 @@ namespace IPS_Prototype
                     //bindtable();
 
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Corporate Associate Representative: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+            
+                    carepList.Clear();
+                    
+
+
 
                 }
                 else if (check == 0)
@@ -331,20 +337,7 @@ namespace IPS_Prototype
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
                 }
 
-                txtFirstName.Value.Equals("");
-                txtSurname.Value.Equals("");
-                txtSalutationField.Equals("");
-                txtTelephone.Equals("");
-                txtEmail.Equals("");
-                txtDesig1.Equals("");
-                txtDept1.Equals("");
-                txtOrg1.Equals("");
-                txtDesig2.Equals("");
-                txtDept2.Equals("");
-                txtOrg2.Equals("");
-                txtSDR.Equals("");
-                //txtFullName.Equals("");
-                txtFullNameNameTag.Equals("");
+       
 
 
             }
@@ -355,7 +348,15 @@ namespace IPS_Prototype
 
             }
 
+            try
+            {
+                clearCAREPFields();
+                clearCAREPArrayList();
+            }
+            catch (Exception ex)
+            {
 
+            }
 
 
 
@@ -714,7 +715,41 @@ namespace IPS_Prototype
             }
 
         }
+        protected void clearCAREPFields()
+        {
+            Male.Checked = false;
+            Female.Checked = false;
+            txtFirstName.Value = "";
+            txtSurname.Value = "";
+            ddlList.SelectedIndex = 0;
+            txtSalutationField.Value = "";
+            txtTelephone.Value = "";
+            txtEmail.Value = "";
+            txtDesig1.Value = "";
+            txtDept1.Value = "";
+            txtOrg1.Value = "";
+            txtDesig2.Value = "";
+            txtDept2.Value = "";
+            txtOrg2.Value = "";
+            txtSDR.Value = "";
+            ddlNationality.SelectedIndex = 0;
+            txtFullNameNameTag.Value = "";
+            ddlStatus.SelectedIndex = 0;
+            ddlSource.SelectedIndex = 0;
+            ddlCat1.SelectedIndex = 0;
+            ddlCat2.SelectedIndex = 0;
 
+        }
+
+        protected void clearCAREPArrayList()
+        {
+            for (int i = 0; i <= carepList.Count; i++)
+            {
+                carepList[i].Equals("");
+
+            }
+        }
+        
 
 
     }
