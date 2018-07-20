@@ -62,7 +62,7 @@ namespace IPS_Prototype
                 if (Session["Person"] != null) {
                     //IF Session not null, means page is triggered by the add IA from member Registration page
                     //VALUES SUCCESFULY PASSED
-                    Session["IndivEdit"] = null;
+                   
                     pList = (ArrayList)Session["Person"];
                     hiddentext.Value = pList[0].ToString();
                     memRegType = pList[0].ToString();

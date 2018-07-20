@@ -101,7 +101,7 @@ namespace IPS_Prototype
 
                 if (Session["CAREPEDIT"] != null)
                 {
-
+                    
                     //slidertoggleDIV.Style.Add("display", "block");
                     hiddentext.Value = Session["CAREPEDIT"].ToString();
                     MembershipDAO dalMem = new MembershipDAO();

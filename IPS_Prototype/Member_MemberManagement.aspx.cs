@@ -248,6 +248,7 @@ namespace IPS_Prototype
                 //    string name = row.Cells[1].Text;
                 //    lblmodalnameInd.InnerText = name;
                 Session["IndivEdit"] = indid;
+                Session["Person"] = null;
                 Response.Redirect("Membership_Registration_IndividualDetail.aspx");
                 personmodal = mem.GetPersonData(indid);
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "modalEditIND();", true);
@@ -340,6 +341,7 @@ namespace IPS_Prototype
                 //    string name = row.Cells[1].Text;
                 //    lblmodalnameInd.InnerText = name;
                 Session["CAREPEDIT"] = CAREP_PERSON_ID;
+                Session["Person"] = null;
                 Response.Redirect("Membership_Registration_CorperateAssociateRepresentative.aspx");
                 personmodal = mem.GetPersonData(CAREP_PERSON_ID);
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "modalEditIND();", true);

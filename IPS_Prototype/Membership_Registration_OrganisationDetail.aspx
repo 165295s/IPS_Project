@@ -38,43 +38,43 @@
 
         <label for="organisationName">Organisation Name:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtOrgNameField" style="width: 150px;" />
+            <input type="text" class="form-control" runat="server" id="txtOrgNameField" autocomplete="off" style="width: 150px;" />
         </div>
 
         <label for="mAddressLine1">Mailing Address Line 1:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtMailAddrLine1" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtMailAddrLine1"  autocomplete="off" style="width: 350px;" />
         </div>
 
         <label for="mAddressLine2">Mailing Address Line 2:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtMailAddrLine2" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtMailAddrLine2" autocomplete="off" style="width: 350px;" />
         </div>
 
         <label for="City">City:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtCity" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtCity" autocomplete="off" style="width: 350px;" />
         </div>
 
         <label for="postalCode">Postal Code:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtPostalCode" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtPostalCode" autocomplete="off" style="width: 350px;" />
         </div>
 
 
         <label for="TelephoneNo">Telephone Number:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtTelephone" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtTelephone" autocomplete="off" style="width: 350px;" />
         </div>
 
         <label for="OfficeNo">Office Number:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtOffice" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtOffice"  autocomplete="off" style="width: 350px;" />
         </div>
 
         <label for="WebsiteURL">Website URL:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtWebsiteURL" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtWebsiteURL"  autocomplete="off" style="width: 350px;" />
         </div>
 
                  <div class="form-group">
@@ -97,16 +97,16 @@
 
         <label for="PointOfContact">Point Of Contact:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="pointOfContact" style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="pointOfContact"  autocomplete="off" style="width: 350px;" />
         </div>
 
         <label for="Notes">Notes:</label>
         <div class="form-group">
-            <textarea class="form-control" rows="5"  runat="server" id="txtnotes" style="width: 350px; height:125px;"></textarea>
+            <textarea class="form-control" rows="5"  runat="server" id="txtnotes"  autocomplete="off" style="width: 350px; height:125px;"></textarea>
         </div>
              <label for="UEM">UEN:</label>
         <div class="form-group">
-           <input type="text" class="form-control" runat="server" id="txtUEN" style="width: 350px;" />
+           <input type="text" class="form-control" runat="server" id="txtUEN"  autocomplete="off" style="width: 350px;" />
         </div>
    
 
