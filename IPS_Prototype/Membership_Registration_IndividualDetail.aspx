@@ -94,7 +94,6 @@
         });
 
 
-
         function displayFailureMsg(msg) {
 
             $('#FailureAlert').css('display', 'block');
@@ -256,8 +255,8 @@
             <%--            <asp:Label id="memType" runat="server" ></asp:Label>--%>
 
             <div class="wrapper">
-                <input type="text" id="hiddentext" runat="server"  class="none" />
-                <input type="text" id="hiddentextPersonID" runat="server"  class="none" />
+                <input type="text" id="hiddentext" runat="server" class="none"  />
+                <input type="text" id="hiddentextPersonID" runat="server" class="none"   />
            
 
                 <div class="left_div" style="float: left; margin-top: -27px;">

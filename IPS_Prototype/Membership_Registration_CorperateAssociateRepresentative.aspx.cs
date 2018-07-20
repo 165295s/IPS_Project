@@ -102,11 +102,11 @@ namespace IPS_Prototype
                 if (Session["CAREPEDIT"] != null)
                 {
 
-                    slidertoggleDIV.Style.Add("display", "block");
+                    //slidertoggleDIV.Style.Add("display", "block");
                     hiddentext.Value = Session["CAREPEDIT"].ToString();
                     MembershipDAO dalMem = new MembershipDAO();
                     PersonModel perModel = new PersonModel();
-
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showToggle();", true);
 
 
                     perModel = dalMem.GetCAREPData(hiddentext.Value.ToString());

@@ -48,9 +48,8 @@ namespace IPS_Prototype
                 DT = d1.GetCat2();
                 ddlCat2.DataSource = DT;
                 ddlCat2.DataTextField = "Code_Desc";
-                ddlCat2.DataTextField = "Code";
+                ddlCat2.DataValueField = "Code";
                 ddlCat2.DataBind();
-
 
 
                 DT = d1.GetCat1(ddlSource.SelectedValue);
@@ -284,7 +283,8 @@ namespace IPS_Prototype
                 if (check == 2)
                 {
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
-                    
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+
                 }
                 else if (check == 0)
                 {
