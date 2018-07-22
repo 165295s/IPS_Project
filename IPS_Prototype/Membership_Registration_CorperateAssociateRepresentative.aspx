@@ -36,7 +36,7 @@
                     $('#ContentPlaceHolder1_ddlRole').removeAttr('disabled');
                     $('#ContentPlaceHolder1_txtEmail').removeAttr('disabled');
                     $('#ContentPlaceHolder1_btnSave').removeAttr('disabled');
-                    $('#ContentPlaceHolder1_delPA').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_btnDelCAREP').removeAttr('disabled');
                     $('#ContentPlaceHolder1_btnSave').remove();
                     $('#ContentPlaceHolder1_btnUpdate').show();
                     $('#ContentPlaceHolder1_btnUpdate').removeAttr('disabled');
@@ -65,7 +65,7 @@
                     $('#ContentPlaceHolder1_ddlRole').attr("disabled", true);
                     $('#ContentPlaceHolder1_txtEmail').attr("disabled", true);
                     $('#ContentPlaceHolder1_btnSave').attr("disabled", true);
-                    $('#ContentPlaceHolder1_delPA').attr("disabled", true);
+                    $('#ContentPlaceHolder1_btnDelCAREP').attr("disabled", true);
                     $('#ContentPlaceHolder1_btnUpdate').attr("disabled", true);
                      $('#ContentPlaceHolder1_FacilitatorBriefed').prop('disabled',true);
                     $('#ContentPlaceHolder1_welcomeEmail').prop('disabled',true);
@@ -105,7 +105,15 @@
         });
          function showmodal() {
             
-               $('#Add_PA').modal();
+             $('#Add_PA').modal();
+               $("#ContentPlaceHolder1_hiddentextPA_ID").val("");
+                $("#ContentPlaceHolder1_modalDDList").prop('selectedIndex', 0);
+                $("#ContentPlaceHolder1_modalFName").val("");
+                $("#ContentPlaceHolder1_modalSname").val("");
+                $("#ContentPlaceHolder1_modalEmail").val("");
+                $("#ContentPlaceHolder1_modalTelNo").val("");
+                   $('#ContentPlaceHolder1_submitPA').css('display','block')
+                  $('#ContentPlaceHolder1_updatePA').css('display', 'none');
              
              $('#ContentPlaceHolder1_PA_GridView').show();
 
@@ -121,8 +129,11 @@
              
            //     return false;
            //  });
-              $('#Add_PA').modal('show');
-             
+            $('#Add_PA').modal('show');
+            $('#modalTitle').empty();
+            $('#modalTitle').append("Update PA");
+            $('#ContentPlaceHolder1_submitPA').css('display','none')
+
              $('#ContentPlaceHolder1_PA_GridView').show();
 
         };
@@ -280,11 +291,14 @@
 
         }
          function modalDeleteIND() {
-            $('#Member_DeleteInd').modal('show');
+             $('#Member_DeleteInd').modal('show');
+
         };
         function hideToggle()
         {
             $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'none');
+            $("#ContentPlaceHolder1_btnDelCAREP").css('display', 'none');
+
         }
         function showToggle()
         {
@@ -418,14 +432,14 @@
                          <button type="button" runat="server" id="btnSave" class="btn btn-primary" onserverclick="button_save" style="width: 150px; height: 40px; float:left;">
                              Save
                          </button>
-                         <button type="button" id="delPA" runat="server" class="btn btn-primary" onserverclick="deleteCAREP" style="width: 150px; height: 40px; float:right;">
+                         <button type="button" id="btnDelCAREP" runat="server" class="btn btn-primary" onserverclick="deleteCAREP" style="width: 150px; height: 40px; float:right;">
                              Delete
                          </button>
 
                      </div>
 
 <%--                     <div class="form-group">
-                         <button type="button" id="delPA"  class="btn btn-primary" style="width: 150px; height: 40px; float:right;">
+                         <button type="button" id="btnDelCAREP"  class="btn btn-primary" style="width: 150px; height: 40px; float:right;">
                              Delete
                          </button>
 
@@ -495,7 +509,7 @@
 
          <label for="SDR">Special Dietary Restriction:</label>
         <div class="form-group">
-            <input type="text" class="form-control" runat="server" id="txtSDR"   autocomplete="off"style="width: 350px;" />
+            <input type="text" class="form-control" runat="server" id="txtSDR" autocomplete="off" style="width: 350px;" />
         </div>
 
             <div class="form-check" id="chkbxFaciBriefed" runat="server" >
@@ -591,7 +605,7 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                <h4 class="modal-title">Add PA</h4>
+                <h4 id="modalTitle" class="modal-title">Add PA</h4>
                 <button type="button" class="close" data-dismiss="modal"><i class="far fa-times-circle"></i></button>
             </div>
             <div class="modal-body1" style="padding-top:20px; padding-left:50px; padding-right:50px; padding-bottom:10px; overflow-y:  scroll">

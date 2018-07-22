@@ -62,7 +62,7 @@ namespace IPS_Prototype
                 if (Session["Person"] != null) {
                     //IF Session not null, means page is triggered by the add IA from member Registration page
                     //VALUES SUCCESFULY PASSED
-                   
+                    Session["IndivEdit"] = null;
                     pList = (ArrayList)Session["Person"];
                     hiddentext.Value = pList[0].ToString();
                     memRegType = pList[0].ToString();
@@ -73,6 +73,7 @@ namespace IPS_Prototype
                 }
                 if (Session["IndivEdit"] != null)
                 {
+                    Session["Person"] = null;
                     // IF Session not null means that page is triggered by member management page 
                     hiddentextPersonID.Value = Session["IndivEdit"].ToString();
                     MembershipDAO dalMem = new MembershipDAO();
@@ -112,7 +113,7 @@ namespace IPS_Prototype
                     ddlCat1.Attributes.Add("disabled", "disabled");
                     ddlCat2.Attributes.Add("disabled", "disabled");
                     ddlStatus.Attributes.Add("disabled", "disabled");
-                    
+
 
 
                     if (perModel.gender.Equals("M"))
@@ -126,7 +127,7 @@ namespace IPS_Prototype
                     }
                     if (perModel.status.Equals("Active"))
                     {
-                        ddlStatus.SelectedValue="Active";
+                        ddlStatus.SelectedValue = "Active";
                     }
                     else
                     {
@@ -164,12 +165,12 @@ namespace IPS_Prototype
 
         protected void Button_Save(Object sender, EventArgs e)
         {
-           
+
             pList = (ArrayList)Session["Person"];
             Session["p1"] = Session["Person"];
 
             pList = (ArrayList)Session["p1"];
-          
+
 
             if (Male.Checked == true)
             {
@@ -291,7 +292,7 @@ namespace IPS_Prototype
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure('There seems to be an error! Please notify the Administrators.');", true);
                 }
 
-              
+
 
 
             }
@@ -371,7 +372,7 @@ namespace IPS_Prototype
                 }
                 if (Session["IndivEdit"] != null)
                 {
-                    check = user_PA.AddPALater(hiddentextPersonID.Value,modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
+                    check = user_PA.AddPALater(hiddentextPersonID.Value, modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
                 }
                 if (check == 1 || check == 2)
                 {
@@ -416,7 +417,7 @@ namespace IPS_Prototype
             {
                 genderChk = Male.Value;
             }
-            else                   
+            else
             {
                 genderChk = Female.Value;
             }
@@ -425,7 +426,7 @@ namespace IPS_Prototype
             int personId = int.Parse(hiddentextPersonID.Value);
             MembershipDAO d1 = new MembershipDAO();
             //DALMembership user = new DALMembership();
-            int check = d1.UpdateIndividual(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value,ddlStatus.SelectedValue);
+            int check = d1.UpdateIndividual(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlStatus.SelectedValue);
             if (check == 2)
             {
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Individual Associate: " + txtFullNameNameTag.Value + "');", true);
@@ -491,10 +492,10 @@ namespace IPS_Prototype
 
         }
 
-        protected void RowEditing(object sender,EventArgs eh)
+        protected void RowEditing(object sender, EventArgs eh)
         {
             GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
-            string pa_ID = row.Cells[0].Text;            
+            string pa_ID = row.Cells[0].Text;
             //string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
             //string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
             //string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
@@ -503,18 +504,18 @@ namespace IPS_Prototype
             //showPAModal
             //bindtable();
             ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showUpdatePA()", true);
-         
+
             PersonModel p = new PersonModel();
             p = db.getPAEdit(pa_ID);
-            hiddentextPA_ID.Value = pa_ID.ToString() ;
+            hiddentextPA_ID.Value = pa_ID.ToString();
             modalDDList.SelectedValue = p.honorific;
             modalFName.Value = p.firstName;
             modalSname.Value = p.surname;
             modalEmail.Value = p.email;
             modalTelNo.Value = p.telNum;
-           
 
-            
+
+
 
 
 
@@ -538,8 +539,8 @@ namespace IPS_Prototype
                 {
                     //bindtable();
 
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deketed Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
-                      
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deleted Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+
                 }
                 else if (check == 0)
                 {
@@ -564,20 +565,15 @@ namespace IPS_Prototype
             int check = 0;
             try
             {
-                check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value,modalSname.Value,modalTelNo.Value, modalDDList.SelectedValue.ToString(),modalEmail.Value);
+                
+                check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value, modalSname.Value, modalTelNo.Value, modalDDList.SelectedValue.ToString(), modalEmail.Value);
                 bindtable();
 
                 if (check == 1)
                 {
                     //bindtable();
-
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "offToggle();", true);
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
-                    hiddentextPA_ID.Value ="";
-                    modalDDList.SelectedValue ="";
-                    modalFName.Value ="";
-                    modalSname.Value = "";
-                    modalEmail.Value = "";
-                    modalTelNo.Value = "";
                 }
                 else if (check == 0)
                 {
@@ -598,30 +594,30 @@ namespace IPS_Prototype
 
         protected void clearFields()
         {
-           
-                Male.Checked = false;
-                Female.Checked = false;
-                txtFirstName.Value = "";
-                txtSurname.Value = "";
-                ddlList.SelectedIndex = 0;
-                txtSalutationField.Value = "";
-                txtTelephone.Value = "";
-                txtEmail.Value = "";
-                txtDesig1.Value = "";
-                txtDept1.Value = "";
-                txtOrg1.Value = "";
-                txtDesig2.Value = "";
-                txtDept2.Value = "";
-                txtOrg2.Value = "";
-                txtSDR.Value = "";
-                ddlNationality.SelectedIndex = 0;
-                txtFullNameNameTag.Value = "";
-                ddlStatus.SelectedIndex = 0;
-                ddlSource.SelectedIndex = 0;
-                ddlCat1.SelectedIndex = 0;
-                ddlCat2.SelectedIndex = 0;
-               
-          
+
+            Male.Checked = false;
+            Female.Checked = false;
+            txtFirstName.Value = "";
+            txtSurname.Value = "";
+            ddlList.SelectedIndex = 0;
+            txtSalutationField.Value = "";
+            txtTelephone.Value = "";
+            txtEmail.Value = "";
+            txtDesig1.Value = "";
+            txtDept1.Value = "";
+            txtOrg1.Value = "";
+            txtDesig2.Value = "";
+            txtDept2.Value = "";
+            txtOrg2.Value = "";
+            txtSDR.Value = "";
+            ddlNationality.SelectedIndex = 0;
+            txtFullNameNameTag.Value = "";
+            ddlStatus.SelectedIndex = 0;
+            ddlSource.SelectedIndex = 0;
+            ddlCat1.SelectedIndex = 0;
+            ddlCat2.SelectedIndex = 0;
+
+
 
 
 
@@ -631,13 +627,22 @@ namespace IPS_Prototype
         {
             for (int i = 3; i <= pList.Count; i++)
             {
-               
+
                 pList[i].Equals("");
 
             }
 
 
 
+        }
+
+        protected void clearPAModal() {
+            hiddentextPA_ID.Value = "";
+            modalDDList.SelectedIndex = 0;
+            modalFName.Value = "";
+            modalSname.Value = "";
+            modalEmail.Value = "";
+            modalTelNo.Value = "";
         }
 
     }

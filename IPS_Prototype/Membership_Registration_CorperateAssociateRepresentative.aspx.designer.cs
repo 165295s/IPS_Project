@@ -184,13 +184,13 @@ namespace IPS_Prototype {
         protected global::System.Web.UI.HtmlControls.HtmlButton btnSave;
         
         /// <summary>
-        /// delPA control.
+        /// btnDelCAREP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton delPA;
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnDelCAREP;
         
         /// <summary>
         /// hiddentext control.
@@ -290,6 +290,15 @@ namespace IPS_Prototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtDesig2;
+        
+        /// <summary>
+        /// txtSDR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText txtSDR;
         
         /// <summary>
         /// chkbxFaciBriefed control.

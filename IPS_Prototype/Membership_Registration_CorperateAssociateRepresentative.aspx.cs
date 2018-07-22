@@ -87,6 +87,7 @@ namespace IPS_Prototype
 
                 if (Session["Person"] != null)
                 {
+                    Session["CAREPEDIT"] = null;
                     orgList = (ArrayList)Session["Person"];
                     lblOrgName.InnerText = orgList[3].ToString();
                     slidertoggleDIV.Style.Add("display", "none");
@@ -101,7 +102,7 @@ namespace IPS_Prototype
 
                 if (Session["CAREPEDIT"] != null)
                 {
-                    
+                    Session["Person"] = null;
                     //slidertoggleDIV.Style.Add("display", "block");
                     hiddentext.Value = Session["CAREPEDIT"].ToString();
                     MembershipDAO dalMem = new MembershipDAO();
@@ -236,7 +237,7 @@ namespace IPS_Prototype
             ddlStatus.Attributes.Add("disabled", "disabled");
             ddlRole.Attributes.Add("disabled", "disabled");
             btnSave.Disabled = true;
-            delPA.Disabled = true;
+            btnDelCAREP.Disabled = true;
 
             if (perModel.gender.Equals("M"))
             {
@@ -424,7 +425,7 @@ namespace IPS_Prototype
                 {
                     //bindtable();
 
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deketed Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deleted Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
 
                 }
                 else if (check == 0)
@@ -570,6 +571,7 @@ namespace IPS_Prototype
             int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value,ddlRole.SelectedValue,ddlStatus.SelectedValue,faciChk,emailChk);
             if (check == 2)
             {
+                clearPAModal();
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Coporate Associate: " + txtFullNameNameTag.Value + "');", true);
                 //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
                 //gvPerson.DataBind();
@@ -687,7 +689,7 @@ namespace IPS_Prototype
                 if (check == 1)
                 {
                     //bindtable();
-
+                    clearPAModal();
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
 
                     hiddentextPA_ID.Value = "";
@@ -749,8 +751,16 @@ namespace IPS_Prototype
 
             }
         }
-        
 
+        protected void clearPAModal()
+        {
+            hiddentextPA_ID.Value = "";
+            modalDDList.SelectedIndex = 0;
+            modalFName.Value = "";
+            modalSname.Value = "";
+            modalEmail.Value = "";
+            modalTelNo.Value = "";
+        }
 
     }
 }

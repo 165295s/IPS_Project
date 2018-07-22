@@ -64,7 +64,7 @@
                 <label for="Member Expiry">Member Expiry:</label>
                 <div class="form-group">
                     <input type="text" id="datetime" runat="server" onchange="populateHTxtBX();"/>
-                   <input type="text" id="hiddentext" runat="server" class="none"  />
+                   <input type="text" id="hiddentext" runat="server" class="none" />
 
                 </div>
                 

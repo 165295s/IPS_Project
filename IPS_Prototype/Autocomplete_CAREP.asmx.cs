@@ -104,7 +104,7 @@ namespace IPS_Prototype
             //PersonModel p1 = new PersonModel();
             PersonModel person = new PersonModel();
             string con = System.Configuration.ConfigurationManager.ConnectionStrings["IPS"].ToString();
-            string sqlQuery = "Select p.person_id,p.First_Name, p.surname,p.fullname_nametags, p.gender, p.honorific,p.salutation,p.tel_num,p.email_addr, p.nationality,p.designation_1,p.department_1,p.organisation_1,p.designation_2,p.department_2,p.organisation_2,p.special_dietary_requirement,m.STATUS,p.source,p.cat_1,p.cat_2 from membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m on p.person_id = m.MEMBER_ID where p.first_name like @SearchText + '%'";
+            string sqlQuery = "Select p.person_id,p.First_Name, p.surname,p.fullname_nametags, p.gender, p.honorific,p.salutation,p.tel_num,p.email_addr, p.nationality,p.designation_1,p.department_1,p.organisation_1,p.designation_2,p.department_2,p.organisation_2,p.special_dietary_requirement,m.STATUS,p.source,p.cat_1,p.cat_2 from membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m on p.person_id = m.person_id where p.first_name like @SearchText + '%'";
             using (SqlConnection obj_SqlConnection = new SqlConnection(con))
             {
                 //"Select CONCAT(first_name,' ', last_name) as txt from person where first_name like '%'+@SearchText+'%';"
