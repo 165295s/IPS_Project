@@ -8,6 +8,17 @@
             $("#ContentPlaceHolder1_datetime").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
             $("#ContentPlaceHolder1_hiddentext").datepicker({ dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
 
+            if ($('#ContentPlaceHolder1_MemebershipDDL').val() === "Friend of IPS" || $('#ContentPlaceHolder1_MemebershipDDL').val() === "") {                 
+                      $('#ContentPlaceHolder1_datetime')
+                          .prop({ "disabled": false })
+                          .val($.datepicker.formatDate("dd/mm/yy", now)); 
+                  } else {
+                      console.log("set to readonly");
+                      $('#ContentPlaceHolder1_datetime')
+                          .prop({ "disabled": true })
+                    .val("NA");
+                $('#ContentPlaceHolder1_hiddentext').val("NA");
+                  }
 
         });
        
@@ -63,8 +74,8 @@
 
                 <label for="Member Expiry">Member Expiry:</label>
                 <div class="form-group">
-                    <input type="text" id="datetime" runat="server" onchange="populateHTxtBX();"/>
-                   <input type="text" id="hiddentext" runat="server" class="none" />
+                    <input type="text" id="datetime" runat="server" onchange="populateHTxtBX();" autocomplete="off"/>
+                   <input type="text" id="hiddentext" runat="server" class="none"  />
 
                 </div>
                 

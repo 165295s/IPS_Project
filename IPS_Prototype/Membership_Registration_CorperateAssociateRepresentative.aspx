@@ -630,25 +630,25 @@
 
                         <label for="firstName">First Name:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" runat="server" id="modalFName" style="width: 350px;" />
+                            <input type="text" class="form-control" runat="server" id="modalFName" autocomplete="off" style="width: 350px;" />
                         </div>
 
 
                         <label for="surname">Surname:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" runat="server" id="modalSname" style="width: 350px;" />
+                            <input type="text" class="form-control" runat="server" id="modalSname" autocomplete="off" style="width: 350px;" />
                         </div>
 
 
                         <div class="form-group">
                             <label for="Email">E-Mail Address:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" runat="server" id="modalEmail" style="width: 350px;" />
+                            <input type="text" class="form-control" runat="server" id="modalEmail" autocomplete="off" style="width: 350px;" />
                         </div>
 
                                              <label for="TelephoneNo">Telephone Number:</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" runat="server" id="modalTelNo" style="width: 350px;" />
+                            <input type="text" class="form-control" runat="server" id="modalTelNo" autocomplete="off" style="width: 350px;" />
 
                         </div>
 

@@ -292,17 +292,17 @@
 
                     <label for="Saluation">Saluation</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtSalutationField" style="width: 150px;" />
+                        <input type="text" class="form-control" runat="server" id="txtSalutationField" autocomplete="off" style="width: 150px;" />
                     </div>
 
                     <label for="firstName">First Name:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtFirstName" style="width: 350px;" required />
+                        <input type="text" class="form-control" runat="server" id="txtFirstName" autocomplete="off" style="width: 350px;" required />
                     </div>
 
                     <label for="surname">Surname:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtSurname" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" id="txtSurname" autocomplete="off" style="width: 350px;" />
                     </div>
 
                     <%--   <label for="fullName">Full Name:</label>
@@ -312,7 +312,7 @@
 
                     <label for="fullNameNT">Full Name Nametag:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtFullNameNameTag" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtFullNameNameTag" style="width: 350px;" />
                     </div>
 
                     <label for="Nationality">Nationality</label>
@@ -341,7 +341,7 @@
 
                     <label for="Email">E-Mail Address:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtEmail" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtEmail" style="width: 350px;" />
                     </div>
 
 
@@ -401,37 +401,37 @@
 
                     <label for="TelephoneNo">Telephone Number:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtTelephone" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtTelephone" style="width: 350px;" />
                     </div>
 
                     <label for="organization1">Organization 1:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtOrg1" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtOrg1" style="width: 350px;" />
                     </div>
 
                     <label for="department1">Department 1:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtDept1" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtDept1" style="width: 350px;" />
                     </div>
 
                     <label for="designation1">Designation 1:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtDesig1" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtDesig1" style="width: 350px;" />
                     </div>
 
                     <label for="organization2">Organization 2:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtOrg2" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtOrg2" style="width: 350px;" />
                     </div>
 
                     <label for="department2">Department 2:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtDept2" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtDept2" style="width: 350px;" />
                     </div>
 
                     <label for="designation2">Designation 2:</label>
                     <div class="form-group">
-                        <input type="text" class="form-control" runat="server" id="txtDesig2" style="width: 350px;" />
+                        <input type="text" class="form-control" runat="server" autocomplete="off" id="txtDesig2" style="width: 350px;" />
                     </div>
 
                     <label for="SDR">Special Dietary Restriction:</label>
@@ -540,25 +540,25 @@
 
                                 <label for="firstName">First Name:</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" runat="server" id="modalFName" style="width: 350px;" />
+                                    <input type="text" class="form-control" runat="server" id="modalFName" autocomplete="off" style="width: 350px;" />
                                 </div>
 
 
                                 <label for="surname">Surname:</label>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" runat="server" id="modalSname" style="width: 350px;" />
+                                    <input type="text" class="form-control" runat="server" id="modalSname" autocomplete="off" style="width: 350px;" />
                                 </div>
 
 
                                 <div class="form-group">
                                     <label for="Email">E-Mail Address:</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" runat="server" id="modalEmail" style="width: 350px;" />
+                                        <input type="text" class="form-control" runat="server" id="modalEmail" autocomplete="off" style="width: 350px;" />
                                     </div>
 
                                     <label for="TelephoneNo">Telephone Number:</label>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" runat="server" id="modalTelNo" style="width: 350px;" />
+                                        <input type="text" class="form-control" runat="server" id="modalTelNo" autocomplete="off" style="width: 350px;" />
                                     </div>
 
 
