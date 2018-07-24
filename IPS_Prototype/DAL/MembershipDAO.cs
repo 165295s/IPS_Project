@@ -693,9 +693,9 @@ namespace IPS_Prototype.DAL
                 string commandtext = "INSERT INTO membership.TBL_ORGANISATION (NAME, Mailing_Add_Line_1, Mailing_Add_Line_2, Mailing_Add_City, Mailing_Add_Postal, Tel_Num, Office_Num, Website_Url, Biz_Description, Point_Of_Contact, Created_DT, Notes,UEN) VALUES(@orgName, @mailAddLine1,@mailAddLine2,@mailAddCity,@mailAddPostal,@telNum,@offNum,@websiteURL,@bizDesc,@POC,@created_Date,@notes,@uen)";
                 mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@orgName", orgList[3], "@mailAddLine1", orgList[4], "mailAddLine2", orgList[5], "@mailAddCity", orgList[6], "@mailAddPostal", orgList[7], "@telNum", orgList[8], "@offNum", orgList[9], "@websiteURL", orgList[10], "@bizDesc", orgList[11], "@POC", orgList[12], "@created_Date", DateTime.Now.ToShortDateString(), "@notes", orgList[13], "@UEN", orgList[14]);
 
-                string orgMembershipCmdText = "INSERT INTO membership.TBL_MEMBERSHIP (Org_Id,Donor_Tier,Created_DT,Expiry_DT) VALUES ( (SELECT MAX(Org_Id) FROM membership.TBL_ORGANISATION), @dTier,@cDate,CONVERT(date,@expDate,103));";
+                string orgMembershipCmdText = "INSERT INTO membership.TBL_MEMBERSHIP (Org_Id,Donor_Tier,Created_DT,Expiry_DT,Status) VALUES ( (SELECT MAX(Org_Id) FROM membership.TBL_ORGANISATION), @dTier,@cDate,CONVERT(date,@expDate,103),@status);";
 
-                orgMembershipMycmd = dbhelp.CreateCommand(orgMembershipCmdText, CommandType.Text, "@dTier", orgList[1], "@cDate", DateTime.Now.ToShortDateString(), "@expDate", orgList[2]);
+                orgMembershipMycmd = dbhelp.CreateCommand(orgMembershipCmdText, CommandType.Text, "@dTier", orgList[1], "@cDate", DateTime.Now.ToShortDateString(), "@expDate", orgList[2],"@status","Active");
 
 
                 transcommand.Add(mycmd);

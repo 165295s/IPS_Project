@@ -16,7 +16,11 @@
         "Membership_Registration_CorperateAssociateRepresentative.aspx",
         "Member_MemberManagement.aspx",
         "Member_MemberRenewalInd.aspx",
-        "Member_MemberRenewalOrg.aspx"
+        "Member_MemberRenewalOrg.aspx",
+        "Events_Add.aspx",
+        "Events_GuestList.aspx",
+        "Events_Invite.aspx",
+        "Events_Management.aspx"
 
       ]
     },

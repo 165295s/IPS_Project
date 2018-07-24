@@ -42423,3 +42423,120 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
 - 7/24/2018 2:05:55 PM
  
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 2:54:09 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 3:24:13 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 3:29:20 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Membership_Registration_OrganizationDetail.button_next(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Membership_Registration_OrganisationDetail.aspx.cs:line 52
+- 7/24/2018 3:31:38 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 3:39:58 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Membership_Registration_OrganizationDetail.button_next(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Membership_Registration_OrganisationDetail.aspx.cs:line 52
+- 7/24/2018 3:40:21 PM
+ 
+System.FormatException: String was not recognized as a valid DateTime.
+   at System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   at System.Convert.ToDateTime(String value)
+   at IPS_Prototype.DAL.EventsDAO.UpdateAllGuest(String honourific, String name, String email, String role, String invite, Double charge) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\EventsDAO.cs:line 454
+- 7/24/2018 3:44:27 PM
+ 
+System.IndexOutOfRangeException: There is no row at position 0.
+   at System.Data.RBTree`1.GetNodeByIndex(Int32 userIndex)
+   at System.Data.DataRowCollection.get_Item(Int32 index)
+   at IPS_Prototype.DAL.DatabaseDAO.GetData(String UserID) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 178
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 34
+- 7/24/2018 4:09:16 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 4:09:22 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 5:12:16 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 5:12:30 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 5:13:26 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 5:13:30 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 5:13:33 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 5:13:36 PM
+ 
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\Source\Repos\IPS_Project\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 5:14:36 PM
+ 
