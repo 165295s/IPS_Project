@@ -98,6 +98,10 @@
     <Content Include="css\bootstrap.min.css.map" />
     <Content Include="css\IPS_vertical.css" />
     <Content Include="css\Modal.css" />
+    <Content Include="Events_Add.aspx" />
+    <Content Include="Events_GuestList.aspx" />
+    <Content Include="Events_Invite.aspx" />
+    <Content Include="Events_Management.aspx" />
     <Content Include="Images\ui-icons_444444_256x240.png" />
     <Content Include="Images\ui-icons_555555_256x240.png" />
     <Content Include="Images\ui-icons_777620_256x240.png" />
@@ -219,6 +223,7 @@
       <DependentUpon>Autocomplete_INDIV.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Class\CommonMethods.cs" />
     <Compile Include="Class\DbHelper.cs" />
     <Compile Include="CustomErrorPage.aspx.cs">
       <DependentUpon>CustomErrorPage.aspx</DependentUpon>
@@ -231,7 +236,36 @@
     <Compile Include="DAL\DALAutocomplete.cs" />
     <Compile Include="DAL\DALMembership.cs" />
     <Compile Include="DAL\DatabaseDAO.cs" />
+    <Compile Include="DAL\EventsDAO.cs" />
     <Compile Include="DAL\MembershipDAO.cs" />
+    <Compile Include="Events_Add.aspx.cs">
+      <DependentUpon>Events_Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events_Add.aspx.designer.cs">
+      <DependentUpon>Events_Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events_GuestList.aspx.cs">
+      <DependentUpon>Events_GuestList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events_GuestList.aspx.designer.cs">
+      <DependentUpon>Events_GuestList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events_Invite.aspx.cs">
+      <DependentUpon>Events_Invite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events_Invite.aspx.designer.cs">
+      <DependentUpon>Events_Invite.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events_Management.aspx.cs">
+      <DependentUpon>Events_Management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events_Management.aspx.designer.cs">
+      <DependentUpon>Events_Management.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Membership_Registration_CorperateAssociateRepresentative.aspx.cs">
       <DependentUpon>Membership_Registration_CorperateAssociateRepresentative.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -355,6 +389,7 @@
       <DependentUpon>Logout_Modal.ascx</DependentUpon>
     </Compile>
     <Compile Include="RetrieveClass\MemberInfo.cs" />
+    <Compile Include="RetrieveClass\Person.cs" />
     <Compile Include="RetrieveClass\PersonModel.cs" />
     <Compile Include="RetrieveClass\UserAddInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
