@@ -14,6 +14,8 @@
                 $('#ContentPlaceHolder1_datetime')
                     .prop({ "disabled": false })
                     .val($.datepicker.formatDate("dd/mm/yy", now));
+                 document.getElementById('ContentPlaceHolder1_hiddentext').value = document.getElementById('ContentPlaceHolder1_datetime').value;
+
             } else {
                 console.log("set to readonly");
                 $('#ContentPlaceHolder1_datetime')
@@ -25,7 +27,8 @@
         });
 
         function populateHTxtBX() {
-            document.getElementById('ContentPlaceHolder1_hiddentext').value = document.getElementById('ContentPlaceHolder1_datetime').value;
+        document.getElementById('ContentPlaceHolder1_hiddentext').value = document.getElementById('ContentPlaceHolder1_datetime').value;
+
         };
 
 
@@ -72,7 +75,7 @@
                 <label for="Member Expiry">Member Expiry:</label>
                 <div class="form-group">
                     <input type="text" id="datetime" runat="server" onchange="populateHTxtBX();" autocomplete="off" />
-                    <input type="text" id="hiddentext" runat="server" class="none" />
+                    <input type="text" id="hiddentext" runat="server" class="none"  />
 
                 </div>
 

@@ -809,7 +809,7 @@ namespace IPS_Prototype.DAL
                 mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@fName", pList[3], "@sNAme", pList[4], "@gender", pList[5], "@honorific", pList[6], "@salutation", pList[7], "@tel_num", pList[8], "@email_addr", pList[9], "@created_date", DateTime.Now.ToShortDateString(), "@desig1", pList[10], "@dept1", pList[11], "@org1", pList[12], "@desig2", pList[13], "@dept2", pList[14], "@org2", pList[15], "@SDR", pList[16], "@nationality", pList[17], "@fullNameNT",pList[18],"@source",pList[20],"@cat1",pList[21],"@cat2",pList[22]);
 
 
-                string memCommandText = "INSERT INTO membership.TBL_MEMBERSHIP(Person_Id,Designation,Donor_Tier,Created_DT,Expiry_DT,Status) VALUES ( (SELECT MAX(person_id) FROM membership.TBL_PERSON),@desig,@dTier,@cDate, CONVERT(date,@expDate,103),@status)";
+                string memCommandText = "INSERT INTO membership.TBL_MEMBERSHIP(Person_Id,Designation,Donor_Tier,Created_DT,Expiry_DT,Status) VALUES ( (SELECT MAX(person_id) FROM membership.TBL_PERSON),@desig,@dTier,@cDate, @expDate,@status)";
                 orgMycmd = dbhelp.CreateCommand(memCommandText, CommandType.Text, "@desig", pList[10], "@dTier", pList[1], "@cDate", DateTime.Now.ToShortDateString(), "@expDate", pList[2],"@status",pList[19]);
 
 

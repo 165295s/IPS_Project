@@ -42319,3 +42319,107 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
 - 7/24/2018 1:36:42 PM
  
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 1:57:52 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 1:58:20 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 1:58:22 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 1:59:19 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:00:54 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:00:57 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:00:57 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:01:11 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:01:41 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:01:43 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:02:49 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:02:53 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:02:54 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:03:53 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:03:54 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:04:19 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:04:37 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:08 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:10 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:11 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:12 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:13 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:31 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:40 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:40 PM
+ 
+System.NullReferenceException: Object reference not set to an instance of an object.
+   at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
+- 7/24/2018 2:05:55 PM
+ 
