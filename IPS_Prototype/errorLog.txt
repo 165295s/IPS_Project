@@ -31839,3 +31839,13 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at IPS_Prototype.DAL.DatabaseDAO.AccessRight(String role, String currentPageName) in C:\Users\L33516\Desktop\IPS WORKSPACE\IPS_Prototype\IPS_Prototype\DAL\DatabaseDAO.cs:line 58
 - 7/13/2018 5:17:01 PM
  
+System.Threading.ThreadAbortException: Thread was being aborted.
+   at System.Threading.Thread.AbortInternal()
+   at System.Threading.Thread.Abort(Object stateInfo)
+   at System.Web.HttpResponse.AbortCurrentThread()
+   at System.Web.HttpResponse.End()
+   at System.Web.HttpResponse.Redirect(String url, Boolean endResponse, Boolean permanent)
+   at System.Web.HttpResponse.Redirect(String url)
+   at IPS_Prototype.Login_test.Login_Click(Object sender, EventArgs e) in C:\Users\L33516\source\repos\IPS\IPS_Prototype\IPS_Prototype\Login.aspx.cs:line 53
+- 7/24/2018 2:37:21 PM
+ 
