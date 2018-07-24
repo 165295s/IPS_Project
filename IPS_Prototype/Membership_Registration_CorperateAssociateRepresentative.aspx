@@ -10,8 +10,10 @@
 
         $(document).ready(function ()
         {
+
+             changeChkbx();
             SearchText();
-            changeChkbx();
+           
 
             $('#ContentPlaceHolder1_sliderToggle').change(function () {
                 if ($('#ContentPlaceHolder1_sliderToggle').is(':checked')) {
@@ -84,16 +86,18 @@
             function changeChkbx() {
                 $('#ContentPlaceHolder1_ddlRole').change(function () {
                     if ($('#ContentPlaceHolder1_ddlRole option:selected').index() != 0) {
+                       
                         console.log("check", $('#ContentPlaceHolder1_ddlRole option:selected').index());
-                        $('#chkbxWelcomeEmail').css("display", "block");
-                        $('#chkbxFaciBriefed').css("display", "none");
+                       $('#ContentPlaceHolder1_chkbxWelcomeEmail').css('display','block');
+                        $('#ContentPlaceHolder1_chkbxFaciBriefed').css('display', 'none');
                         $('#ContentPlaceHolder1_FacilitatorBriefed').prop('checked', false);
                         $('#ContentPlaceHolder1_welcomeEmail').prop('checked', false);
                     }
                     else {
+                        
                         console.log("check", $('#ContentPlaceHolder1_ddlRole option:selected').index());
-                        $('#chkbxWelcomeEmail').css("display", "none");
-                        $('#chkbxFaciBriefed').css("display", "block");
+                        $('#ContentPlaceHolder1_chkbxWelcomeEmail').css('display','none');
+                        $('#ContentPlaceHolder1_chkbxFaciBriefed').css('display', 'block');
                         $('#ContentPlaceHolder1_FacilitatorBriefed').prop('checked', false);
                         $('#ContentPlaceHolder1_welcomeEmail').prop('checked', false);
                     }
