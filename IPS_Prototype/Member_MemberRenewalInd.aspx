@@ -96,9 +96,9 @@
         $(document).ready(function () {
 
             $('#ContentPlaceHolder1_cbInstallment').click(function () {
-                 
-            $('#dvInstallment').toggle();
-        });
+
+                $('#dvInstallment').toggle();
+            });
 
             var now = new Date();
             var nextyr = now.getFullYear() + 1;
@@ -223,10 +223,10 @@
 
                 <div class="form-group">
                     <label for="lblInstallment">Installment:</label>
-                    <input type="checkbox" name="cbInstallment" class="form-control" style="width: 17px; height: 17px; margin-top: -3px" id="cbInstallment" runat="server"  value="cbInstallment">
+                    <input type="checkbox" name="cbInstallment" class="form-control" style="width: 17px; height: 17px; margin-top: -3px" id="cbInstallment" runat="server" value="cbInstallment">
                 </div>
 
-   <%--              <div class="input-group" style="display:none;width: 350px;" id="dvInstallment">
+                <%--              <div class="input-group" style="display:none;width: 350px;" id="dvInstallment">
                         <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Installment Amount:</label>               
                         <div class="input-group-prepend mb-3">
                             <span class="input-group-text">$</span>
@@ -234,16 +234,16 @@
                         <input class="form-control" type="number" id="txtInstallment" runat="server">
                     </div>--%>
 
-                <div class="input-group" style="display:none;width: 350px;" id="dvInstallment">
-                       <div class="form-group" style="width: 350px;">
-                    <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Installment Amount:</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">$</span>
+                <div class="input-group" style="display: none; width: 350px;" id="dvInstallment">
+                    <div class="form-group" style="width: 350px;">
+                        <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Installment Amount:</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input class="form-control" type="number" id="txtInstallment" runat="server">
                         </div>
-                        <input class="form-control" type="number" id="txtInstallment" runat="server">
                     </div>
-                </div>
                 </div>
 
                 <div class="form-group">

@@ -25,20 +25,21 @@ namespace IPS_Prototype
 
         }
 
-        protected void button_next(object sender, EventArgs e) {
+        protected void button_next(object sender, EventArgs e)
+        {
             //STORE RESPONSE INTO A SESSION
 
-            
-            orgList.Add(txtOrgNameField.Value.ToString()); 
-            orgList.Add(txtMailAddrLine1.Value.ToString()); 
-            orgList.Add(txtMailAddrLine2.Value.ToString()); 
-            orgList.Add(txtCity.Value.ToString()); 
-            orgList.Add(txtPostalCode.Value.ToString()); 
-            orgList.Add(txtTelephone.Value.ToString()); 
-            orgList.Add(txtOffice.Value.ToString()); 
-            orgList.Add(txtWebsiteURL.Value.ToString()); 
-            orgList.Add(txtbDesc.Value.ToString()); 
-            orgList.Add(pointOfContact.Value.ToString()); 
+
+            orgList.Add(txtOrgNameField.Value.ToString());
+            orgList.Add(txtMailAddrLine1.Value.ToString());
+            orgList.Add(txtMailAddrLine2.Value.ToString());
+            orgList.Add(txtCity.Value.ToString());
+            orgList.Add(txtPostalCode.Value.ToString());
+            orgList.Add(txtTelephone.Value.ToString());
+            orgList.Add(txtOffice.Value.ToString());
+            orgList.Add(txtWebsiteURL.Value.ToString());
+            orgList.Add(txtbDesc.Value.ToString());
+            orgList.Add(pointOfContact.Value.ToString());
             orgList.Add(txtnotes.Value.ToString());
             orgList.Add(txtUEN.Value.ToString());
 
@@ -50,7 +51,7 @@ namespace IPS_Prototype
                 {
                     Response.Redirect("Membership_Registration_CorperateAssociateRepresentative.aspx");
 
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Org: " + txtOrgNameField.Value+ "');", true);
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Org: " + txtOrgNameField.Value + "');", true);
 
 
                 }
@@ -61,7 +62,8 @@ namespace IPS_Prototype
 
 
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 ErrorLog.WriteErrorLog(ex.ToString());
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
 

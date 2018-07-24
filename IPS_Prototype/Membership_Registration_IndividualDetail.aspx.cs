@@ -21,7 +21,8 @@ namespace IPS_Prototype
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (!IsPostBack) {
+            if (!IsPostBack)
+            {
                 MembershipDAO d1 = new MembershipDAO();
                 DataTable DT = new DataTable();
                 DT = d1.GetLookupSearch("HONOURIFIC");
@@ -59,7 +60,8 @@ namespace IPS_Prototype
                 ddlCat1.DataBind();
 
 
-                if (Session["Person"] != null) {
+                if (Session["Person"] != null)
+                {
                     //IF Session not null, means page is triggered by the add IA from member Registration page
                     //VALUES SUCCESFULY PASSED
                     Session["IndivEdit"] = null;
@@ -140,12 +142,7 @@ namespace IPS_Prototype
                 }
 
             }
-            //string s = string.Empty;
-            //foreach (var item in pList)
-            //{
-            //    s += item.ToString();
-            //}
-            //memType.Text = s;
+
             if (IsPostBack)
             {
 
@@ -154,7 +151,6 @@ namespace IPS_Prototype
             else
             {
 
-                //upPanel.Update();
                 bindtable();
 
             }
@@ -263,7 +259,7 @@ namespace IPS_Prototype
 
 
 
-            //pList.Add(txtFullName.Value);
+
 
 
 
@@ -316,28 +312,6 @@ namespace IPS_Prototype
 
 
 
-
-            //Label1.Text = honourfic;
-            //Label2.Text = salutation;
-            //Label3.Text = fName;
-            //Label4.Text = surName;
-            //Label5.Text = fullName;
-            //Label6.Text = fullNameNT;
-            //Label7.Text = nationality;
-            //Label8.Text = gender;
-            //Label9.Text = eMail;
-            //Label10.Text = telPhone;
-            //Label11.Text = faxNum;
-            //Label12.Text = org1;
-            //Label13.Text = dept1;
-            //Label14.Text = desig1;
-            //Label15.Text = org2;
-            //Label16.Text = dept2;
-            //Label17.Text = desig2;
-            //Label18.Text = SDR;
-            //Label19.Text = (string)pList[0];
-            //Label20.Text = (string)pList[1];
-            //Label21.Text = (string)pList[2];
 
 
 
@@ -425,14 +399,11 @@ namespace IPS_Prototype
 
             int personId = int.Parse(hiddentextPersonID.Value);
             MembershipDAO d1 = new MembershipDAO();
-            //DALMembership user = new DALMembership();
             int check = d1.UpdateIndividual(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlStatus.SelectedValue);
             if (check == 2)
             {
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Individual Associate: " + txtFullNameNameTag.Value + "');", true);
-                //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
-                //gvPerson.DataBind();
-                //gvPerson.HeaderRow.TableSection = TableRowSection.TableHeader;
+
             }
             else if (check == 0)
             {
@@ -447,7 +418,6 @@ namespace IPS_Prototype
 
         public void deleteINDIV(object sender, EventArgs e)
         {
-            //GridViewRow row = (GridViewRow)((HtmlButton)sender).NamingContainer;
             int indid = int.Parse(hiddentextPersonID.Value);
             if (indid != 0)
             {
@@ -478,13 +448,10 @@ namespace IPS_Prototype
                 {
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deleted');", true);
                     Response.Redirect("Member_MemberManagement.aspx");
-                    //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
-                    //gvPerson.DataBind();
-                    //gvPerson.HeaderRow.TableSection = TableRowSection.TableHeader;
+
                 }
                 else
                 {
-                    //  Response.Write("<script>alert('Delete Unsuccessful.');</script>");
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
                 }
             }
@@ -496,13 +463,7 @@ namespace IPS_Prototype
         {
             GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
             string pa_ID = row.Cells[0].Text;
-            //string honorific = UserTable.Rows[e.RowIndex].Cells[1].Text;
-            //string fname = UserTable.Rows[e.RowIndex].Cells[2].Text;
-            //string sName = UserTable.Rows[e.RowIndex].Cells[3].Text;
-            //string email = UserTable.Rows[e.RowIndex].Cells[4].Text;
-            //string tel_num = UserTable.Rows[e.RowIndex].Cells[5].Text;
-            //showPAModal
-            //bindtable();
+
             ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showUpdatePA()", true);
 
             PersonModel p = new PersonModel();
@@ -527,7 +488,6 @@ namespace IPS_Prototype
         {
             bindtable();
             string pa_ID = UserTable.Rows[e.RowIndex].Cells[0].Text;
-            //string expirydate = gvOrg.Rows[e.RowIndex].Cells[2].Text;
 
             int check = 0;
             try
@@ -537,7 +497,6 @@ namespace IPS_Prototype
 
                 if (check == 1)
                 {
-                    //bindtable();
 
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Deleted Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
 
@@ -565,13 +524,12 @@ namespace IPS_Prototype
             int check = 0;
             try
             {
-                
+
                 check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value, modalSname.Value, modalTelNo.Value, modalDDList.SelectedValue.ToString(), modalEmail.Value);
                 bindtable();
 
                 if (check == 1)
                 {
-                    //bindtable();
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "offToggle();", true);
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
                 }
@@ -636,7 +594,8 @@ namespace IPS_Prototype
 
         }
 
-        protected void clearPAModal() {
+        protected void clearPAModal()
+        {
             hiddentextPA_ID.Value = "";
             modalDDList.SelectedIndex = 0;
             modalFName.Value = "";

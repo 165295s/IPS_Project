@@ -89,7 +89,7 @@
             SearchText();
             $("#ContentPlaceHolder1_AddPA").click(function () {
                 $('#ModalTitle').empty();
-                  $('#ModalTitle').append("Add PA");
+                $('#ModalTitle').append("Add PA");
                 $("#associateName").text(": " + $("#ContentPlaceHolder1_txtFullNameNameTag").val());
                 $("#associateType").text($("#ContentPlaceHolder1_hiddentext").val());
                 $("#ContentPlaceHolder1_hiddentextPA_ID").val("");
@@ -98,8 +98,8 @@
                 $("#ContentPlaceHolder1_modalSname").val("");
                 $("#ContentPlaceHolder1_modalEmail").val("");
                 $("#ContentPlaceHolder1_modalTelNo").val("");
-                   $('#ContentPlaceHolder1_submitPA').css('display','block')
-                  $('#ContentPlaceHolder1_updatePA').css('display', 'none');
+                $('#ContentPlaceHolder1_submitPA').css('display', 'block')
+                $('#ContentPlaceHolder1_updatePA').css('display', 'none');
             });
         });
 
@@ -120,7 +120,6 @@
                 data: "{ 'txt' : '" + $("#ContentPlaceHolder1_txtFirstName").val() + "'}",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
-                    //var projects = data.d + ";";
                     $("#ContentPlaceHolder1_txtFirstName").autocomplete({
                         minLength: 1,
                         source: function (request, response) {
@@ -128,7 +127,6 @@
                             response($.map(data.d, function (value, key) {
                                 return {
                                     fName: value.firstName,
-                                    //value: value.firstName,
                                     email: value.email,
                                     emailAddr: value.email,
                                     surname: value.surname,
@@ -202,7 +200,6 @@
 
                     })
                         .autocomplete("instance")._renderItem = function (ul, item) {
-                            //alert(item);
                             return $("<li>")
                                 .append("<div>" + item.fName + " " + item.surname + "<br>" + item.email + "</div>")
                                 .appendTo(ul);
@@ -221,28 +218,25 @@
             $('#Member_DeleteInd').modal('show');
         };
 
-   
+
         function showPAModal() {
             $('#Add_PA').modal('show');
         }
 
-              function showUpdatePA()
-              {
-                  $('#Add_PA').modal('show');
-            $('#ContentPlaceHolder1_submitPA').css('display','none')
-                  $('#ContentPlaceHolder1_updatePA').css('display', 'block');
-                  $('#ModalTitle').empty();
-                  $('#ModalTitle').append("Update PA");
+        function showUpdatePA() {
+            $('#Add_PA').modal('show');
+            $('#ContentPlaceHolder1_submitPA').css('display', 'none')
+            $('#ContentPlaceHolder1_updatePA').css('display', 'block');
+            $('#ModalTitle').empty();
+            $('#ModalTitle').append("Update PA");
         }
 
-        function hideToggle()
-        {
+        function hideToggle() {
             $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'none');
             $("#ContentPlaceHolder1_btnDel").css('display', 'none');
-            
+
         }
-        function showToggle()
-        {
+        function showToggle() {
             $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'block');
             $("#ContentPlaceHolder1_btnDel").css('display', 'block');
 
@@ -274,9 +268,9 @@
             <%--            <asp:Label id="memType" runat="server" ></asp:Label>--%>
 
             <div class="wrapper">
-                <input type="text" id="hiddentext" runat="server" class="none"  />
-                <input type="text" id="hiddentextPersonID" runat="server" class="none"   />
-           
+                <input type="text" id="hiddentext" runat="server" class="none" />
+                <input type="text" id="hiddentextPersonID" runat="server" class="none" />
+
 
                 <div class="left_div" style="float: left; margin-top: -27px;">
 
@@ -285,22 +279,22 @@
                         <input id="sliderToggle" enableviewstate="true" type="checkbox" runat="server" data-toggle="toggle" data-width="150" data-height="40" data-style="ios" data-offstyle="danger" data-onstyle="success" data-on="Edit Mode On" data-off="Edit Mode Off">
                     </div>
 
-                    <label for="Honorific">Honourific</label>
+                    <label for="Honorific">Honourific</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlList" runat="server" class="ddlStyle"></asp:DropDownList>
                     </div>
 
-                    <label for="Saluation">Saluation</label>
+                    <label for="Saluation">Saluation</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" id="txtSalutationField" autocomplete="off" style="width: 150px;" />
                     </div>
 
-                    <label for="firstName">First Name:</label>
+                    <label for="firstName">First Name:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" id="txtFirstName" autocomplete="off" style="width: 350px;" required />
                     </div>
 
-                    <label for="surname">Surname:</label>
+                    <label for="surname">Surname:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" id="txtSurname" autocomplete="off" style="width: 350px;" />
                     </div>
@@ -310,12 +304,12 @@
             <input type="text" class="form-control" runat="server" id="txtFullName" style="width: 350px;" />
         </div>--%>
 
-                    <label for="fullNameNT">Full Name Nametag:</label>
+                    <label for="fullNameNT">Full Name Nametag:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" autocomplete="off" id="txtFullNameNameTag" style="width: 350px;" />
                     </div>
 
-                    <label for="Nationality">Nationality</label>
+                    <label for="Nationality">Nationality</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlNationality" runat="server" class="ddlStyle">
                             <asp:ListItem Text="Singapore" Value="SGP"></asp:ListItem>
@@ -325,7 +319,7 @@
                         </asp:DropDownList>
                     </div>
 
-                    <label for="Gender">Gender:</label>
+                    <label for="Gender">Gender:</label><label style="color: red;">*</label>
 
 
                     <div class="radio">
@@ -339,13 +333,13 @@
 
 
 
-                    <label for="Email">E-Mail Address:</label>
+                    <label for="Email">E-Mail Address:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" autocomplete="off" id="txtEmail" style="width: 350px;" />
                     </div>
 
 
-                    <label for="Status">Status:</label>
+                    <label for="Status">Status:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlStatus" runat="server" Class="ddlStyle">
                             <asp:ListItem Text="Active" Value="Active"></asp:ListItem>
@@ -368,7 +362,7 @@
                             Save
                         </button>
 
-                         <button type="button" runat="server" id="btnDel" onserverclick="deleteINDIV" class="btn btn-primary" style="width: 150px; height: 40px;">
+                        <button type="button" runat="server" id="btnDel" onserverclick="deleteINDIV" class="btn btn-primary" style="width: 150px; height: 40px;">
                             Delete
                         </button>
 
@@ -384,37 +378,37 @@
                 <div class="right_div" style="float: left; margin-top: -27px; margin-left: 138px;">
 
 
-                    <label for="Source">Source:</label>
+                    <label for="Source">Source:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlSource" runat="server" AutoPostBack="true" Class="ddlStyle" OnSelectedIndexChanged="getCat1"></asp:DropDownList>
                     </div>
 
-                    <label for="Cat1">Cat 1:</label>
+                    <label for="Cat1">Cat 1:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlCat1" runat="server" Class="ddlStyle"></asp:DropDownList>
                     </div>
-                    <label for="Cat2">Cat 2:</label>
+                    <label for="Cat2">Cat 2:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <asp:DropDownList ID="ddlCat2" runat="server" Class="ddlStyle"></asp:DropDownList>
                     </div>
 
 
-                    <label for="TelephoneNo">Telephone Number:</label>
+                    <label for="TelephoneNo">Telephone Number:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" autocomplete="off" id="txtTelephone" style="width: 350px;" />
                     </div>
 
-                    <label for="organization1">Organization 1:</label>
+                    <label for="organization1">Organization 1:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" autocomplete="off" id="txtOrg1" style="width: 350px;" />
                     </div>
 
-                    <label for="department1">Department 1:</label>
+                    <label for="department1">Department 1:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" autocomplete="off" id="txtDept1" style="width: 350px;" />
                     </div>
 
-                    <label for="designation1">Designation 1:</label>
+                    <label for="designation1">Designation 1:</label><label style="color: red;">*</label>
                     <div class="form-group">
                         <input type="text" class="form-control" runat="server" autocomplete="off" id="txtDesig1" style="width: 350px;" />
                     </div>
@@ -444,32 +438,34 @@
 
 
                 </div>
+
+
+
                 <div id="MemberContent">
-<%--                    <asp:UpdatePanel runat="server" ID="upPanel" UpdateMode="Conditional">
-                        <ContentTemplate>--%>
-                            <asp:GridView runat="server" EnableViewState="false" ID="UserTable" ShowHeaderWhenEmpty="true" DataKeyNames="PA_ID" OnRowDeleting="RowDeleting" EmptyDataText="No Records Found" CssClass="table table-hover BlueTable" AutoGenerateColumns="false" AutoGenerateEditButton="false" AutoGenerateDeleteButton="false"  GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
-                                <Columns>
-                                    <asp:BoundField DataField="PA_ID" HeaderText="Person ID" ItemStyle-CssClass="hiddencol"  HeaderStyle-CssClass="hiddencol"/>
-                                    <asp:BoundField DataField="Honorific" HeaderText="Honorific" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
-                                    <asp:BoundField DataField="First_Name" HeaderText="First Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
-                                    <asp:BoundField DataField="Surname" HeaderText="Surname" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
-
-                                    <asp:BoundField DataField="Email_Addr" HeaderText="E-mail Address" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
-                                    <asp:BoundField DataField="Tel_Num" HeaderText="Telephone Number" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
 
 
-                                    <asp:TemplateField HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">
-                                        <ItemTemplate>
-                                            <asp:Button runat="server" Text="Update" ID="btnDel" class="btn btn-primary" CommandName="PA" OnClick="RowEditing" Style="height: 30px; padding-top: 3px;"></asp:Button>
-                                            
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                  <%--  <asp:CommandField EditText="Edit" ShowEditButton="true"  HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />--%>
-                                    <asp:CommandField DeleteText="Delete" ShowDeleteButton="true"  HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
-                                </Columns>
-                            </asp:GridView>
-<%--                        </ContentTemplate>
-                    </asp:UpdatePanel>--%>
+                    <label for="UserTable" style="margin-top: 980px; margin-left: -833px; font-weight: bold;">Personal Assistant:</label>
+                    <asp:GridView runat="server" EnableViewState="false" ID="UserTable" ShowHeaderWhenEmpty="true" DataKeyNames="PA_ID" OnRowDeleting="RowDeleting" EmptyDataText="No Records Found" CssClass="table table-hover BlueTable" AutoGenerateColumns="false" AutoGenerateEditButton="false" AutoGenerateDeleteButton="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
+                        <Columns>
+                            <asp:BoundField DataField="PA_ID" HeaderText="Person ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
+                            <asp:BoundField DataField="Honorific" HeaderText="Honorific" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                            <asp:BoundField DataField="First_Name" HeaderText="First Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                            <asp:BoundField DataField="Surname" HeaderText="Surname" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+
+                            <asp:BoundField DataField="Email_Addr" HeaderText="E-mail Address" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                            <asp:BoundField DataField="Tel_Num" HeaderText="Telephone Number" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+
+
+                            <asp:TemplateField HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">
+                                <ItemTemplate>
+                                    <asp:Button runat="server" Text="Update" ID="btnDel" class="btn btn-primary" CommandName="PA" OnClick="RowEditing" Style="height: 30px; padding-top: 3px;"></asp:Button>
+
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:CommandField DeleteText="Delete" ShowDeleteButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+                        </Columns>
+                    </asp:GridView>
+
 
                 </div>
 
@@ -477,32 +473,6 @@
 
             </div>
         </div>
-        <%--   <div id="Modal_Container"><UserControl:AddPA runat="server" /></div>--%>
-        <%-- a --%>
-        <%--        <div class="wrapper">          
-                </div>--%>
-
-        <%--        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
-         <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
-         <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
-         <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
-         <asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label7" runat="server" Text="Label"></asp:Label>   
-     <asp:Label ID="Label8" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label9" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label10" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label11" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label12" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label13" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label14" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label15" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label16" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label17" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label18" runat="server" Text="Label"></asp:Label>
-         <asp:Label ID="Label19" runat="server" Text="Label"></asp:Label>
-             <asp:Label ID="Label20" runat="server" Text="Label"></asp:Label>
-     <asp:Label ID="Label21" runat="server" Text="Label"></asp:Label>--%>
     </div>
 
     <%-- </div>--%>
@@ -526,37 +496,37 @@
                         <div class="form-group">
                             <label for="Associate" id="associateType"></label>
                             <label for="AssociateName" id="associateName"></label>
-                             <input type="text" id="hiddentextPA_ID" runat="server" class="none" />
+                            <input type="text" id="hiddentextPA_ID" runat="server" class="none" />
                         </div>
                         <div>
 
                             <div style="float: left; margin-top: -5px;">
-                                <label for="Honorific">Honourific</label>
+                                <label for="Honorific">Honourific</label><label style="color: red;">*</label>
                                 <div class="form-group">
                                     <asp:DropDownList ID="modalDDList" runat="server" class="ddlStyle"></asp:DropDownList>
                                 </div>
 
 
 
-                                <label for="firstName">First Name:</label>
+                                <label for="firstName">First Name:</label><label style="color: red;">*</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control" runat="server" id="modalFName" autocomplete="off" style="width: 350px;" />
                                 </div>
 
 
-                                <label for="surname">Surname:</label>
+                                <label for="surname">Surname:</label><label style="color: red;">*</label>
                                 <div class="form-group">
                                     <input type="text" class="form-control" runat="server" id="modalSname" autocomplete="off" style="width: 350px;" />
                                 </div>
 
 
                                 <div class="form-group">
-                                    <label for="Email">E-Mail Address:</label>
+                                    <label for="Email">E-Mail Address:</label><label style="color: red;">*</label>
                                     <div class="form-group">
                                         <input type="text" class="form-control" runat="server" id="modalEmail" autocomplete="off" style="width: 350px;" />
                                     </div>
 
-                                    <label for="TelephoneNo">Telephone Number:</label>
+                                    <label for="TelephoneNo">Telephone Number:</label><label style="color: red;">*</label>
                                     <div class="form-group">
                                         <input type="text" class="form-control" runat="server" id="modalTelNo" autocomplete="off" style="width: 350px;" />
                                     </div>
@@ -565,7 +535,7 @@
                                 </div>
 
                                 <button type="button" id="submitPA" runat="server" class="btn btn-primary" onserverclick="Submit_PA" style="width: 150px; height: 40px;">Save</button>
-                                <button type="button" id="updatePA" runat="server" onserverclick="updatePA_ServerClick" class="btn btn-primary" style="width: 150px; height: 40px; display:none;">Update</button>
+                                <button type="button" id="updatePA" runat="server" onserverclick="updatePA_ServerClick" class="btn btn-primary" style="width: 150px; height: 40px; display: none;">Update</button>
                             </div>
 
                             <div style="float: left; margin-left: 50px; margin-top: -13px;">
@@ -580,20 +550,11 @@
     </div>
 
     <div id="Modal_Container_DELETE">
-        <%--            <UserControl:Member_DeleteInd runat="server"/>--%>
-        <!-- Modal For Individual Associate Below-->
+
         <div class="modal fade" id="Member_DeleteInd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-confirm" style="max-width: 700px;" role="document">
                 <div class="modal-content">
-                    <%-- <div class="modal-header">
-                        <h5 class="modal-title" id="ModalLongTitleInd" style="color: white">Individual Associate:
-                            <label for="lblmodaltitlenameInd" runat="server" id="lblmodaltitlenameInd"></label>
-                        </h5>
-<%--                            <h5 class="modal-title" id="ModalLongTitleInd" style="color:white">Individual Associate: <label for="lblmodaltitlenameInd" class="modal_name" runat="server" id="lblmodaltitlenameInd" ></label></h5>--%>
 
-                    <%--   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>--%>
 
                     <div class="modal-header">
                         <div class="icon-box">
@@ -604,10 +565,11 @@
                     </div>
 
                     <div class="modal-body" style="margin-top: 10px;">
-                        <%--                        <label style="float: left; margin-top: 10px; margin-right: auto;">**Note: All details above will be deleted once you click remove.</label>--%>
-                        <p>If you delete
+                        <p>
+                            If you delete
                             <label for="lblmodaltitlenameInd" runat="server" id="lblmodaltitlenameInd"></label>
-                            , all information below will also be deleted:</p>
+                            , all information below will also be deleted:
+                        </p>
                         <div class="container">
                             <div class="panel panel-default">
                                 <ul class="list-group">

@@ -26,7 +26,7 @@ namespace IPS_Prototype
 
             if (!IsPostBack)
             {
-              
+
                 bindtable();
                 slidertoggleDIV.Style.Add("display", "block");
                 MembershipDAO d1 = new MembershipDAO();
@@ -126,6 +126,9 @@ namespace IPS_Prototype
                     txtDesig2.Value = perModel.designation2.ToString();
                     txtSDR.Value = perModel.SDR.ToString();
                     ddlRole.SelectedValue = perModel.role.ToString();
+
+
+
                     if (perModel.role.Equals("F") == false)
                     {
                         if (perModel.emailSent.Equals("Yes"))
@@ -143,7 +146,7 @@ namespace IPS_Prototype
                             welcomeEmail.Checked = false;
                             welcomeEmail.Disabled = true;
                         }
-                        
+
                     }
                     else if (perModel.role.Equals("F") == true)
                     {
@@ -165,7 +168,8 @@ namespace IPS_Prototype
 
 
                     }
-                    else if (perModel.role.Equals("")) {
+                    else if (perModel.role.Equals(""))
+                    {
 
                     }
 
@@ -214,7 +218,8 @@ namespace IPS_Prototype
         //    }
 
         //}
-        public void disableFields(PersonModel perModel) {
+        public void disableFields(PersonModel perModel)
+        {
             ScriptManager.RegisterStartupScript(Page, GetType(), "script", "offSlider()", true);
             txtSalutationField.Disabled = true;
             txtFirstName.Disabled = true;
@@ -259,7 +264,7 @@ namespace IPS_Prototype
         }
         public void button_save(object sender, EventArgs e)
         {
-           carepList = new ArrayList();
+            carepList = new ArrayList();
             carepList.Add(txtFirstName.Value); //0
             carepList.Add(txtSurname.Value); //1
             if (Male.Checked == true)
@@ -326,9 +331,9 @@ namespace IPS_Prototype
                     //bindtable();
 
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Corporate Associate Representative: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
-            
+
                     carepList.Clear();
-                    
+
 
 
 
@@ -338,7 +343,7 @@ namespace IPS_Prototype
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
                 }
 
-       
+
 
 
             }
@@ -537,7 +542,7 @@ namespace IPS_Prototype
 
         public void updateCAREP(object sender, EventArgs e)
         {
-            string genderChk,faciChk,emailChk;
+            string genderChk, faciChk, emailChk;
             if (Male.Checked == true)
             {
                 genderChk = Male.Value;
@@ -549,26 +554,26 @@ namespace IPS_Prototype
 
             if (FacilitatorBriefed.Checked)
             {
-                faciChk=FacilitatorBriefed.Value; //18
+                faciChk = FacilitatorBriefed.Value; //18
             }
             else
             {
-                faciChk="NA";
+                faciChk = "NA";
             }
             if (welcomeEmail.Checked)
             {
-                emailChk=welcomeEmail.Value; //19
+                emailChk = welcomeEmail.Value; //19
             }
             else
             {
-                emailChk="NA";
+                emailChk = "NA";
 
             }
 
             int personId = int.Parse(hiddentext.Value);
             MembershipDAO d1 = new MembershipDAO();
             //DALMembership user = new DALMembership();
-            int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value,ddlRole.SelectedValue,ddlStatus.SelectedValue,faciChk,emailChk);
+            int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlRole.SelectedValue, ddlStatus.SelectedValue, faciChk, emailChk);
             if (check == 2)
             {
                 clearPAModal();
@@ -656,11 +661,11 @@ namespace IPS_Prototype
             //bindtable();
 
 
-           
+
             //TextBox TextBox1 = row.FindControl("hiddentext") as TextBox;
 
-  
-       
+
+
 
 
             PersonModel p = new PersonModel();
