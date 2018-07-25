@@ -44,7 +44,7 @@
     <div class="CommonHeader" id="UserRegisterHeader" runat="server" style="">Add Member</div>
     <div class="SubHeader">
 
-        <label for="MembershipType">Membership Type:</label>
+        <label for="MembershipType">Membership Type:</label><label style="color: red;">*</label>
         <div class="form-group">
             <div class="form-check form-check-inline">
                 <label class="radio-inline">
@@ -58,7 +58,7 @@
             </div>
 
             <div class="form-group">
-                <label for="Donor Tier">Donor Tier:</label>
+                <label for="Donor Tier">Donor Tier:</label><label style="color: red;">*</label>
                 <div class="dropdownlist">
                     <asp:DropDownList ID="MemebershipDDL" Class="ddlStyle" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DdlSelected" Style="border: 1px solid #CCC; border-radius: 3px; width: 250px; height: 35px; padding-left: 5px;">
                         <asp:ListItem Text="Friend of IPS" Value="Friend of IPS"></asp:ListItem>
@@ -72,7 +72,7 @@
 
             <div class="form-group">
 
-                <label for="Member Expiry">Member Expiry:</label>
+                <label for="Member Expiry">Member Expiry:</label><label style="color: red;">*</label>
                 <div class="form-group">
                     <input type="text" id="datetime" runat="server" onchange="populateHTxtBX();" autocomplete="off" />
                     <input type="text" id="hiddentext" runat="server" class="none"  />

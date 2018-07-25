@@ -603,9 +603,9 @@
 
 
                         <div class="form-group">
-                            <label for="personId" runat="server" id="pID"></label>
-                            <label for="caID" runat="server" id="caID"></label>
-                            <label for="orgID" runat="server" id="orgID"></label>
+                            <label for="personId" runat="server" id="pID" class="none"></label>
+                            <label for="caID" runat="server" id="caID" class="none"></label>
+                            <label for="orgID" runat="server" id="orgID" class="none"></label>
                             <input type="text" id="hiddentextPA_ID" runat="server" class="none" />
                         </div>
                         <div>
@@ -660,7 +660,7 @@
                <asp:BoundField DataField="CA_Rep_id" HeaderText="" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                <asp:BoundField DataField="Org_Id" HeaderText=""  HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />--%>
 
-                                <asp:BoundField DataField="PA_ID" />
+                                <asp:BoundField DataField="PA_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"  />
                                 <asp:BoundField DataField="Honorific" HeaderText="Honorific" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                                 <asp:BoundField DataField="First_Name" HeaderText="First Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                                 <asp:BoundField DataField="Surname" HeaderText="Surname" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
@@ -684,7 +684,7 @@
                  <input type="text" id="Text3" runat="server" class="none" />--%>
 
                                         <%--<asp:Button ID="LinkButton1" runat="server" CommandName="PA" OnClick="Editing">Update</asp:Button>--%>
-                                        <asp:Button runat="server" Text="Update PA" ID="AddPA" class="btn btn-primary" CommandName="Update" OnClick="Editing" Style="width: 60px; height: 30px; padding-top: 3px;"></asp:Button>
+                                        <asp:Button runat="server" Text="Update PA" ID="AddPA" class="btn btn-primary" CommandName="Update" OnClick="Editing" Style="width: 100px; height: 30px; padding-top: 3px;"></asp:Button>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:CommandField DeleteText="Delete" ShowDeleteButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />

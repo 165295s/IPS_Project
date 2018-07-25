@@ -9,6 +9,7 @@
     <siteMapNode url="none0.aspx" title="&lt;img src='../Images/Event.svg' style='width:23px; height:23px; margin-left:3px;' class='icons' id='EventIcon'&gt;Events"  description="Events" >
       <siteMapNode url="Events_Add.aspx" title="Create Event"  description="Create Event" />
       <siteMapNode url="EditEvent.aspx" title="Edit Event"  description="Edit Event" />
+      <siteMapNode url="Events_Management.aspx" title="Event Management" description="Event Management"></siteMapNode>
     </siteMapNode>
     <siteMapNode url="none1.aspx" title="&lt;img src='../Images/Donation.svg' style='width:23px; height:23px; margin-left:3px;' class='icons' id='DonationIcon'&gt;Donations"  description="Donation">
       <siteMapNode url="AddDonations.aspx" title="Add Donations"  description="Add Donation" />

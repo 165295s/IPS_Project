@@ -3,14 +3,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>
 
-        function displayFailureMsg(msg) {
 
-            $('#FailureAlert').css('display', 'block');
-            $('#FailureMsg').text(msg);
+            function displayFailureMsg(msg) {
 
-        };
+                $('#FailureAlert').css('display', 'block');
+                $('#FailureMsg').text(msg);
 
+            };
 
+      
 
 
     </script>
@@ -24,7 +25,7 @@
     </div>
     <div id="FailureAlert" class="alert alert-danger">
         <strong>Unsuccessful!</strong>
-        <label id="FailureMsg"></label>
+        <label for="FailureAlert" id="FailureMsg"></label>
     </div>
 
 
@@ -38,7 +39,7 @@
 
             <label for="organisationName">Organisation Name:</label><label style="color: red;">*</label>
             <div class="form-group">
-                <input type="text" class="form-control" runat="server" id="txtOrgNameField" autocomplete="off" style="width: 150px;" />
+                <input type="text" class="form-control" runat="server" id="txtOrgNameField" autocomplete="off" style="width: 350px;" />
             </div>
 
             <label for="mAddressLine1">Mailing Address Line 1:</label><label style="color: red;">*</label>
@@ -64,7 +65,7 @@
 
             <label for="TelephoneNo">Telephone Number:</label><label style="color: red;">*</label>
             <div class="form-group">
-                <input type="text" class="form-control" runat="server" id="txtTelephone" autocomplete="off" style="width: 350px;" />
+                <input type="text" class="form-control" runat="server" id="txtTelephone" autocomplete="off" style="width: 350px;"/>
             </div>
 
             <label for="OfficeNo">Office Number:</label><label style="color: red;">*</label>

@@ -407,7 +407,7 @@ namespace IPS_Prototype
             }
             else if (check == 0)
             {
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('testing');", true);
             }
 
 
