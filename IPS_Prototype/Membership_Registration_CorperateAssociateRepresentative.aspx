@@ -146,7 +146,12 @@
             $('#ContentPlaceHolder1_PA_GridView').show();
 
         };
+        function showPAModalError(msg) {
+            $('#Add_PA').modal('show');
+            $('#ModalFailureAlert').css('display', 'block');
+            $('#ModalFailureMsg').text(msg);
 
+        }
         function displayFailureMsg(msg) {
 
             $('#FailureAlert').css('display', 'block');
@@ -604,7 +609,10 @@
                             <input type="text" id="hiddentextPA_ID" runat="server" class="none" />
                         </div>
                         <div>
-
+                             <div id="ModalFailureAlert" class="alert alert-danger">
+                            <strong>Unsuccessful!</strong>
+                            <label id="ModalFailureMsg"></label>
+                        </div>
                             <div style="float: left; margin-top: -5px;">
                                 <label for="Honorific">Honourific</label><label style="color: red;">*</label>
                                 <div class="form-group">

@@ -95,7 +95,28 @@ namespace IPS_Prototype.DAL
             return dt;
 
         }
+        public PersonModel getRecentlyAddedINDIVId()
+        {
+            PersonModel person = new PersonModel();
+            DataTable dt;
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
 
+                SqlCommand mycmd = new SqlCommand();
+                string commandtext = "SELECT MAX(PERSON_ID) AS PERSON_ID FROM membership.TBL_PERSON";
+                dt = dbhelp.ExecDataReader(commandtext);
+                person.id = dt.Rows[0]["PERSON_ID"].ToString();
+
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+            return person;
+        }
 
 
 
@@ -565,7 +586,7 @@ namespace IPS_Prototype.DAL
         {
             PersonModel person = new PersonModel();
             DataTable dt;
-            string commandtext = "SELECT p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, p.FULLNAME_NAMETAGS, m.STATUS FROM membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m ON p.PERSON_ID = m.PERSON_ID  WHERE p.PERSON_ID = @personid";
+            string commandtext = "SELECT p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, p.FULLNAME_NAMETAGS, m.STATUS, p.CAT_1,P.CAT_2 FROM membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m ON p.PERSON_ID = m.PERSON_ID  WHERE p.PERSON_ID = @personid";
             dt = dbhelp.ExecDataReader(commandtext, "@personid", personid);
             person.firstName = dt.Rows[0]["FIRST_NAME"].ToString();
             person.surname = dt.Rows[0]["SURNAME"].ToString();
@@ -585,6 +606,8 @@ namespace IPS_Prototype.DAL
             person.SDR = dt.Rows[0]["SPECIAL_DIETARY_REQUIREMENT"].ToString();
             person.fullNameNametag = dt.Rows[0]["FULLNAME_NAMETAGS"].ToString();
             person.status = dt.Rows[0]["STATUS"].ToString();
+            person.cat1 = dt.Rows[0]["CAT_1"].ToString();
+            person.cat2 = dt.Rows[0]["CAT_2"].ToString();
             return person;
         }
 
@@ -858,7 +881,7 @@ namespace IPS_Prototype.DAL
 
         //CHRIS
         //To create new PA in AddPA_Modal.ascx
-        public int AddPA(string honorific, string fName, string sName, string tel_num, string email)
+        public int AddPA(ArrayList indiv_PAList)
         {
 
             int result = 0;
@@ -876,7 +899,7 @@ namespace IPS_Prototype.DAL
                 //string commandtext_PA = "SELECT MAX(PA_Id) FROM Personal_Assistant";
                 string commandtext_PA = "INSERT INTO membership.TBL_PERSON_PA (Person_Id, PA_Id) VALUES ( (SELECT MAX(person_id) FROM membership.TBL_PERSON), (SELECT MAX(PA_ID) FROM membership.TBL_PERSONAL_ASSISTANT) )";
 
-                mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@honorific", honorific, "@first_name", fName, "@last_name", sName, "@email", email, "@tel_num", tel_num, "@create_date", date);
+                mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@honorific", indiv_PAList[0], "@first_name", indiv_PAList[1], "@last_name", indiv_PAList[2], "@email", indiv_PAList[3], "@tel_num", indiv_PAList[4], "@create_date", date);
                 //mycmd1 = dbhelp.CreateCommand(commandtext_PA, CommandType.Text);
                 mycmd1 = dbhelp.CreateCommand(commandtext_PA, CommandType.Text);
                 transcommand.Add(mycmd);
@@ -904,6 +927,7 @@ namespace IPS_Prototype.DAL
             return result;
 
         }
+       
         public int AddPALater(string pid,string honorific, string fName, string sName, string tel_num, string email)
         {
 
@@ -985,14 +1009,14 @@ namespace IPS_Prototype.DAL
 
         }
 
-        public int UpdateIndividual(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags, string status)
+        public int UpdateIndividual(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags, string status, string cat_1, string cat_2)
         {
             int result = 0;
             List<SqlCommand> transcommand = new List<SqlCommand>();
             SqlCommand mycmd = new SqlCommand();
             SqlCommand mycmd1 = new SqlCommand();
-            string commandtext = "UPDATE membership.TBL_PERSON SET FIRST_NAME = @firstname, SURNAME = @surname, GENDER = @gender, SOURCE = @source, HONORIFIC = @honorific, SALUTATION = @salutation, TEL_NUM = @telnum, EMAIL_ADDR = @email, NATIONALITY = @nationality, Modified_DT = @modified_date, DESIGNATION_1 = @des1, DEPARTMENT_1 = @dep1, ORGANISATION_1 = @org1, DESIGNATION_2 = @des2, DEPARTMENT_2 = @dep2, ORGANISATION_2 = @org2, SPECIAL_DIETARY_REQUIREMENT = @sdr, FULLNAME_NAMETAGS = @fullnamenametags WHERE PERSON_ID = @pid;";
-            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@firstname", fname, "@surname", sname, "@gender", gender, "@source", source, "@honorific", honorific, "@salutation", salutation, "@telnum", telnum, "@email", email, "@nationality", nationality, "@modified_date", modified, "@des1", des1, "@dep1", dep1, "@org1", org1, "@des2", des2, "@dep2", dep2, "@org2", org2, "@sdr", sdr, "@fullnamenametags", fnametags, "@pid", pid);
+            string commandtext = "UPDATE membership.TBL_PERSON SET FIRST_NAME = @firstname, SURNAME = @surname, GENDER = @gender, SOURCE = @source, HONORIFIC = @honorific, SALUTATION = @salutation, TEL_NUM = @telnum, EMAIL_ADDR = @email, NATIONALITY = @nationality, Modified_DT = @modified_date, DESIGNATION_1 = @des1, DEPARTMENT_1 = @dep1, ORGANISATION_1 = @org1, DESIGNATION_2 = @des2, DEPARTMENT_2 = @dep2, ORGANISATION_2 = @org2, SPECIAL_DIETARY_REQUIREMENT = @sdr, FULLNAME_NAMETAGS = @fullnamenametags, CAT_1 = @cat_1, CAT_2 = @cat_2 WHERE PERSON_ID = @pid;";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@firstname", fname, "@surname", sname, "@gender", gender, "@source", source, "@honorific", honorific, "@salutation", salutation, "@telnum", telnum, "@email", email, "@nationality", nationality, "@modified_date", modified, "@des1", des1, "@dep1", dep1, "@org1", org1, "@des2", des2, "@dep2", dep2, "@org2", org2, "@sdr", sdr, "@fullnamenametags", fnametags, "@pid", pid,"@cat_1",cat_1,"@cat_2",cat_2);
             string commandtext1 = "UPDATE membership.TBL_MEMBERSHIP SET STATUS = @status, DESIGNATION = @desig WHERE PERSON_ID = @pid;";
             mycmd1 = dbhelp.CreateCommand(commandtext1, CommandType.Text, "@status", status, "@desig",des1,"@pid", pid);
 

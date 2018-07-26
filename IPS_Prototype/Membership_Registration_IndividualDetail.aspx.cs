@@ -52,8 +52,7 @@ namespace IPS_Prototype
                 DT = d1.GetCat2();
                 ddlCat2.DataSource = DT;
                 ddlCat2.DataTextField = "Code_Desc";
-                ddlCat2.DataValueField = "Code";
-                
+                ddlCat2.DataValueField = "Code";                
                 ddlCat2.DataBind();
                 ddlCat2.Items.Insert(0, "");
 
@@ -80,6 +79,7 @@ namespace IPS_Prototype
                     memRegType = pList[0].ToString();
                     memRegDonorTier = pList[1].ToString();
                     memRegExpDate = pList[2].ToString();
+                    AddPA.Disabled = true;
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
 
                 }
@@ -105,6 +105,8 @@ namespace IPS_Prototype
                     txtDept2.Value = perModel.department2.ToString();
                     txtDesig2.Value = perModel.designation2.ToString();
                     txtSDR.Value = perModel.SDR.ToString();
+                    ddlList.SelectedValue = perModel.honorific.ToString();
+                    ddlCat2.SelectedValue = perModel.cat2.ToString();
 
                     txtSalutationField.Disabled = true;
                     txtFirstName.Disabled = true;
@@ -383,7 +385,12 @@ namespace IPS_Prototype
                     if (check == 2)
                     {
                         ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
-                        ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+
+                        disableFields();
+                        PersonModel p1 = new PersonModel();
+                        p1 = db.getRecentlyAddedINDIVId();
+                        hiddentextPersonID.Value = p1.id;
+                        
 
                     }
                     else if (check == 0)
@@ -405,8 +412,8 @@ namespace IPS_Prototype
 
                 try
                 {
-                    clearFields();
-                    clearArrayList();
+                    //clearFields();
+                    //clearArrayList();
                 }
                 catch (Exception ex)
                 {
@@ -435,50 +442,130 @@ namespace IPS_Prototype
                 UserTable.DataBind();
                 //upPanel.Update();
             }
+            else {
+
+            }
         }
 
         protected void Submit_PA(object sender, EventArgs e)
         {
-         
-            // GO HOME AND DO
+            bool flag = false;
 
+            ArrayList indiv_PAList = new ArrayList();
 
-
-            int check = 0;
-            try
+            if (validatePAFields().Equals(true))
             {
-                MembershipDAO user_PA = new MembershipDAO();
+                indiv_PAList.Add(modalDDList.SelectedValue); //0
+                indiv_PAList.Add(modalFName.Value);//1
+                indiv_PAList.Add(modalSname.Value);//2
+                indiv_PAList.Add(modalEmail.Value);//3
+                indiv_PAList.Add(modalTelNo.Value);//4
+                flag = true;
+            }
+            else {
+
+
+            }
+
+            if (flag != false)
+            {
+                int check = 0;
+                try
+                {
+                    MembershipDAO user_PA = new MembershipDAO();
+                    if (Session["Person"] != null)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+                        check = user_PA.AddPA(indiv_PAList);
+
+
+                    }
+                    if (Session["IndivEdit"] != null)
+                    {
+                        check = user_PA.AddPALater(hiddentextPersonID.Value, modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
+                    }
+                    if (check == 1 || check == 2)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistant: " + modalSname.Value + " " + modalFName.Value + "');", true);
+                        UserTable.DataSource = db.GetIndivPAInfo();
+                        UserTable.DataBind();
+
+                    }
+                    else if (check == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.WriteErrorLog(ex.ToString());
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+                }
+
+            }
+            else {
                 if (Session["Person"] != null)
                 {
-                    check = user_PA.AddPA(modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
-                }
-                if (Session["IndivEdit"] != null)
-                {
-                    check = user_PA.AddPALater(hiddentextPersonID.Value, modalDDList.SelectedValue.ToString(), modalFName.Value, modalSname.Value, modalTelNo.Value, modalEmail.Value);
-                }
-                if (check == 1 || check == 2)
-                {
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistant: " + modalSname.Value + " " + modalFName.Value + "');", true);
-                    UserTable.DataSource = db.GetIndivPAInfo();
-                    UserTable.DataBind();
-
-                }
-                else if (check == 0)
-                {
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-                }
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+                 
 
 
+                }
             }
-            catch (Exception ex)
+        }
+
+        protected bool validatePAFields() {
+           
+            if (string.IsNullOrEmpty(modalFName.Value.ToString()) || modalFName.Value.Trim().ToString().Equals(""))
             {
-                ErrorLog.WriteErrorLog(ex.ToString());
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+                //error message
+
+                //ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayModalFailureMsg('Please FirstName Field.')", true);
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showPAModalError('Please Check First Name Field');", true);
+
+
+                return false;
 
             }
+            else if (string.IsNullOrEmpty(modalSname.Value.ToString()) || modalSname.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Surname Field.')", true);
+                return false;
+            }
+
+
+            else if (string.IsNullOrEmpty(modalEmail.Value.ToString()) || modalEmail.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Email Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(modalTelNo.Value.ToString()) || modalTelNo.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Telephone Number Field.')", true);
+                return false;
+            }
+            else {
+
+                return true;
+            }
+        
+
 
 
         }
+
 
         public void getCat1(object sender, EventArgs e)
         {
@@ -507,7 +594,7 @@ namespace IPS_Prototype
 
             int personId = int.Parse(hiddentextPersonID.Value);
             MembershipDAO d1 = new MembershipDAO();
-            int check = d1.UpdateIndividual(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlStatus.SelectedValue);
+            int check = d1.UpdateIndividual(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlStatus.SelectedValue,ddlCat1.SelectedValue,ddlCat2.SelectedValue);
             if (check == 2)
             {
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Individual Associate: " + txtFullNameNameTag.Value + "');", true);
@@ -711,6 +798,34 @@ namespace IPS_Prototype
             modalEmail.Value = "";
             modalTelNo.Value = "";
         }
+
+        public void disableFields()
+        {
+            ScriptManager.RegisterStartupScript(Page, GetType(), "script", "offSlider()", true);
+            txtSalutationField.Disabled = true;
+            txtFirstName.Disabled = true;
+            txtSurname.Disabled = true;
+            txtFullNameNameTag.Disabled = true;
+            txtEmail.Disabled = true;
+            txtTelephone.Disabled = true;
+            txtOrg1.Disabled = true;
+            txtDept1.Disabled = true;
+            txtDesig1.Disabled = true;
+            txtOrg2.Disabled = true;
+            txtDept2.Disabled = true;
+            txtDesig2.Disabled = true;
+            txtSDR.Disabled = true;
+            ddlList.Attributes.Add("disabled", "disabled");
+            ddlNationality.Attributes.Add("disabled", "disabled");
+            ddlSource.Attributes.Add("disabled", "disabled");
+            ddlCat1.Attributes.Add("disabled", "disabled");
+            ddlCat2.Attributes.Add("disabled", "disabled");
+            ddlStatus.Attributes.Add("disabled", "disabled");
+            btnSave.Disabled = true;
+
+           
+        }
+
 
     }
 

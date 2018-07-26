@@ -605,56 +605,28 @@ namespace IPS_Prototype
         {
             bool flag = false;
             ArrayList carep_PAList = new ArrayList();
-            carep_PAList.Add(modalDDList.SelectedValue);
+       
 
-            if (string.IsNullOrEmpty(modalFName.Value.ToString()) || modalFName.Value.Trim().ToString().Equals(""))
+            if (validateCAREPPAFields().Equals(true))
             {
+ 
+                carep_PAList.Add(modalDDList.SelectedValue); //0
+                carep_PAList.Add(modalFName.Value);//1
+                carep_PAList.Add(modalSname.Value);//2
+                carep_PAList.Add(modalEmail.Value);//3
+                carep_PAList.Add(modalTelNo.Value);//4
+                carep_PAList.Add(pID.InnerText.ToString());
+                carep_PAList.Add(caID.InnerText.ToString());
+                carep_PAList.Add(orgID.InnerText.ToString());
 
-                //error message
-            }
-            else
-            {
-                carep_PAList.Add(modalFName.Value);
                 flag = true;
             }
+            else {
 
-            if (string.IsNullOrEmpty(modalSname.Value.ToString()) || modalSname.Value.Trim().ToString().Equals(""))
-            {
 
-                //error message
-            }
-            else
-            {
-                carep_PAList.Add(modalSname.Value);
-                flag = true;
             }
 
-            if (string.IsNullOrEmpty(modalEmail.Value.ToString()) || modalEmail.Value.Trim().ToString().Equals(""))
-            {
-
-                //error message
-            }
-            else
-            {
-                carep_PAList.Add(modalEmail.Value);
-                flag = true;
-            }
-            if (string.IsNullOrEmpty(modalTelNo.Value.ToString()) || modalTelNo.Value.Trim().ToString().Equals(""))
-            {
-
-                //error message
-            }
-            else
-            {
-                carep_PAList.Add(modalTelNo.Value);
-                flag = true;
-            }
-
-
-            carep_PAList.Add(pID.InnerText.ToString());
-            carep_PAList.Add(caID.InnerText.ToString());
-            carep_PAList.Add(orgID.InnerText.ToString());
-
+         
             if (flag != false)
             {
                 int check = 0;
@@ -666,9 +638,10 @@ namespace IPS_Prototype
 
                     if (check == 2)
                     {
-                        //bindtable();
-
                         ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistantnt: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+                        bindtable();
+
+                       
 
                     }
                     else if (check == 0)
@@ -885,6 +858,7 @@ namespace IPS_Prototype
             }
 
         }
+
         protected void clearCAREPFields()
         {
             Male.Checked = false;
@@ -929,6 +903,59 @@ namespace IPS_Prototype
             modalEmail.Value = "";
             modalTelNo.Value = "";
         }
+
+        protected bool validateCAREPPAFields()
+        {
+
+            if (string.IsNullOrEmpty(modalFName.Value.ToString()) || modalFName.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+
+                //ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayModalFailureMsg('Please FirstName Field.')", true);
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showPAModalError('Please Check First Name Field');", true);
+
+
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(modalSname.Value.ToString()) || modalSname.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Surname Field.')", true);
+                return false;
+            }
+
+
+            else if (string.IsNullOrEmpty(modalEmail.Value.ToString()) || modalEmail.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Email Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(modalTelNo.Value.ToString()) || modalTelNo.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Telephone Number Field.')", true);
+                return false;
+            }
+            else
+            {
+
+                return true;
+            }
+
+
+
+
+        }
+
+
 
     }
 }

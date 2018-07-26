@@ -53,7 +53,7 @@ namespace IPS_Prototype.DynamicData.FieldTemplates
             int check = 0;
             try {
                 MembershipDAO user_PA = new MembershipDAO();
-                check = user_PA.AddPA(ddlList.SelectedValue.ToString(), txtFirstName.Value, txtSurname.Value, txtTelephone.Value, txtEmail.Value);
+                //check = user_PA.AddPA(ddlList.SelectedValue.ToString(), txtFirstName.Value, txtSurname.Value, txtTelephone.Value, txtEmail.Value);
 
                 if (check == 1)
                 {

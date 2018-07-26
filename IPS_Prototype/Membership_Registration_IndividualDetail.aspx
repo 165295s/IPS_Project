@@ -111,6 +111,14 @@
 
         };
 
+        // function displayModalFailureMsg(msg) {
+
+        //    $('#ModalFailureAlert').css('display', 'block');
+        //    $('#ModalFailureMsg').text(msg);
+
+        //};
+
+
         function SearchText() {
             $.ajax({
                 url: "Autocomplete_CAREP.asmx/GetAutoCompleteDataIndiv",
@@ -221,8 +229,22 @@
 
         function showPAModal() {
             $('#Add_PA').modal('show');
+               $("#associateName").text(": " + $("#ContentPlaceHolder1_txtFullNameNameTag").val());
+                $("#associateType").text($("#ContentPlaceHolder1_hiddentext").val());
         }
+           function showPAModalError(msg) {
+            $('#Add_PA').modal('show');
+               $("#associateName").text(": " + $("#ContentPlaceHolder1_txtFullNameNameTag").val());
+               $("#associateType").text($("#ContentPlaceHolder1_hiddentext").val());
+                 $('#ModalFailureAlert').css('display', 'block');
+            $('#ModalFailureMsg').text(msg);
 
+        }
+        function hidePAModal() {
+
+                        $('#Add_PA').modal('hide');
+
+        }
         function showUpdatePA() {
             $('#Add_PA').modal('show');
             $('#ContentPlaceHolder1_submitPA').css('display', 'none')
@@ -349,9 +371,7 @@
 
 
                     <div class="form-group" style="float: left; margin-top: 122px;">
-                        <button type="button" runat="server" id="btnUpdate" class="btn btn-primary" onserverclick="updateINDIV" style="width: 150px; height: 40px; display: none;">
-                            Update
-                        </button>
+                       
                         <button type="button" id="AddPA" runat="server" data-toggle="modal" data-target="#Add_PA" class="btn btn-primary" style="width: 150px; height: 40px;">
                             Add PA
                         </button>
@@ -360,11 +380,13 @@
                             Save
                         </button>
 
-                        <button type="button" runat="server" id="btnDel" onserverclick="deleteINDIV" class="btn btn-primary" style="width: 150px; height: 40px;">
+                      
+                         <button type="button" runat="server" id="btnUpdate" class="btn btn-primary" onserverclick="updateINDIV" style="width: 150px; height: 40px; display: none;">
+                            Update
+                        </button>
+                          <button type="button" runat="server" id="btnDel" onserverclick="deleteINDIV" class="btn btn-primary" style="width: 150px; height: 40px;">
                             Delete
                         </button>
-
-
                     </div>
                     <%--     <div class="form-group" style="float: right;">
                     
@@ -490,7 +512,8 @@
                     </div>
                     <div class="modal-body1" style="padding-top: 20px; padding-left: 50px; padding-right: 50px; padding-bottom: 10px;">
                         <!--Content goes here -->
-
+                
+                       
 
                         <div class="form-group">
                             <label for="Associate" id="associateType"></label>
@@ -498,7 +521,10 @@
                             <input type="text" id="hiddentextPA_ID" runat="server" class="none" />
                         </div>
                         <div>
-
+                             <div id="ModalFailureAlert" class="alert alert-danger">
+                            <strong>Unsuccessful!</strong>
+                            <label id="ModalFailureMsg"></label>
+                        </div>
                             <div style="float: left; margin-top: -5px;">
                                 <label for="Honorific">Honourific</label><label style="color: red;">*</label>
                                 <div class="form-group">
