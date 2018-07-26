@@ -88,7 +88,13 @@ namespace IPS_Prototype.DAL
             return dt;
         }
 
+        public DataTable GetNationality()
+        {
+            string commandtext = "SELECT NATIONALITY from admin.TBL_CODE_COUNTRY ORDER BY (CASE WHEN NATIONALITY ='Malaysian' THEN '1' WHEN NATIONALITY= 'Singaporean' THEN '2' END) DESC, EN_SHORT_NAME ASC;";
+            DataTable dt = dbhelp.ExecDataReader(commandtext);
+            return dt;
 
+        }
 
 
 

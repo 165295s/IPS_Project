@@ -40,7 +40,11 @@ namespace IPS_Prototype
                 ddlList.DataSource = DT;
                 ddlList.DataTextField = "Code_Desc";
                 ddlList.DataValueField = "Code"; //When insert, this value
+                //ddlList.Items.Insert(0, "");
                 ddlList.DataBind();
+                ddlList.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+
+
 
 
                 DTRole = d2.GetLookupSearch("CAREP");
@@ -71,7 +75,10 @@ namespace IPS_Prototype
                 ddlCat2.DataSource = DT;
                 ddlCat2.DataTextField = "Code_Desc";
                 ddlCat2.DataValueField = "Code";
+                //ddlCat2.Items.Insert(0, "");
                 ddlCat2.DataBind();
+                ddlList.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+
 
 
 
@@ -81,6 +88,11 @@ namespace IPS_Prototype
                 ddlCat1.DataTextField = "cat_1";
                 ddlCat1.DataBind();
 
+                DT = d1.GetNationality();
+                ddlNationality.DataSource = DT;
+                ddlNationality.DataTextField = "NATIONALITY";
+                ddlNationality.DataValueField = "NATIONALITY";
+                ddlNationality.DataBind();
 
 
 
@@ -264,9 +276,35 @@ namespace IPS_Prototype
         }
         public void button_save(object sender, EventArgs e)
         {
+            bool flag = false;
             carepList = new ArrayList();
-            carepList.Add(txtFirstName.Value); //0
-            carepList.Add(txtSurname.Value); //1
+
+            if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please First Name Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtFirstName.Value); //0
+                flag = true;
+            }
+            if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Surname Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtSurname.Value); //1
+                flag = true;
+            }
+
+
             if (Male.Checked == true)
             {
                 carepList.Add(Male.Value);
@@ -277,12 +315,83 @@ namespace IPS_Prototype
             }
 
             carepList.Add(ddlList.SelectedValue); //3
-            carepList.Add(txtSalutationField.Value); //4
-            carepList.Add(txtTelephone.Value); //5
-            carepList.Add(txtEmail.Value); //6
-            carepList.Add(txtDesig1.Value); //7
-            carepList.Add(txtDept1.Value); //8
-            carepList.Add(txtOrg1.Value); //9
+
+            if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Salutation Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtSalutationField.Value); //4
+                flag = true;
+            }
+            if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Telephone Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtTelephone.Value); //5
+                flag = true;
+            }
+            if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Email Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtEmail.Value); //6
+                flag = true;
+            }
+
+            if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Designation 1 Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtDesig1.Value); //7
+                flag = true;
+            }
+            if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Department 1 Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtDept1.Value); //8
+                flag = true;
+            }
+            if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Organisation 1 Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtOrg1.Value); //9
+                flag = true;
+            }
+
+
+
             carepList.Add(txtDesig2.Value); //10
             carepList.Add(txtDept2.Value); //11
             carepList.Add(txtOrg2.Value); //12
@@ -294,8 +403,21 @@ namespace IPS_Prototype
             //Start of CA REP Table
             carepList.Add(ddlRole.SelectedValue); //15
             carepList.Add(ddlStatus.SelectedValue.ToString()); //16
-            //carepList.Add(txtFullName.Value); 
-            carepList.Add(txtFullNameNameTag.Value); //17
+                                                               //carepList.Add(txtFullName.Value); 
+
+            if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Full Name Name Tag Field.')", true);
+
+            }
+            else
+            {
+
+                carepList.Add(txtFullNameNameTag.Value); //17
+                flag = true;
+            }
+
 
             if (FacilitatorBriefed.Checked)
             {
@@ -320,51 +442,52 @@ namespace IPS_Prototype
             carepList.Add(ddlCat2.SelectedValue); //22
 
 
-
-            int check = 0;
-            try
+            if (flag != false)
             {
-                check = db.addCAREP(carepList);
-                bindtable();
-                if (check == 2)
+                int check = 0;
+                try
                 {
-                    //bindtable();
+                    check = db.addCAREP(carepList);
+                    bindtable();
+                    if (check == 2)
+                    {
+                        //bindtable();
 
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Corporate Associate Representative: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Corporate Associate Representative: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
 
-                    carepList.Clear();
+                        carepList.Clear();
+
+
+
+
+                    }
+                    else if (check == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                    }
 
 
 
 
                 }
-                else if (check == 0)
+                catch (Exception ex)
                 {
+                    ErrorLog.WriteErrorLog(ex.ToString());
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
                 }
 
+                try
+                {
+                    clearCAREPFields();
+                    clearCAREPArrayList();
+                }
+                catch (Exception ex)
+                {
 
-
-
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.WriteErrorLog(ex.ToString());
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-
-            }
-
-            try
-            {
-                clearCAREPFields();
-                clearCAREPArrayList();
-            }
-            catch (Exception ex)
-            {
+                }
 
             }
-
-
 
 
 
@@ -480,49 +603,89 @@ namespace IPS_Prototype
 
         public void button_saveCAREP_PA(object sender, EventArgs e)
         {
-
-
-
+            bool flag = false;
             ArrayList carep_PAList = new ArrayList();
             carep_PAList.Add(modalDDList.SelectedValue);
-            carep_PAList.Add(modalFName.Value);
-            carep_PAList.Add(modalSname.Value);
-            carep_PAList.Add(modalEmail.Value);
-            carep_PAList.Add(modalTelNo.Value);
+
+            if (string.IsNullOrEmpty(modalFName.Value.ToString()) || modalFName.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+            }
+            else
+            {
+                carep_PAList.Add(modalFName.Value);
+                flag = true;
+            }
+
+            if (string.IsNullOrEmpty(modalSname.Value.ToString()) || modalSname.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+            }
+            else
+            {
+                carep_PAList.Add(modalSname.Value);
+                flag = true;
+            }
+
+            if (string.IsNullOrEmpty(modalEmail.Value.ToString()) || modalEmail.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+            }
+            else
+            {
+                carep_PAList.Add(modalEmail.Value);
+                flag = true;
+            }
+            if (string.IsNullOrEmpty(modalTelNo.Value.ToString()) || modalTelNo.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+            }
+            else
+            {
+                carep_PAList.Add(modalTelNo.Value);
+                flag = true;
+            }
+
+
             carep_PAList.Add(pID.InnerText.ToString());
             carep_PAList.Add(caID.InnerText.ToString());
             carep_PAList.Add(orgID.InnerText.ToString());
 
-
-            int check = 0;
-            try
+            if (flag != false)
             {
-                check = db.addCAREP_PA(carep_PAList);
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "showmodal();", true);
-                bindPAtable();
-
-                if (check == 2)
+                int check = 0;
+                try
                 {
-                    //bindtable();
+                    check = db.addCAREP_PA(carep_PAList);
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "showmodal();", true);
+                    bindPAtable();
 
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistantnt: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+                    if (check == 2)
+                    {
+                        //bindtable();
+
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistantnt: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+
+                    }
+                    else if (check == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                    }
+
+
 
                 }
-                else if (check == 0)
+                catch (Exception ex)
                 {
+                    ErrorLog.WriteErrorLog(ex.ToString());
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
                 }
-
-
-
             }
-            catch (Exception ex)
-            {
-                ErrorLog.WriteErrorLog(ex.ToString());
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-
-            }
-
 
 
 

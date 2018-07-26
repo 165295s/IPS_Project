@@ -376,12 +376,7 @@
 
             <label for="Nationality">Nationality</label><label style="color: red;">*</label>
             <div class="form-group">
-                <asp:DropDownList ID="ddlNationality" runat="server" Class="ddlStyle">
-                    <asp:ListItem Text="Singapore" Value="SGP"></asp:ListItem>
-                    <asp:ListItem Text="Malaysia" Value="MYS"></asp:ListItem>
-
-
-                </asp:DropDownList>
+                <asp:DropDownList ID="ddlNationality" runat="server" Class="ddlStyle"></asp:DropDownList>
             </div>
 
             <label for="Gender">Gender:</label><label style="color: red;">*</label>

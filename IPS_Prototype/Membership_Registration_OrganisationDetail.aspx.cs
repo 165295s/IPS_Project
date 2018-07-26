@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using IPS_Prototype.DAL;
 using System.Data;
 using IPS_Prototype.Class;
+using System.Text.RegularExpressions;
 
 namespace IPS_Prototype
 {
@@ -126,8 +127,18 @@ namespace IPS_Prototype
             }
             else
             {
-                orgList.Add(txtWebsiteURL.Value.ToString());
-                flag = true;
+                if (IsUrlValid(txtWebsiteURL.Value.ToString()).Equals(true))
+                {
+                    orgList.Add(txtWebsiteURL.Value.ToString());
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Field. (URL not valid format)')", true);
+
+                }
+
 
             }
             if (string.IsNullOrEmpty(pointOfContact.Value.ToString()) || pointOfContact.Value.Trim().ToString() == "")
@@ -160,8 +171,18 @@ namespace IPS_Prototype
             }
             else
             {
-                orgList.Add(txtUEN.Value.ToString());
-                flag = true;
+                if (IsUENValid(txtUEN.Value.ToString()).Equals(true))
+                {
+                    orgList.Add(txtUEN.Value.ToString());
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('UEN is not valid.')", true);
+
+                }
+                
 
             }
 
@@ -201,7 +222,20 @@ namespace IPS_Prototype
             }
 
         }
+        private bool IsUrlValid(string url)
+        {
 
 
+            string pattern = @"(http[s]?:\/\/|[a-z]*\.[a-z]{3}\.[a-z]{2})([a-z]*\.[a-z]{3})|([a-z]*\.[a-z]*\.[a-z]{3}\.[a-z]{2})|([a-z]+\.[a-z]{3})";
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return reg.IsMatch(url);
+        }
+        private bool IsUENValid(string uen) {
+            string pattern = @"([Uu])+\d{9,10}";
+            Regex reg = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            return reg.IsMatch(uen);
+
+        }
     }
+
 }

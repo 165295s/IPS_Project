@@ -30,6 +30,7 @@ namespace IPS_Prototype
                 ddlList.DataTextField = "Code_Desc";
                 ddlList.DataValueField = "Code"; //When insert, this value
                 ddlList.DataBind();
+                ddlList.Items.Insert(0, "");
 
                 modalDDList.DataSource = DT;
                 modalDDList.DataTextField = "Code_Desc";
@@ -41,8 +42,10 @@ namespace IPS_Prototype
                 ddlSource.DataSource = DT;
                 ddlSource.DataTextField = "source";
                 ddlSource.DataValueField = "source";
+               
                 ddlSource.DataBind();
                 ddlSource.SelectedValue = "Acad_TT";
+               
 
 
 
@@ -50,14 +53,21 @@ namespace IPS_Prototype
                 ddlCat2.DataSource = DT;
                 ddlCat2.DataTextField = "Code_Desc";
                 ddlCat2.DataValueField = "Code";
+                
                 ddlCat2.DataBind();
-
+                ddlCat2.Items.Insert(0, "");
 
                 DT = d1.GetCat1(ddlSource.SelectedValue);
                 ddlCat1.DataSource = DT;
                 ddlCat1.DataTextField = "cat_1";
                 ddlCat1.DataTextField = "cat_1";
                 ddlCat1.DataBind();
+
+                DT = d1.GetNationality();
+                ddlNationality.DataSource = DT;
+                ddlNationality.DataTextField = "NATIONALITY";
+                ddlNationality.DataValueField = "NATIONALITY";
+                ddlNationality.DataBind();
 
 
                 if (Session["Person"] != null)
@@ -161,7 +171,7 @@ namespace IPS_Prototype
 
         protected void Button_Save(Object sender, EventArgs e)
         {
-
+            bool flag = false;
             pList = (ArrayList)Session["Person"];
             Session["p1"] = Session["Person"];
 
@@ -177,13 +187,38 @@ namespace IPS_Prototype
                 gender = Female.Value;
             }
 
+              
 
-            pList.Add(txtFirstName.Value); //3
+            if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please First Name Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtFirstName.Value); //3
+                flag = true;
+            }
+
+            if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Surname Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtSurname.Value); //4
+                flag = true;
+            }
 
 
 
 
-            pList.Add(txtSurname.Value); //4
+
+
+            
 
 
 
@@ -197,31 +232,83 @@ namespace IPS_Prototype
             pList.Add(ddlList.SelectedValue.ToString()); //6
 
 
+            if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Salutation Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtSalutationField.Value); //7
+                flag = true;
+            }
 
 
-            pList.Add(txtSalutationField.Value); //7
+            if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Telephone Number Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtTelephone.Value); //8
+                flag = true;
+            }
 
 
 
+            if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Email Field.')", true);
 
-            pList.Add(txtTelephone.Value); //8
-
-
-
-            pList.Add(txtEmail.Value); //9
-
-
-
-            pList.Add(txtDesig1.Value); //10
-
-
-
-
-            pList.Add(txtDept1.Value); //11
+            }
+            else
+            {
+                pList.Add(txtEmail.Value); //9
+                flag = true;
+            }
 
 
+            if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Designation 1 Field.')", true);
 
-            pList.Add(txtOrg1.Value); //12
+            }
+            else
+            {
+                pList.Add(txtDesig1.Value); //10
+                flag = true;
+            }
+
+
+            if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Department 1 Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtDept1.Value); //11
+                flag = true;
+            }
+
+
+            if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Organisation 1 Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtOrg1.Value); //12
+                flag = true;
+            }
 
 
 
@@ -246,7 +333,22 @@ namespace IPS_Prototype
             pList.Add(ddlNationality.SelectedValue.ToString()); //17
 
 
-            pList.Add(txtFullNameNameTag.Value); //18
+
+            if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
+            {
+                flag = false;
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Full Name Name Tag Field.')", true);
+
+            }
+            else
+            {
+                pList.Add(txtFullNameNameTag.Value); //18
+                flag = true;
+            }
+
+
+
+            
 
             pList.Add(ddlStatus.SelectedValue.ToString()); //19
 
@@ -271,46 +373,47 @@ namespace IPS_Prototype
 
 
 
-
-            int check = 0;
-            try
+            if (flag != false)
             {
-                check = db.AddPerson(pList);
-
-                if (check == 2)
+                int check = 0;
+                try
                 {
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+                    check = db.AddPerson(pList);
+
+                    if (check == 2)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+
+                    }
+                    else if (check == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure('There seems to be an error! Please notify the Administrators.');", true);
+                    }
+
+
+
 
                 }
-                else if (check == 0)
+                catch (Exception ex)
                 {
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure('There seems to be an error! Please notify the Administrators.');", true);
+                    ErrorLog.WriteErrorLog(ex.ToString());
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
                 }
 
 
+                try
+                {
+                    clearFields();
+                    clearArrayList();
+                }
+                catch (Exception ex)
+                {
 
-
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.WriteErrorLog(ex.ToString());
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-
-            }
-
-
-            try
-            {
-                clearFields();
-                clearArrayList();
-            }
-            catch (Exception ex)
-            {
+                }
 
             }
-
-
 
 
 
@@ -336,6 +439,11 @@ namespace IPS_Prototype
 
         protected void Submit_PA(object sender, EventArgs e)
         {
+         
+            // GO HOME AND DO
+
+
+
             int check = 0;
             try
             {
