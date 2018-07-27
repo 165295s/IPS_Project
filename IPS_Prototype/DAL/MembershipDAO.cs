@@ -36,6 +36,15 @@ namespace IPS_Prototype.DAL
             return dt;
 
         }
+        public DataTable GetCAREPEDIT(string CAREP_ORG_ID)
+        {
+            string commandtext = "Select p.person_id as Person_Id,ca.ca_rep_id as CA_Rep_Id,ca.Org_Id as Org_Id ,p.Honorific AS Honorific,p.First_Name as First_Name, p.surname as Surname, p.Designation_1 as Designation,p.Nationality as Nationality,ca.Role as Role From membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP CA  on p.Person_Id = ca.Person_Id where ca.Org_Id = @org_id;";
+            DataTable dt = dbhelp.ExecDataReader(commandtext,"@org_id", CAREP_ORG_ID);
+
+
+            return dt;
+
+        }
         public DataTable GetPAInfo()
         {
             string commandtext = "Select p.person_id as Person_Id,ca.ca_rep_id as CA_Rep_Id,ca.Org_Id as Org_Id ,p.Honorific AS Honorific,p.First_Name as First_Name, p.surname as Surname, p.Designation_1 as Designation,p.Nationality as Nationality,ca.Role as Role From membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP CA  on p.Person_Id = ca.Person_Id where ca.Org_Id = (Select org_id from membership.TBL_ORGANISATION where Org_Id =(Select Max(org_id) from membership.TBL_ORGANISATION));";
@@ -46,10 +55,11 @@ namespace IPS_Prototype.DAL
 
         }
 
-        public DataTable GetIndivPAInfo()
+        public DataTable GetIndivPAInfo(string pid)
         {
-            string commandtext = "SELECT PA_ID as PA_ID, Honorific AS Honorific, First_Name AS First_Name, surname AS Surname, Email_Addr AS Email_Addr, Tel_Num AS Tel_Num from membership.TBL_PERSONAL_ASSISTANT; ";
-            DataTable dt = dbhelp.ExecDataReader(commandtext);
+            //string commandtext = "SELECT PA_ID as PA_ID, Honorific AS Honorific, First_Name AS First_Name, surname AS Surname, Email_Addr AS Email_Addr, Tel_Num AS Tel_Num from membership.TBL_PERSONAL_ASSISTANT; ";
+            string commandtext = "  SELECT pa.PA_ID AS PA_ID, pa.honorific AS HONORIFIC, pa.first_name AS First_Name,pa.surname as Surname,pa.email_addr AS Email_Addr,pa.tel_num AS Tel_Num FROM membership.TBL_PERSONAL_ASSISTANT pa INNER JOIN membership.TBL_PERSON_PA ppa ON pa.PA_ID = ppa.PA_ID INNER JOIN membership.TBL_PERSON p ON p.PERSON_ID = ppa.PERSON_ID WHERE p.PERSON_ID = @pid;";
+            DataTable dt = dbhelp.ExecDataReader(commandtext, "@pid",pid);
 
 
             return dt;
@@ -118,8 +128,62 @@ namespace IPS_Prototype.DAL
             return person;
         }
 
+        public PersonModel getOrgInfo(string org_id)
+        {
+            PersonModel person = new PersonModel();
+            DataTable dt;
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+
+                SqlCommand mycmd = new SqlCommand();
+                string commandtext = "SELECT NAME FROM membership.TBL_ORGANISATION WHERE ORG_ID = @org_id";
+                dt = dbhelp.ExecDataReader(commandtext,"@org_id", org_id);
+                person.orgName = dt.Rows[0]["NAME"].ToString();
 
 
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+            return person;
+
+        }
+
+        public OrgInfo getAllOrgInfo(string orgID)
+        {
+            OrgInfo orginfo = new OrgInfo();
+            DataTable dt;
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+
+                SqlCommand mycmd = new SqlCommand();
+                string commandtext = "SELECT NAME,MAILING_ADD_LINE_1,MAILING_ADD_LINE_2,MAILING_ADD_CITY,MAILING_ADD_POSTAL,TEL_NUM,OFFICE_NUM,WEBSITE_URL,BIZ_DESCRIPTION,POINT_OF_CONTACT,NOTES,UEN FROM membership.TBL_ORGANISATION WHERE ORG_ID = @org_id";
+                dt = dbhelp.ExecDataReader(commandtext, "@org_id", orgID);
+                orginfo.orgName = dt.Rows[0]["NAME"].ToString();
+                orginfo.mailLine1 = dt.Rows[0]["MAILING_ADD_LINE_1"].ToString();
+                orginfo.mailLine2 = dt.Rows[0]["MAILING_ADD_LINE_2"].ToString();
+                orginfo.city = dt.Rows[0]["MAILING_ADD_CITY"].ToString();
+                orginfo.postalCode = dt.Rows[0]["MAILING_ADD_POSTAL"].ToString();
+                orginfo.telNo = dt.Rows[0]["TEL_NUM"].ToString();
+                orginfo.officeNo = dt.Rows[0]["OFFICE_NUM"].ToString();
+                orginfo.websiteURL = dt.Rows[0]["WEBSITE_URL"].ToString();
+                orginfo.busDesc = dt.Rows[0]["BIZ_DESCRIPTION"].ToString();
+                orginfo.PoC = dt.Rows[0]["POINT_OF_CONTACT"].ToString();
+                orginfo.notes = dt.Rows[0]["NOTES"].ToString();
+                orginfo.uen = dt.Rows[0]["UEN"].ToString();
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+            return orginfo;
+
+        }
 
 
 
@@ -633,7 +697,7 @@ namespace IPS_Prototype.DAL
         {
             PersonModel person = new PersonModel();
             DataTable dt;
-            string commandtext = " SELECT o.NAME,p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, ca.FULLNAME_NAMETAGS, ca.STATUS,CA.FACILITATOR_BRIEFED,CA.EMAIL_SENT,CA.ROLE FROM membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP ca ON p.PERSON_ID = ca.PERSON_ID INNER JOIN membership.TBL_ORGANISATION o on o.ORG_ID = ca.ORG_ID  WHERE ca.PERSON_ID =  @carepid";
+            string commandtext = " SELECT o.NAME,p.FIRST_NAME, p.SURNAME, p.GENDER, p.SOURCE, p.HONORIFIC, p.SALUTATION, p.TEL_NUM, p.EMAIL_ADDR, p.NATIONALITY, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, p.DESIGNATION_2, p.DEPARTMENT_2, p.ORGANISATION_2, p.SPECIAL_DIETARY_REQUIREMENT, ca.FULLNAME_NAMETAGS, ca.STATUS,CA.FACILITATOR_BRIEFED,CA.EMAIL_SENT,CA.ROLE, P.CAT_1, P.CAT_2 FROM membership.TBL_PERSON p INNER JOIN membership.TBL_ORG_CA_REP ca ON p.PERSON_ID = ca.PERSON_ID INNER JOIN membership.TBL_ORGANISATION o on o.ORG_ID = ca.ORG_ID  WHERE ca.PERSON_ID =  @carepid";
             dt = dbhelp.ExecDataReader(commandtext, "@carepid", carepid);
             person.orgName = dt.Rows[0]["NAME"].ToString();
             person.firstName = dt.Rows[0]["FIRST_NAME"].ToString();
@@ -657,6 +721,8 @@ namespace IPS_Prototype.DAL
             person.role = dt.Rows[0]["ROLE"].ToString();
             person.faciBriefed = dt.Rows[0]["FACILITATOR_BRIEFED"].ToString();
             person.emailSent = dt.Rows[0]["EMAIL_SENT"].ToString();
+            person.cat1 = dt.Rows[0]["CAT_1"].ToString();
+            person.cat2 = dt.Rows[0]["CAT_2"].ToString();
             return person;
         }
 
@@ -978,14 +1044,14 @@ namespace IPS_Prototype.DAL
 
 
 
-        public int UpdateCAREP(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags,string role, string status, string faciBriefed, string emailSent)
+        public int UpdateCAREP(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags,string role, string status, string faciBriefed, string emailSent,string cat_1,string cat_2)
         {
             int result = 0;
             List<SqlCommand> transcommand = new List<SqlCommand>();
             SqlCommand mycmd = new SqlCommand();
             SqlCommand mycmd1 = new SqlCommand();
-            string commandtext = "UPDATE membership.TBL_PERSON SET FIRST_NAME = @firstname, SURNAME = @surname, GENDER = @gender, SOURCE = @source, HONORIFIC = @honorific, SALUTATION = @salutation, TEL_NUM = @telnum, EMAIL_ADDR = @email, NATIONALITY = @nationality, Modified_DT = @modified_date, DESIGNATION_1 = @des1, DEPARTMENT_1 = @dep1, ORGANISATION_1 = @org1, DESIGNATION_2 = @des2, DEPARTMENT_2 = @dep2, ORGANISATION_2 = @org2, SPECIAL_DIETARY_REQUIREMENT = @sdr, FULLNAME_NAMETAGS = @fullnamenametags WHERE PERSON_ID = @pid;";
-            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@firstname", fname, "@surname", sname, "@gender", gender, "@source", source, "@honorific", honorific, "@salutation", salutation, "@telnum", telnum, "@email", email, "@nationality", nationality, "@modified_date", modified, "@des1", des1, "@dep1", dep1, "@org1", org1, "@des2", des2, "@dep2", dep2, "@org2", org2, "@sdr", sdr, "@fullnamenametags", fnametags, "@pid", pid);
+            string commandtext = "UPDATE membership.TBL_PERSON SET FIRST_NAME = @firstname, SURNAME = @surname, GENDER = @gender, SOURCE = @source, HONORIFIC = @honorific, SALUTATION = @salutation, TEL_NUM = @telnum, EMAIL_ADDR = @email, NATIONALITY = @nationality, Modified_DT = @modified_date, DESIGNATION_1 = @des1, DEPARTMENT_1 = @dep1, ORGANISATION_1 = @org1, DESIGNATION_2 = @des2, DEPARTMENT_2 = @dep2, ORGANISATION_2 = @org2, SPECIAL_DIETARY_REQUIREMENT = @sdr, FULLNAME_NAMETAGS = @fullnamenametags, CAT_1 = @cat_1, CAT_2 = @cat_2 WHERE PERSON_ID = @pid;";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@firstname", fname, "@surname", sname, "@gender", gender, "@source", source, "@honorific", honorific, "@salutation", salutation, "@telnum", telnum, "@email", email, "@nationality", nationality, "@modified_date", modified, "@des1", des1, "@dep1", dep1, "@org1", org1, "@des2", des2, "@dep2", dep2, "@org2", org2, "@sdr", sdr, "@fullnamenametags", fnametags, "@pid", pid,"@cat_1",cat_1,"@cat_2",cat_2);
             string carepCMDTxt = "UPDATE membership.TBL_ORG_CA_REP SET ROLE = @role, FULLNAME_NAMETAGS = @fullnameNT, STATUS = @status, FACILITATOR_BRIEFED = @faciBriefed, EMAIL_SENT = @emailSent WHERE PERSON_ID = @pid;";
             mycmd1 = dbhelp.CreateCommand(carepCMDTxt, CommandType.Text, "@role", role, "@fullnameNT", fnametags, "@status", status, "@faciBriefed", faciBriefed, "@emailSent", emailSent, "@pid", pid);
 

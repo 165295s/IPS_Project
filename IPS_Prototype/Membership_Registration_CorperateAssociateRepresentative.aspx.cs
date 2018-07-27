@@ -40,9 +40,8 @@ namespace IPS_Prototype
                 ddlList.DataSource = DT;
                 ddlList.DataTextField = "Code_Desc";
                 ddlList.DataValueField = "Code"; //When insert, this value
-                //ddlList.Items.Insert(0, "");
                 ddlList.DataBind();
-                ddlList.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+                ddlList.Items.Insert(0, "");
 
 
 
@@ -61,6 +60,7 @@ namespace IPS_Prototype
                 modalDDList.DataTextField = "Code_Desc";
                 modalDDList.DataValueField = "Code"; //When insert, this value
                 modalDDList.DataBind();
+                modalDDList.Items.Insert(0, "");
 
                 DT = d1.GetSource();
                 ddlSource.DataSource = DT;
@@ -77,7 +77,7 @@ namespace IPS_Prototype
                 ddlCat2.DataValueField = "Code";
                 //ddlCat2.Items.Insert(0, "");
                 ddlCat2.DataBind();
-                ddlList.Items.Insert(0, new ListItem(String.Empty, String.Empty));
+                ddlCat2.Items.Insert(0, "");
 
 
 
@@ -100,6 +100,7 @@ namespace IPS_Prototype
                 if (Session["Person"] != null)
                 {
                     Session["CAREPEDIT"] = null;
+                    Session["CAREPORGID"] = null;
                     orgList = (ArrayList)Session["Person"];
                     lblOrgName.InnerText = orgList[3].ToString();
                     slidertoggleDIV.Style.Add("display", "none");
@@ -114,9 +115,11 @@ namespace IPS_Prototype
 
                 if (Session["CAREPEDIT"] != null)
                 {
+
                     Session["Person"] = null;
                     //slidertoggleDIV.Style.Add("display", "block");
                     hiddentext.Value = Session["CAREPEDIT"].ToString();
+                    string CAREP_ORG_ID = Session["CAREPORGID"].ToString() ;
                     MembershipDAO dalMem = new MembershipDAO();
                     PersonModel perModel = new PersonModel();
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showToggle();", true);
@@ -124,6 +127,7 @@ namespace IPS_Prototype
 
                     perModel = dalMem.GetCAREPData(hiddentext.Value.ToString());
                     lblOrgName.InnerText = perModel.orgName.ToString();
+
                     txtSalutationField.Value = perModel.salutation.ToString();
                     txtFirstName.Value = perModel.firstName.ToString();
                     txtSurname.Value = perModel.surname.ToString();
@@ -138,9 +142,11 @@ namespace IPS_Prototype
                     txtDesig2.Value = perModel.designation2.ToString();
                     txtSDR.Value = perModel.SDR.ToString();
                     ddlRole.SelectedValue = perModel.role.ToString();
-
-
-
+                    ddlSource.SelectedValue = perModel.source.ToString();
+                    ddlCat1.SelectedValue = perModel.cat1.ToString();
+                    ddlCat2.SelectedValue = perModel.cat2.ToString();
+                    ddlList.SelectedValue = perModel.honorific.ToString();
+                    bindTableEdit(CAREP_ORG_ID);
                     if (perModel.role.Equals("F") == false)
                     {
                         if (perModel.emailSent.Equals("Yes"))
@@ -191,12 +197,30 @@ namespace IPS_Prototype
 
                 }
 
+                if (Session["ORG_ID"] != null) {
+                    Session["Person"] = null;
+                    Session["CAREPEDIT"] = null;
+                    Session["CAREPORGID"] = null;
+                    string org_id = Session["ORG_ID"].ToString();
+                    PersonModel p1 = new PersonModel();
+                    MembershipDAO dalMem = new MembershipDAO();
+                    p1 = dalMem.getOrgInfo(org_id);
+                    lblOrgName.InnerText = p1.orgName;
+                    
+                  ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "hideToggle();", true);
+
+
+                }
+
+                
+
 
             }
             else
             {
 
                 //upPanel.Update();
+                //string CAREP_ORG_ID = Session["CAREPORGID"].ToString();
                 bindtable();
 
             }
@@ -254,7 +278,7 @@ namespace IPS_Prototype
             ddlStatus.Attributes.Add("disabled", "disabled");
             ddlRole.Attributes.Add("disabled", "disabled");
             btnSave.Disabled = true;
-            btnDelCAREP.Disabled = true;
+            //btnDelCAREP.Disabled = true;
 
             if (perModel.gender.Equals("M"))
             {
@@ -282,7 +306,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please First Name Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check First Name Field.')", true);
 
             }
             else
@@ -294,7 +318,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Surname Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Surname Field.')", true);
 
             }
             else
@@ -319,7 +343,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Salutation Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Salutation Field.')", true);
 
             }
             else
@@ -331,7 +355,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Telephone Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Telephone Field.')", true);
 
             }
             else
@@ -343,7 +367,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Email Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Email Field.')", true);
 
             }
             else
@@ -356,7 +380,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Designation 1 Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Designation 1 Field.')", true);
 
             }
             else
@@ -368,7 +392,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Department 1 Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Department 1 Field.')", true);
 
             }
             else
@@ -380,7 +404,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Organisation 1 Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Organisation 1 Field.')", true);
 
             }
             else
@@ -408,7 +432,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Full Name Name Tag Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Full Name Name Tag Field.')", true);
 
             }
             else
@@ -440,7 +464,7 @@ namespace IPS_Prototype
             carepList.Add(ddlSource.SelectedValue); //20
             carepList.Add(ddlCat1.SelectedValue); //21
             carepList.Add(ddlCat2.SelectedValue); //22
-
+            //carepList.Add(ddlList.SelectedValue);//23
 
             if (flag != false)
             {
@@ -521,6 +545,22 @@ namespace IPS_Prototype
                 UserTable.DataBind();
                 //upPanel.Update();
             }
+        }
+
+        protected void bindTableEdit(string ORG_ID) {
+            MembershipDAO db = new MembershipDAO();
+            UserTable.DataSource = db.GetCAREPEDIT(ORG_ID);
+            UserTable.DataBind();
+            UserTable.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+
+            if (!IsPostBack)
+            {
+                UserTable.DataSource = db.GetCAREPEDIT(ORG_ID);
+                UserTable.DataBind();
+                //upPanel.Update();
+            }
+
         }
         public void bindPAtable()
         {
@@ -709,7 +749,7 @@ namespace IPS_Prototype
             int personId = int.Parse(hiddentext.Value);
             MembershipDAO d1 = new MembershipDAO();
             //DALMembership user = new DALMembership();
-            int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlRole.SelectedValue, ddlStatus.SelectedValue, faciChk, emailChk);
+            int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlRole.SelectedValue, ddlStatus.SelectedValue, faciChk, emailChk, ddlCat1.SelectedValue.ToString(),ddlCat2.SelectedValue.ToString());
             if (check == 2)
             {
                 clearPAModal();
@@ -821,40 +861,45 @@ namespace IPS_Prototype
 
         public void updatePA_ServerClick(object sender, EventArgs e)
         {
-            int check = 0;
-            try
+
+            if (validateCAREPPAFields().Equals(true))
             {
-                check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value, modalSname.Value, modalTelNo.Value, modalDDList.SelectedValue.ToString(), modalEmail.Value);
-                bindPAtable();
 
-                if (check == 1)
+                int check = 0;
+                try
                 {
-                    //bindtable();
-                    clearPAModal();
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+                    check = db.updatePA(hiddentextPA_ID.Value, modalFName.Value, modalSname.Value, modalTelNo.Value, modalDDList.SelectedValue.ToString(), modalEmail.Value);
+                    bindPAtable();
 
-                    hiddentextPA_ID.Value = "";
-                    modalFName.Value = "";
-                    modalSname.Value = "";
-                    modalTelNo.Value = "";
-                    modalDDList.SelectedIndex = 0;
-                    modalEmail.Value = "";
+                    if (check == 1)
+                    {
+                        //bindtable();
+                        clearPAModal();
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+
+                        hiddentextPA_ID.Value = "";
+                        modalFName.Value = "";
+                        modalSname.Value = "";
+                        modalTelNo.Value = "";
+                        modalDDList.SelectedIndex = 0;
+                        modalEmail.Value = "";
+
+
+                    }
+                    else if (check == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                    }
+
 
 
                 }
-                else if (check == 0)
+                catch (Exception ex)
                 {
+                    ErrorLog.WriteErrorLog(ex.ToString());
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
                 }
-
-
-
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.WriteErrorLog(ex.ToString());
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-
             }
 
         }
@@ -913,9 +958,8 @@ namespace IPS_Prototype
                 //error message
 
                 //ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayModalFailureMsg('Please FirstName Field.')", true);
-
+                
                 ScriptManager.RegisterStartupScript(Page, GetType(), "script", "showPAModalError('Please Check First Name Field');", true);
-
 
                 return false;
 
@@ -925,7 +969,8 @@ namespace IPS_Prototype
 
                 //error message
 
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Surname Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Check Surname Field.')", true);
+
                 return false;
             }
 
@@ -934,14 +979,16 @@ namespace IPS_Prototype
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Email Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Check Email Field.')", true);
+
                 return false;
             }
             else if (string.IsNullOrEmpty(modalTelNo.Value.ToString()) || modalTelNo.Value.Trim().ToString().Equals(""))
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Telephone Number Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Check Telephone Number Field.')", true);
+
                 return false;
             }
             else
@@ -954,7 +1001,6 @@ namespace IPS_Prototype
 
 
         }
-
 
 
     }

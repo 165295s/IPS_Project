@@ -9,6 +9,7 @@ using IPS_Prototype.DAL;
 using System.Data;
 using IPS_Prototype.Class;
 using System.Text.RegularExpressions;
+using IPS_Prototype.RetrieveClass;
 
 namespace IPS_Prototype
 {
@@ -19,30 +20,45 @@ namespace IPS_Prototype
         MembershipDAO db = new MembershipDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
-            orgList = (ArrayList)Session["Person"];
+            if (Session["Person"] != null)
+            {
+                orgList = (ArrayList)Session["Person"];
+            }
+            else {
+                Session["Person"] = null;
 
+
+
+
+            }
+
+            if (Session["EDIT_ORG_ID"] != null)
+            {
+                Session["Person"] = null;
+                OrgInfo o1 = new OrgInfo();
+                MembershipDAO dalMem = new MembershipDAO();
+                string org_id = Session["EDIT_ORG_ID"].ToString();
+                o1 = dalMem.getAllOrgInfo(org_id);
+
+                txtOrgNameField.Value = o1.orgName.ToString();
+                txtMailAddrLine1.Value = o1.mailLine1.ToString();
+                txtMailAddrLine2.Value = o1.mailLine2.ToString();
+                txtCity.Value = o1.city.ToString();
+                txtPostalCode.Value = o1.postalCode.ToString();
+                txtTelephone.Value = o1.telNo.ToString();
+                txtOffice.Value = o1.officeNo.ToString();
+                txtWebsiteURL.Value = o1.websiteURL.ToString();
+                txtbDesc.Value = o1.busDesc.ToString();
+                pointOfContact.Value = o1.PoC.ToString();
+                txtnotes.Value = o1.notes.ToString();
+                txtUEN.Value = o1.uen.ToString();
+
+            }
 
 
 
         }
 
-        //protected bool validateFields()
-        //{
-        //    bool flag = false;
-
-        //    if (string.IsNullOrEmpty(txtOrgNameField.Value.ToString()))
-        //    {
-
-
-
-        //    }
-
-
-
-
-
-
-        //}
 
         protected void button_next(object sender, EventArgs e)
         {

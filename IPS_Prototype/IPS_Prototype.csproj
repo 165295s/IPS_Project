@@ -385,6 +385,7 @@
       <DependentUpon>Logout_Modal.ascx</DependentUpon>
     </Compile>
     <Compile Include="RetrieveClass\MemberInfo.cs" />
+    <Compile Include="RetrieveClass\OrgInfo.cs" />
     <Compile Include="RetrieveClass\Person.cs" />
     <Compile Include="RetrieveClass\PersonModel.cs" />
     <Compile Include="RetrieveClass\UserAddInfo.cs" />

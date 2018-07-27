@@ -31,6 +31,24 @@ namespace IPS_Prototype {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl UserRegisterHeader;
         
         /// <summary>
+        /// slidertoggleDIV control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl slidertoggleDIV;
+        
+        /// <summary>
+        /// sliderToggle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox sliderToggle;
+        
+        /// <summary>
         /// txtOrgNameField control.
         /// </summary>
         /// <remarks>

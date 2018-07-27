@@ -404,8 +404,10 @@
     <div runat="server" id="organisation">
         <asp:GridView CssClass="table table-hover BlueTable" ID="gvOrg" OnRowDataBound="gvOrg_OnRowDataBound" OnSelectedIndexChanged="gvOrg_OnSelectedIndexChanged" runat="server" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvOrg_RowEditing" OnRowDeleting="gvOrg_RowDeleting" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
             <Columns>
+                <%-- CHRIS ADDED, PERSONID, CAREP ID AND ORG ID --%>
                 <asp:BoundField DataField="PERSON_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
                 <asp:BoundField DataField="CA_REP_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
+                 <asp:BoundField DataField="ORG_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
                 <asp:BoundField DataField="FULLNAME_NAMETAGS" HeaderText="CA Rep" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                 <asp:TemplateField HeaderText="Name" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">
                     <ItemTemplate>
@@ -420,8 +422,15 @@
                 <asp:BoundField DataField="DESIGNATION_1" HeaderText="Designation" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                 <asp:BoundField DataField="DEPARTMENT_1" HeaderText="Department" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
                 <asp:BoundField DataField="ORGANISATION_1" HeaderText="Organisation" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
-                <asp:CommandField DeleteText="TER" ShowDeleteButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White"  />
-                <asp:CommandField EditText="Renew" ShowEditButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+<%--                <asp:CommandField DeleteText="TER" ShowDeleteButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White"  />
+                <asp:CommandField EditText="Renew" ShowEditButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />--%>
+                
+                            <asp:TemplateField HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">
+                                <ItemTemplate>
+                                    <asp:Button runat="server" Text="Add CAREP" ID="btnDel" class="btn btn-primary" CommandName="PA" OnClick="addCAREP" Style="height: 30px; padding-top: 3px;"></asp:Button>
+                                     <asp:Button runat="server" Text="Edit ORG" ID="btnEditOrg" class="btn btn-primary" CommandName="PA" OnClick="editOrg" Style="height: 30px; padding-top: 3px;"></asp:Button>
+                                </ItemTemplate>
+                            </asp:TemplateField>
             </Columns>
         </asp:GridView>
     </div>

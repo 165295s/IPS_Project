@@ -201,6 +201,34 @@ namespace IPS_Prototype
                 }
             }
         }
+
+        protected void addCAREP(object sender, EventArgs e) {
+            GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
+            int ORG_ID = int.Parse(row.Cells[2].Text);
+            Session["ORG_ID"] = ORG_ID;
+            Response.Redirect("Membership_Registration_CorperateAssociateRepresentative.aspx");
+
+                
+
+
+
+        }
+        protected void editOrg(object sender, EventArgs e)
+        {
+            GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
+            int ORG_ID = int.Parse(row.Cells[2].Text);
+            Session["EDIT_ORG_ID"] = ORG_ID;
+            Response.Redirect("Membership_Registration_OrganisationDetail.aspx");
+
+
+
+
+
+        }
+
+
+
+
         //Action edit for IA to trigger modal
         //CHRIS CHANGED THIS METHOD
         protected void btnEditInd_Click(object sender, EventArgs e)
@@ -303,7 +331,7 @@ namespace IPS_Prototype
             //Get Person Data from GetPersonData Method in DALMembership
             GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
             int CAREP_PERSON_ID = int.Parse(row.Cells[0].Text);
-
+            int CAREP_ORG_ID = int.Parse(row.Cells[2].Text);
             //FIRST GET ID ON ROW CLICK
             //SECOND SEARCH FOR HONOURIFIC BASED ON ID FROM PERSON TABLE
             //DataTable DT = new DataTable();
@@ -341,6 +369,7 @@ namespace IPS_Prototype
                 //    string name = row.Cells[1].Text;
                 //    lblmodalnameInd.InnerText = name;
                 Session["CAREPEDIT"] = CAREP_PERSON_ID;
+                Session["CAREPORGID"] = CAREP_ORG_ID;
                 Session["Person"] = null;
                 Response.Redirect("Membership_Registration_CorperateAssociateRepresentative.aspx");
                 personmodal = mem.GetPersonData(CAREP_PERSON_ID);

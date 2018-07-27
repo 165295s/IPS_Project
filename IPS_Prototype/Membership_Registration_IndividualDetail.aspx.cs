@@ -36,7 +36,7 @@ namespace IPS_Prototype
                 modalDDList.DataTextField = "Code_Desc";
                 modalDDList.DataValueField = "Code"; //When insert, this value
                 modalDDList.DataBind();
-
+                modalDDList.Items.Insert(0, "");
 
                 DT = d1.GetSource();
                 ddlSource.DataSource = DT;
@@ -158,7 +158,7 @@ namespace IPS_Prototype
             if (IsPostBack)
             {
 
-                bindtable();
+                //bindtable();
             }
             else
             {
@@ -194,7 +194,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please First Name Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check First Name Field.')", true);
 
             }
             else
@@ -206,7 +206,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Surname Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Surname Field.')", true);
 
             }
             else
@@ -237,7 +237,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Salutation Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Salutation Field.')", true);
 
             }
             else
@@ -250,7 +250,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Telephone Number Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Telephone Number Field.')", true);
 
             }
             else
@@ -264,7 +264,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Email Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Email Field.')", true);
 
             }
             else
@@ -277,7 +277,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Designation 1 Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Designation 1 Field.')", true);
 
             }
             else
@@ -290,7 +290,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Department 1 Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Department 1 Field.')", true);
 
             }
             else
@@ -303,7 +303,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Organisation 1 Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Organisation 1 Field.')", true);
 
             }
             else
@@ -339,7 +339,7 @@ namespace IPS_Prototype
             if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
             {
                 flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Full Name Name Tag Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Full Name Name Tag Field.')", true);
 
             }
             else
@@ -433,12 +433,16 @@ namespace IPS_Prototype
         public void bindtable()
         {
             MembershipDAO db = new MembershipDAO();
-            UserTable.DataSource = db.GetIndivPAInfo();
+            string pid = hiddentextPersonID.Value.ToString();
+
+            UserTable.DataSource = db.GetIndivPAInfo(pid);
+            UserTable.DataSourceID = null;
             UserTable.DataBind();
+            //string pid = null ;
             UserTable.HeaderRow.TableSection = TableRowSection.TableHeader;
             if (IsPostBack)
             {
-                UserTable.DataSource = db.GetIndivPAInfo();
+                UserTable.DataSource = db.GetIndivPAInfo(pid);
                 UserTable.DataBind();
                 //upPanel.Update();
             }
@@ -469,6 +473,7 @@ namespace IPS_Prototype
 
             if (flag != false)
             {
+                string pid = hiddentextPersonID.Value.ToString();
                 int check = 0;
                 try
                 {
@@ -487,7 +492,7 @@ namespace IPS_Prototype
                     if (check == 1 || check == 2)
                     {
                         ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Personal Assistant: " + modalSname.Value + " " + modalFName.Value + "');", true);
-                        UserTable.DataSource = db.GetIndivPAInfo();
+                        UserTable.DataSource = db.GetIndivPAInfo(pid);
                         UserTable.DataBind();
 
                     }
@@ -537,7 +542,7 @@ namespace IPS_Prototype
 
                 //error message
 
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Surname Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Check Surname Field.')", true);
                 return false;
             }
 
@@ -546,14 +551,14 @@ namespace IPS_Prototype
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Email Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Check Email Field.')", true);
                 return false;
             }
             else if (string.IsNullOrEmpty(modalTelNo.Value.ToString()) || modalTelNo.Value.Trim().ToString().Equals(""))
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Telephone Number Field.')", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showPAModalError('Please Check Telephone Number Field.')", true);
                 return false;
             }
             else {
@@ -576,6 +581,14 @@ namespace IPS_Prototype
             ddlCat1.DataTextField = "cat_1";
             ddlCat1.DataTextField = "cat_1";
             ddlCat1.DataBind();
+            if (Session["Person"] != null)
+            {
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+
+
+
+            }
+
         }
 
 
@@ -627,6 +640,8 @@ namespace IPS_Prototype
         // show IND PAs in delete modal
         private void BindEventRepeater(int personId)
         {
+            string pid = hiddentextPersonID.Value.ToString();
+
             DALMembership db = new DALMembership();
             rptrIAdets.DataSource = db.GetIndivPAInfo(personId);
             rptrIAdets.DataBind();
@@ -745,7 +760,7 @@ namespace IPS_Prototype
 
         }
 
-        protected void clearFields()
+        protected void clearFields(object sender, EventArgs e)
         {
 
             Male.Checked = false;

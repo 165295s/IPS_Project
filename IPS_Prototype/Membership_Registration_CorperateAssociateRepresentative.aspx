@@ -81,7 +81,7 @@
             });
             //displaySlider();
             $("#AddPA").click(function () {
-
+           
                 $("#associateName").text(": " + $("#ContentPlaceHolder1_txtFirstName").val() + $("#ContentPlaceHolder1_txtLastName").val());
                 $("#associateType").text($("#ContentPlaceHolder1_hiddentext").val());
 
@@ -150,6 +150,7 @@
             $('#Add_PA').modal('show');
             $('#ModalFailureAlert').css('display', 'block');
             $('#ModalFailureMsg').text(msg);
+            $('#ContentPlaceHolder1_submitPA').css('display', 'none');
 
         }
         function displayFailureMsg(msg) {
@@ -312,6 +313,30 @@
             $("#ContentPlaceHolder1_btnDel").css('display', 'none');
 
         }
+         function clearFields()
+        {
+                             $('#ContentPlaceHolder1_txtFirstName').val("");
+                            $('#ContentPlaceHolder1_txtSurname').val("");
+                            $("#ContentPlaceHolder1_txtFullNameNameTag").val("");
+                            $('#ContentPlaceHolder1_txtEmail').val("");
+                            $('#ContentPlaceHolder1_txtSalutationField').val("");
+                            $("#ContentPlaceHolder1_txtTelephone").val("");
+                            $('#ContentPlaceHolder1_txtOrg1').val("");
+                            $('#ContentPlaceHolder1_txtDept1').val("");
+                            $('#ContentPlaceHolder1_txtDesig1').val("");
+                            $('#ContentPlaceHolder1_txtOrg2').val("");
+                            $('#ContentPlaceHolder1_txtDept2').val("");
+                            $('#ContentPlaceHolder1_txtDesig2').val("");
+                            $('#ContentPlaceHolder1_txtSDR').val("");
+                            $('#ContentPlaceHolder1_ddlNationality').prop('selectedIndex', 0);
+                            $('#ContentPlaceHolder1_ddlStatus').prop('selectedIndex', 0);
+                            $('#ContentPlaceHolder1_ddlSource').prop('selectedIndex', 0);
+                            $('#ContentPlaceHolder1_ddlCat1').prop('selectedIndex', 0);
+                            $('#ContentPlaceHolder1_ddlCat2').prop('selectedIndex', 0);
+                             $('#ContentPlaceHolder1_ddlList').prop('selectedIndex', 0);
+                              $('#ContentPlaceHolder1_ddlRole').prop('selectedIndex', 0);
+        }
+
 
 
     </script>
@@ -439,8 +464,8 @@
                 <button type="button" runat="server" id="btnSave" class="btn btn-primary" onserverclick="button_save" style="width: 150px; height: 40px; float: left;">
                     Save
                 </button>
-                <button type="button" id="btnDelCAREP" runat="server" class="btn btn-primary" onserverclick="deleteCAREP" style="width: 150px; height: 40px; float: right;">
-                    Delete CAREP
+                <button type="button" id="btnClear" class="btn btn-primary" onClick="clearFields();" style="width: 150px; height: 40px; float: right;">
+                    Clear
                 </button>
 
             </div>
@@ -469,7 +494,7 @@
             <div class="form-group">
                 <asp:DropDownList ID="ddlCat1" runat="server" Class="ddlStyle"></asp:DropDownList>
             </div>
-            <label for="Cat2">Cat 2:</label><label style="color: red;">*</label>
+            <label for="Cat2">Cat 2:</label>
             <div class="form-group">
                 <asp:DropDownList ID="ddlCat2" runat="server" Class="ddlStyle"></asp:DropDownList>
             </div>

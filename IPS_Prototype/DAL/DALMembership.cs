@@ -186,9 +186,9 @@ where p.PERSON_ID ="+personId+";";
 
         public DataTable getAllMembershipDetailOrg()
         {
-            //CHRIS CHANGE: added CA_REP_ID to SQL Query 
+            //CHRIS CHANGE: added CA_REP_ID to SQL Query , ADDED ORG ID TO THE QUERY
             // dbhelp.ExecNonQuery("UPDATE c SET c.TER_SENT_DT = @SentDate, c.TER_RECEIVED_DT = @ReceivedDate, c.TER_DETAILS = @Details, c.Modified_Date = @modified_date FROM Contribution c inner join Membership m ON c.CONTRIBUTION_ID = m.CONTRIBUTION_ID inner join Person p ON m.PERSON_ID = p.PERSON_ID WHERE p.EMAIL_ADDR = @email;", "@SentDate", sentdate, "@ReceivedDate", receiveddate, "@Details", details, "@modified_date", modified, "@email", email);
-            string queryStr = "SELECT r.PERSON_ID,r.CA_REP_ID,o.NAME, m.DONOR_TIER, m.EXPIRY_DT, r.FULLNAME_NAMETAGS, r.ROLE, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1 FROM membership.TBL_ORGANISATION o INNER JOIN membership.TBL_MEMBERSHIP m ON o.ORG_ID = m.ORG_ID inner join membership.TBL_ORG_CA_REP r ON r.ORG_ID = o.ORG_ID inner join membership.TBL_PERSON p ON p.PERSON_ID = r.PERSON_ID";
+            string queryStr = "SELECT r.PERSON_ID,r.CA_REP_ID,o.NAME, m.DONOR_TIER, m.EXPIRY_DT, r.FULLNAME_NAMETAGS, r.ROLE, p.DESIGNATION_1, p.DEPARTMENT_1, p.ORGANISATION_1, o.ORG_ID FROM membership.TBL_ORGANISATION o INNER JOIN membership.TBL_MEMBERSHIP m ON o.ORG_ID = m.ORG_ID inner join membership.TBL_ORG_CA_REP r ON r.ORG_ID = o.ORG_ID inner join membership.TBL_PERSON p ON p.PERSON_ID = r.PERSON_ID";
             //string queryStr = "SELECT o.NAME, m.DonorTier, m.Expiry_Date FROM Organisation o INNER JOIN Membership m ON o.ORG_ID = m.ORG_ID";
             DataTable dt = dbhelp.ExecDataReader(queryStr);
             return dt;

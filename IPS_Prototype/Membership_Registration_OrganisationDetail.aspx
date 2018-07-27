@@ -1,6 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/IPS_Vertical.Master" AutoEventWireup="true" CodeBehind="Membership_Registration_OrganisationDetail.aspx.cs" Inherits="IPS_Prototype.Membership_Registration_OrganizationDetail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+        <link href="css/bootstrap2-toggle.min.css" rel="stylesheet" />
+    <style>
+        .toggle.ios, .toggle-on.ios, .toggle-off.ios {
+            border-radius: 20px;
+        }
+
+            .toggle.ios .toggle-handle {
+                border-radius: 20px;
+            }
+        /*.toggle.ios{display:none;}*/
+    </style>
+
     <script>
 
 
@@ -12,7 +25,18 @@
             };
 
       
+             function hideToggle() {
+            $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'none');
+            $("#ContentPlaceHolder1_btnDelCAREP").css('display', 'none');
+            //$("#ContentPlaceHolder1_AddPA").css('display', 'none');
 
+
+        }
+        function showToggle() {
+            $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'block');
+            $("#ContentPlaceHolder1_btnDel").css('display', 'none');
+
+        }
 
     </script>
 
@@ -36,6 +60,11 @@
     <div class="SubHeader" style="overflow: auto;">
 
         <div id="left-div" style="float: left;">
+
+            <div class="form-group" id="slidertoggleDIV" runat="server">
+
+                <input id="sliderToggle" enableviewstate="true" type="checkbox" runat="server" data-toggle="toggle" data-width="150" data-height="40" data-style="ios" data-offstyle="danger" data-onstyle="success" data-on="Edit Mode On" data-off="Edit Mode Off">
+            </div>
 
             <label for="organisationName">Organisation Name:</label><label style="color: red;">*</label>
             <div class="form-group">
