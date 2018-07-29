@@ -49,6 +49,15 @@ namespace IPS_Prototype {
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox sliderToggle;
         
         /// <summary>
+        /// orgID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText orgID;
+        
+        /// <summary>
         /// txtOrgNameField control.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,24 @@ namespace IPS_Prototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText txtWebsiteURL;
+        
+        /// <summary>
+        /// btnNext control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnNext;
+        
+        /// <summary>
+        /// btnUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnUpdate;
         
         /// <summary>
         /// txtbDesc control.

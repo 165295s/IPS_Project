@@ -137,6 +137,9 @@
                 $("#SuccessAlert").css("display", "none");
             });
 
+           
+
+
             $('#period').change(function () {
                 // $("#QuestionOptions").change();
                 // Declare variables 
@@ -429,6 +432,7 @@
                                 <ItemTemplate>
                                     <asp:Button runat="server" Text="Add CAREP" ID="btnDel" class="btn btn-primary" CommandName="PA" OnClick="addCAREP" Style="height: 30px; padding-top: 3px;"></asp:Button>
                                      <asp:Button runat="server" Text="Edit ORG" ID="btnEditOrg" class="btn btn-primary" CommandName="PA" OnClick="editOrg" Style="height: 30px; padding-top: 3px;"></asp:Button>
+
                                 </ItemTemplate>
                             </asp:TemplateField>
             </Columns>
@@ -437,7 +441,7 @@
 <%--    OnRowDataBound="gvPerson_OnRowDataBound" OnSelectedIndexChanged="gvPerson_OnSelectedIndexChanged"--%>
      <%--ItemStyle-BackColor="#f5f3f3"--%>
     <div runat="server" id="person" style="display: none;">
-        <asp:GridView CssClass="table table-hover BlueTable personTable" Style="max-width: 100%" ID="gvPerson" class="table table-striped" DataKeyNames="PERSON_ID" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvPerson_RowEditing" OnRowDeleting="gvPerson_RowDeleting" runat="server" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
+        <asp:GridView CssClass="table table-hover BlueTable personTable"  Style="max-width: 100%" ID="gvPerson" class="table table-striped" DataKeyNames="PERSON_ID" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvPerson_RowEditing" OnRowDeleting="gvPerson_RowDeleting" runat="server" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
             <Columns>
                 <%--    <asp:TemplateField>
                     <ItemTemplate>

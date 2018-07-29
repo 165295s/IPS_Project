@@ -1042,6 +1042,27 @@ namespace IPS_Prototype.DAL
 
         }
 
+        public int updateORG(string orgName, string mAddr1, string mAddr2, string city,string postalCode,string telNo, string officeNo, string websiteURL, string bDesc, string pointOfContact, string notes, string uen, string orgID)
+        {
+            int result = 0;
+            //try
+            //{
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+                SqlCommand mycmd = new SqlCommand();
+                string commandtext = "UPDATE membership.TBL_ORGANISATION SET NAME = @orgName, MAILING_ADD_LINE_1 = @mAddr1, MAILING_ADD_LINE_2 = @mAddr2, MAILING_ADD_CITY = @city, MAILING_ADD_POSTAL = @postal,TEL_NUM = @telNum,OFFICE_NUM = @officeNum, WEBSITE_URL= @websiteURL,BIZ_DESCRIPTION=@bDesc,POINT_OF_CONTACT=@pointOfContact, UEN=@uen, NOTES=@notes WHERE ORG_ID = @orgID";
+                mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@orgName", orgName, "@mAddr1", mAddr1, "@mAddr2", mAddr2, "@city", city, "@postal", postalCode, "@telNum", telNo, "@officeNum", officeNo, "@websiteURL", websiteURL, "@bDesc", bDesc, "@pointOfContact", pointOfContact, "@uen", uen, "@notes", notes,"@orgID",orgID);
+                transcommand.Add(mycmd);
+                result = dbhelp.ExecTrans(transcommand);
+
+            //}
+            //catch (Exception e)
+            //{
+
+
+            //}
+            return result;
+
+        }
 
 
         public int UpdateCAREP(int pid, string fname, string sname, string gender, string source, string honorific, string salutation, string telnum, string email, string nationality, DateTime modified, string des1, string dep1, string org1, string des2, string dep2, string org2, string sdr, string fnametags,string role, string status, string faciBriefed, string emailSent,string cat_1,string cat_2)

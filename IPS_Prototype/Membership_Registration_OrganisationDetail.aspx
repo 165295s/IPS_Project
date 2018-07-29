@@ -15,19 +15,63 @@
     </style>
 
     <script>
+        $(document).ready(function () {
 
 
-            function displayFailureMsg(msg) {
+             $('#ContentPlaceHolder1_sliderToggle').change(function () {
+                if ($('#ContentPlaceHolder1_sliderToggle').is(':checked')) {
+                    $('#ContentPlaceHolder1_txtOrgNameField').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtMailAddrLine1').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtMailAddrLine2').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtCity').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtPostalCode').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtTelephone').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtOffice').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtWebsiteURL').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtbDesc').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_pointOfContact').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtnotes').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_txtUEN').removeAttr('disabled');
+                    $('#ContentPlaceHolder1_btnUpdate').removeAttr("disabled", true);
+                    
+                } else {
+                    $('#ContentPlaceHolder1_txtOrgNameField').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtMailAddrLine1').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtMailAddrLine2').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtCity').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtPostalCode').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtTelephone').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtOffice').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtWebsiteURL').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtbDesc').attr("disabled", true);
+                    $('#ContentPlaceHolder1_pointOfContact').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtnotes').attr("disabled", true);
+                    $('#ContentPlaceHolder1_txtUEN').attr("disabled", true);
+                    $('#ContentPlaceHolder1_btnUpdate').attr("disabled", true);
 
-                $('#FailureAlert').css('display', 'block');
-                $('#FailureMsg').text(msg);
+                }
 
-            };
+            });
 
-      
-             function hideToggle() {
+
+
+
+
+
+        });
+
+        function displayFailureMsg(msg) {
+
+            $('#FailureAlert').css('display', 'block');
+            $('#FailureMsg').text(msg);
+
+        };
+
+
+        function hideToggle() {
             $("#ContentPlaceHolder1_slidertoggleDIV").css('display', 'none');
             $("#ContentPlaceHolder1_btnDelCAREP").css('display', 'none');
+            $('#ContentPlaceHolder1_btnUpdate').css('display', 'none');
             //$("#ContentPlaceHolder1_AddPA").css('display', 'none');
 
 
@@ -38,6 +82,15 @@
 
         }
 
+        function hideBtnUpdate() {
+            $('#ContentPlaceHolder1_btnUpdate').css('display', 'none');
+
+
+        }
+        function hideBtnNext() {
+            $('#ContentPlaceHolder1_btnNext').css('display', 'none');
+
+        }
     </script>
 
 </asp:Content>
@@ -65,6 +118,9 @@
 
                 <input id="sliderToggle" enableviewstate="true" type="checkbox" runat="server" data-toggle="toggle" data-width="150" data-height="40" data-style="ios" data-offstyle="danger" data-onstyle="success" data-on="Edit Mode On" data-off="Edit Mode Off">
             </div>
+             
+                <input type="text" class="form-control" runat="server" id="orgID" autocomplete="off" style="width: 350px; display:none;" />
+            
 
             <label for="organisationName">Organisation Name:</label><label style="color: red;">*</label>
             <div class="form-group">
@@ -108,11 +164,14 @@
             </div>
 
             <div class="form-group">
-                <button type="button" runat="server" onserverclick="button_next" class="btn btn-primary" style="width: 150px; height: 40px;">
+                <button type="button" runat="server" id="btnNext" onserverclick="button_next" class="btn btn-primary" style="width: 150px; height: 40px;">
                     Next
                       <i class="fas fa-arrow-right"></i>
                 </button>
 
+                 <button type="button" runat="server" id="btnUpdate" onserverclick="btn_Update" class="btn btn-primary" style="width: 150px; height: 40px;">
+                   Update
+                </button>
 
             </div>
 

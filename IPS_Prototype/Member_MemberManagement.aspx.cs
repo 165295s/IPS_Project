@@ -38,6 +38,8 @@ namespace IPS_Prototype
                 IndDdlHonorific.DataTextField = "Code";
                 IndDdlHonorific.DataValueField = "Code"; //When insert, this value
                 IndDdlHonorific.DataBind();
+
+               
             }
             else
             {
@@ -218,6 +220,7 @@ namespace IPS_Prototype
             GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
             int ORG_ID = int.Parse(row.Cells[2].Text);
             Session["EDIT_ORG_ID"] = ORG_ID;
+            Session["Person"] = null;
             Response.Redirect("Membership_Registration_OrganisationDetail.aspx");
 
 
@@ -459,6 +462,30 @@ namespace IPS_Prototype
             }
         }
 
+        protected void INDIV_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+            gvPerson.PageIndex = e.NewPageIndex;
+
+            //rebind your gridview - GetSource(),Datasource of your GirdView
+            DataTable dt1 = mem.getAllMembershipDetailPerson();
+            gvPerson.DataSource = dt1;
+            gvPerson.DataBind();
+
+
+        }
+        protected void ORG_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+
+            gvOrg.PageIndex = e.NewPageIndex;
+
+            //rebind your gridview - GetSource(),Datasource of your GirdView
+            //DataTable dt1 = mem.getAllMembershipDetailOrg();
+            //gvOrg.DataSource = dt1;
+            //gvOrg.DataBind();
+
+
+        }
 
     }
 
