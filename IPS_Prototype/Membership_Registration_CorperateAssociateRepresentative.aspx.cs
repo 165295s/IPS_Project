@@ -49,7 +49,7 @@ namespace IPS_Prototype
                 DTRole = d2.GetLookupSearch("CAREP");
                 ddlRole.DataSource = DTRole;
                 ddlRole.DataTextField = "Code_Desc";
-                ddlRole.DataValueField = "Code"; //When insert, this value
+                ddlRole.DataValueField = "Code_Desc"; //When insert, this value
                 ddlRole.DataBind();
 
 

@@ -118,16 +118,16 @@
             $("#ContentPlaceHolder1_QuestionOptions").change(function () {
                 if ($('#ContentPlaceHolder1_QuestionOptions option:selected').index() == 0) {
                     //console.log("check", $('#QuestionOptions').index().toString());
-                    $('#ContentPlaceHolder1_person').css("display", "none");
-                    $('#ContentPlaceHolder1_organisation').css("display", "block");
+                    $('#ContentPlaceHolder1_Panel2').css("display", "none");
+                    $('#ContentPlaceHolder1_Panel1').css("display", "block");
                     $("#ContentPlaceHolder1_grouping").css("display", "block");
                     check = 0;
                     $('#ContentPlaceHolder1_hidden').val("org");
 
                 }
                 else {
-                    $('#ContentPlaceHolder1_person').css("display", "block");
-                    $('#ContentPlaceHolder1_organisation').css("display", "none");
+                    $('#ContentPlaceHolder1_Panel2').css("display", "block");
+                    $('#ContentPlaceHolder1_Panel1').css("display", "none");
                     $("#ContentPlaceHolder1_grouping").css("display", "none");  // dont show ddl
                     check = 1;
                     $('#ContentPlaceHolder1_hidden').val("indi");
@@ -400,9 +400,9 @@
 <%--    <div id="FailureAlert" class="alert alert-danger">
   <strong>Unsuccessful!</strong> <label id="FailureMsg"></label>
     </div>--%>
-  
+    <asp:Panel ID="Panel1" runat="server">
     <div runat="server" id="organisation">
-        <asp:GridView CssClass="table table-hover BlueTable" ID="gvOrg" OnRowDataBound="gvOrg_OnRowDataBound" OnSelectedIndexChanged="gvOrg_OnSelectedIndexChanged" runat="server" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvOrg_RowEditing" OnRowDeleting="gvOrg_RowDeleting" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
+        <asp:GridView CssClass="table table-hover BlueTable" ID="gvOrg" PageSize="1" AllowPaging="true" OnPageIndexChanging="ORG_PageIndexChanging" OnRowDataBound="gvOrg_OnRowDataBound" runat="server" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvOrg_RowEditing" OnRowDeleting="gvOrg_RowDeleting" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
             <Columns>
                 <%-- CHRIS ADDED, PERSONID, CAREP ID AND ORG ID --%>
                 <asp:BoundField DataField="PERSON_ID" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol" />
@@ -438,10 +438,12 @@
             </Columns>
         </asp:GridView>
     </div>
+        </asp:Panel>
 <%--    OnRowDataBound="gvPerson_OnRowDataBound" OnSelectedIndexChanged="gvPerson_OnSelectedIndexChanged"--%>
      <%--ItemStyle-BackColor="#f5f3f3"--%>
-    <div runat="server" id="person" style="display: none;">
-        <asp:GridView CssClass="table table-hover BlueTable personTable" Style="max-width: 100%" ID="gvPerson" class="table table-striped" DataKeyNames="PERSON_ID" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvPerson_RowEditing" OnRowDeleting="gvPerson_RowDeleting" runat="server" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
+    <asp:Panel ID="Panel2" runat="server">
+    <div runat="server" id="person" >
+        <asp:GridView CssClass="table table-hover BlueTable personTable" AllowPaging="true" PageSize="5" OnPageIndexChanging="INDIV_PageIndexChanging" Style="max-width: 100%" ID="gvPerson" class="table table-striped" DataKeyNames="PERSON_ID" EmptyDataText="No Records Found" ShowHeaderWhenEmpty="true" OnRowEditing="gvPerson_RowEditing" OnRowDeleting="gvPerson_RowDeleting" runat="server" AutoGenerateColumns="false" GridLines="None" UseAccessibleHeader="true" BorderStyle="None">
             <Columns>
                 <%--    <asp:TemplateField>
                     <ItemTemplate>
@@ -478,7 +480,7 @@
             </Columns>
         </asp:GridView>
     </div>
-
+    </asp:Panel>
     <input type="text" runat="server" id="hidden" style="display: none" />
 
     <%-- MODAL BELOW --%>

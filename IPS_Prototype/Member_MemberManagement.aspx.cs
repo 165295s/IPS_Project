@@ -20,6 +20,17 @@ namespace IPS_Prototype
         {
             if (!IsPostBack)
             {
+                QuestionOptions.SelectedIndex = 0;
+                if (QuestionOptions.SelectedIndex == 0)
+                {
+                    Panel2.Attributes.CssStyle.Add("display", "none");
+                    Panel1.Attributes.CssStyle.Add("display", "block");
+                }
+                else if (QuestionOptions.SelectedIndex == 1)
+                {
+                    Panel2.Attributes.CssStyle.Add("display", "block");
+                    Panel1.Attributes.CssStyle.Add("display", "none");
+                }
                 gvOrg.DataSource = mem.getAllMembershipDetailOrg();
                 gvOrg.DataBind();
                 gvOrg.HeaderRow.TableSection = TableRowSection.TableHeader;
@@ -38,15 +49,30 @@ namespace IPS_Prototype
                 IndDdlHonorific.DataTextField = "Code";
                 IndDdlHonorific.DataValueField = "Code"; //When insert, this value
                 IndDdlHonorific.DataBind();
+
+               
             }
             else
             {
                 //If error, display failure message
+                if (QuestionOptions.SelectedIndex == 0)
+                {
+                    Panel2.Attributes.CssStyle.Add("display", "none");
+                    Panel1.Attributes.CssStyle.Add("display", "block");
+                }
+                else if (QuestionOptions.SelectedIndex == 1)
+                {
+                    Panel2.Attributes.CssStyle.Add("display", "block");
+                    Panel1.Attributes.CssStyle.Add("display", "none");
+                }
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
             }
+          
             
         }
-        
+       
+
+
         //Button Add to link to registration
         protected void btn_MemberRegistraton(object sender, EventArgs e)
         {
@@ -151,14 +177,14 @@ namespace IPS_Prototype
 
             if (hidden.Value == "org")
             {
-                organisation.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                person.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                person.Attributes.CssStyle.Add("display", "block");
-                organisation.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonToDelete.Value = indid.ToString();
             }
@@ -312,14 +338,14 @@ namespace IPS_Prototype
             }       
             if (hidden.Value == "org")
             {
-                organisation.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                person.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                person.Attributes.CssStyle.Add("display", "block");
-                organisation.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonEdit.Value = indid.ToString();
             }
@@ -406,14 +432,14 @@ namespace IPS_Prototype
             }
             if (hidden.Value == "org")
             {
-                organisation.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                person.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                person.Attributes.CssStyle.Add("display", "block");
-                organisation.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonEdit.Value = CAREP_PERSON_ID.ToString();
             }
@@ -448,32 +474,40 @@ namespace IPS_Prototype
             ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "modalViewIND();", true);
             if (hidden.Value == "org")
             {
-                organisation.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                person.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                person.Attributes.CssStyle.Add("display", "block");
-                organisation.Attributes.CssStyle.Add("display", "none");
+                Panel2.Attributes.CssStyle.Add("display", "block");
+                Panel1.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
             }
         }
         protected void INDIV_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvPerson.PageIndex = e.NewPageIndex;
+
             //rebind your gridview - GetSource(),Datasource of your GirdView
+            gvPerson.PageIndex = e.NewPageIndex;
             DataTable dt1 = mem.getAllMembershipDetailPerson();
             gvPerson.DataSource = dt1;
             gvPerson.DataBind();
+
+
+
+
         }
         protected void ORG_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvOrg.PageIndex = e.NewPageIndex;
+
             //rebind your gridview - GetSource(),Datasource of your GirdView
-            //DataTable dt1 = mem.getAllMembershipDetailOrg();
-            //gvOrg.DataSource = dt1;
-            //gvOrg.DataBind();
+            gvOrg.PageIndex = e.NewPageIndex;
+
+            DataTable dt1 = mem.getAllMembershipDetailOrg();
+            gvOrg.DataSource = dt1;
+            gvOrg.DataBind();
+
         }
 
 
