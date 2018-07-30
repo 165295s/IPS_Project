@@ -81,6 +81,7 @@ namespace IPS_Prototype
                     memRegExpDate = pList[2].ToString();
                     AddPA.Disabled = true;
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "hideToggle();", true);
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showlblShow();", true);
 
                 }
                 if (Session["IndivEdit"] != null)
@@ -127,7 +128,8 @@ namespace IPS_Prototype
                     ddlCat1.Attributes.Add("disabled", "disabled");
                     ddlCat2.Attributes.Add("disabled", "disabled");
                     ddlStatus.Attributes.Add("disabled", "disabled");
-
+                    
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "hidelblHidden();", true);
 
 
                     if (perModel.gender.Equals("M"))
@@ -611,7 +613,7 @@ namespace IPS_Prototype
             if (check == 2)
             {
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Individual Associate: " + txtFullNameNameTag.Value + "');", true);
-
+                enableFields();
             }
             else if (check == 0)
             {
@@ -740,8 +742,10 @@ namespace IPS_Prototype
 
                 if (check == 1)
                 {
+                    
                     ScriptManager.RegisterStartupScript(Page, GetType(), "script", "offToggle();", true);
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated Personal Assistant: " + modalFName.Value + " " + modalSname.Value + "');", true);
+                    
                 }
                 else if (check == 0)
                 {
@@ -839,6 +843,33 @@ namespace IPS_Prototype
             btnSave.Disabled = true;
 
            
+        }
+        public void enableFields()
+        {
+            
+            txtSalutationField.Disabled = false;
+            txtFirstName.Disabled = false;
+            txtSurname.Disabled = false;
+            txtFullNameNameTag.Disabled = false;
+            txtEmail.Disabled = false;
+            txtTelephone.Disabled = false;
+            txtOrg1.Disabled = false;
+            txtDept1.Disabled = false;
+            txtDesig1.Disabled = false;
+            txtOrg2.Disabled = false;
+            txtDept2.Disabled = false;
+            txtDesig2.Disabled = false;
+            txtSDR.Disabled = false;
+            ddlList.Attributes.Remove("disabled");
+            ddlNationality.Attributes.Remove("disabled");
+            ddlSource.Attributes.Remove("disabled");
+            ddlCat1.Attributes.Remove("disabled");
+            ddlCat2.Attributes.Remove("disabled");
+            ddlStatus.Attributes.Remove("disabled");
+            btnSave.Disabled = false;
+            AddPA.Disabled = false;
+
+
         }
 
 

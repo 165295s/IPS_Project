@@ -13,6 +13,6 @@ namespace IPS_Prototype.RetrieveClass
 
         // Individual Renewal 
         public string IndividualName { get; set; }
-
+        public int MemberId { get; set; }
     }
 }

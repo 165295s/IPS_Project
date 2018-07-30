@@ -87,7 +87,9 @@
   <ItemGroup>
     <Content Include="css\bootstrap2-toggle.min.css" />
     <Content Include="css\jquery-ui.css" />
+    <Content Include="css\Pagination.css" />
     <Content Include="css\TimePicker.css" />
+    <Content Include="css\UpdatedModal.css" />
     <Content Include="CustomErrorPage.aspx" />
     <Content Include="css\bootstrap-grid.css.map" />
     <Content Include="css\bootstrap-grid.min.css.map" />
@@ -101,6 +103,9 @@
     <Content Include="Events_GuestList.aspx" />
     <Content Include="Events_Invite.aspx" />
     <Content Include="Events_Management.aspx" />
+    <Content Include="Fundraising_AddDonations.aspx" />
+    <Content Include="Fundraising_Autocomplete.asmx" />
+    <Content Include="Fundraising_Management.aspx" />
     <Content Include="Images\ui-icons_444444_256x240.png" />
     <Content Include="Images\ui-icons_555555_256x240.png" />
     <Content Include="Images\ui-icons_777620_256x240.png" />
@@ -109,8 +114,11 @@
     <Content Include="Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Membership_Registration_CorperateAssociateRepresentative.aspx" />
     <Content Include="Member_MemberManagement.aspx" />
+    <Content Include="Member_MemberRenewal.aspx" />
     <Content Include="Member_MemberRenewalInd.aspx" />
     <Content Include="Member_MemberRenewalOrg.aspx" />
+    <Content Include="Member_MemberTerInd.aspx" />
+    <Content Include="Member_MemberTerOrg.aspx" />
     <Content Include="Modal\AddPa_Modal.ascx" />
     <Content Include="Images\AccessRevokedShocked.PNG" />
     <Content Include="Images\Administrator.svg" />
@@ -230,6 +238,7 @@
     </Compile>
     <Compile Include="Class\ErrorLog.cs" />
     <Compile Include="DAL\DALAutocomplete.cs" />
+    <Compile Include="DAL\DALFundraising.cs" />
     <Compile Include="DAL\DALMembership.cs" />
     <Compile Include="DAL\DatabaseDAO.cs" />
     <Compile Include="DAL\EventsDAO.cs" />
@@ -262,6 +271,24 @@
     <Compile Include="Events_Management.aspx.designer.cs">
       <DependentUpon>Events_Management.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Fundraising_AddDonations.aspx.cs">
+      <DependentUpon>Fundraising_AddDonations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fundraising_AddDonations.aspx.designer.cs">
+      <DependentUpon>Fundraising_AddDonations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fundraising_Autocomplete.asmx.cs">
+      <DependentUpon>Fundraising_Autocomplete.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Fundraising_Management.aspx.cs">
+      <DependentUpon>Fundraising_Management.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fundraising_Management.aspx.designer.cs">
+      <DependentUpon>Fundraising_Management.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Membership_Registration_CorperateAssociateRepresentative.aspx.cs">
       <DependentUpon>Membership_Registration_CorperateAssociateRepresentative.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -276,6 +303,13 @@
     <Compile Include="Member_MemberManagement.aspx.designer.cs">
       <DependentUpon>Member_MemberManagement.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Member_MemberRenewal.aspx.cs">
+      <DependentUpon>Member_MemberRenewal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_MemberRenewal.aspx.designer.cs">
+      <DependentUpon>Member_MemberRenewal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Member_MemberRenewalInd.aspx.cs">
       <DependentUpon>Member_MemberRenewalInd.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -289,6 +323,20 @@
     </Compile>
     <Compile Include="Member_MemberRenewalOrg.aspx.designer.cs">
       <DependentUpon>Member_MemberRenewalOrg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member_MemberTerInd.aspx.cs">
+      <DependentUpon>Member_MemberTerInd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_MemberTerInd.aspx.designer.cs">
+      <DependentUpon>Member_MemberTerInd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member_MemberTerOrg.aspx.cs">
+      <DependentUpon>Member_MemberTerOrg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member_MemberTerOrg.aspx.designer.cs">
+      <DependentUpon>Member_MemberTerOrg.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modal\AddPa_Modal.ascx.cs">
       <DependentUpon>AddPa_Modal.ascx</DependentUpon>
@@ -384,7 +432,9 @@
     <Compile Include="Modal\Logout_Modal.ascx.designer.cs">
       <DependentUpon>Logout_Modal.ascx</DependentUpon>
     </Compile>
+    <Compile Include="RetrieveClass\EventInfo.cs" />
     <Compile Include="RetrieveClass\MemberInfo.cs" />
+    <Compile Include="RetrieveClass\OrganisationModel.cs" />
     <Compile Include="RetrieveClass\OrgInfo.cs" />
     <Compile Include="RetrieveClass\Person.cs" />
     <Compile Include="RetrieveClass\PersonModel.cs" />

@@ -63,6 +63,7 @@ namespace IPS_Prototype
             pList.Add(expDate);
             Session["Person"] = pList;
             if (type.Equals("Coporate Associate")){
+                Session["EDIT_ORG_ID"] = null;
                 Response.Redirect("Membership_Registration_OrganisationDetail.aspx");
             }
             else {

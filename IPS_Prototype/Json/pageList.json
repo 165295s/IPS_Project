@@ -15,13 +15,17 @@
         "Membership_Registration_IndividualDetail.aspx",
         "Membership_Registration_CorperateAssociateRepresentative.aspx",
         "Member_MemberManagement.aspx",
+        "Member_MemberRenewal.aspx",
         "Member_MemberRenewalInd.aspx",
         "Member_MemberRenewalOrg.aspx",
+        "Member_MemberTerInd.aspx",
+        "Member_MemberTerOrg.aspx",
+        "Fundraising_AddDonations.aspx",
+        "Fundraising_Management.aspx",
         "Events_Add.aspx",
         "Events_GuestList.aspx",
         "Events_Invite.aspx",
         "Events_Management.aspx"
-
       ]
     },
     {

@@ -13,6 +13,42 @@ namespace IPS_Prototype {
     public partial class Member_MemberRenewalInd {
         
         /// <summary>
+        /// hdnDonor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnDonor;
+        
+        /// <summary>
+        /// hdnInstallment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnInstallment;
+        
+        /// <summary>
+        /// hdnStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnStatus;
+        
+        /// <summary>
+        /// hdnExpDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnExpDate;
+        
+        /// <summary>
         /// title control.
         /// </summary>
         /// <remarks>

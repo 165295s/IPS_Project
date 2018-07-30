@@ -50,6 +50,7 @@ namespace IPS_Prototype
 
                         // After user successfully login
                         // Rirect to index2.aspx
+                        Session["check"] = "";
                         Response.Redirect("User_Management.aspx");
 
                     }

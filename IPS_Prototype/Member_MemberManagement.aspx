@@ -363,7 +363,7 @@
 
     </div>
 
-    <div id="grouping" style="margin-left: 3px; margin-top: 20px;" runat="server">
+<%--    <div id="grouping" style="margin-left: 3px; margin-top: 20px;" runat="server">
         <div style="margin-right: 10px" class="btn-group btn-group-inline">
             <label for="lblrole">Role:</label>
             <select style="width: 235px; margin-top: -7px" class="form-control" id="role" name="D1">
@@ -384,7 +384,7 @@
             </select>
         </div>
 
-    </div>
+    </div>--%>
 
     <br />
 
@@ -427,8 +427,12 @@
                 
                             <asp:TemplateField HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">
                                 <ItemTemplate>
-                                    <asp:Button runat="server" Text="Add CAREP" ID="btnDel" class="btn btn-primary" CommandName="PA" OnClick="addCAREP" Style="height: 30px; padding-top: 3px;"></asp:Button>
-                                     <asp:Button runat="server" Text="Edit ORG" ID="btnEditOrg" class="btn btn-primary" CommandName="PA" OnClick="editOrg" Style="height: 30px; padding-top: 3px;"></asp:Button>
+                                    <div id="btnAddCA" style="float:left;margin-right:57px;">
+                                        <asp:Button runat="server" Text="Add CAREP" ID="btnDel" class="btn btn-primary" CommandName="PA" OnClick="addCAREP" Style="height: 30px; padding-top: 3px;"></asp:Button>
+                                    </div>
+                                    <div id="btnEditOrgdiv" style="float:right;margin-right:81px;padding-right:-59px;">
+                                        <asp:Button runat="server" Text="Edit ORG" ID="btnEditOrg" class="btn btn-primary" CommandName="PA" OnClick="editOrg" Style="height: 30px; padding-top: 3px; margin-top:-54px; margin-right:-85px;"></asp:Button>
+                                    </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
             </Columns>
@@ -461,11 +465,11 @@
                 />
             </ItemTemplate>
         </asp:TemplateField>
-                <asp:CommandField EditText="Renew" ShowEditButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />
+<%--                <asp:CommandField EditText="Renew" ShowEditButton="true" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White" />--%>
                 <asp:TemplateField HeaderText="Actions" HeaderStyle-BackColor="#007bff" HeaderStyle-ForeColor="White">
                     <ItemTemplate>
 
-                        <button type="button" onserverclick="PersonView_ServerClick" style="background-color: transparent; border: none; cursor: pointer; color: dodgerblue" title="View" data-toggle="tooltip" runat="server"><i class="fas fa-eye"></i></button>
+<%--                        <button type="button" onserverclick="PersonView_ServerClick" style="background-color: transparent; border: none; cursor: pointer; color: dodgerblue" title="View" data-toggle="tooltip" runat="server"><i class="fas fa-eye"></i></button>--%>
                         <button type="button" onserverclick="PersonDelete_ServerClick" style="background-color: transparent; border: none; cursor: pointer; color: red" title="Delete" data-toggle="tooltip" runat="server"><i class="fas fa-trash-alt"></i></button>
                         </ItemTemplate>
                 </asp:TemplateField>

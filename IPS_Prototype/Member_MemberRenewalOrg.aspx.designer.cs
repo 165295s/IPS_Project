@@ -13,6 +13,42 @@ namespace IPS_Prototype {
     public partial class Member_MemberRenewalOrg {
         
         /// <summary>
+        /// hdnDonor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnDonor;
+        
+        /// <summary>
+        /// hdnInstallment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnInstallment;
+        
+        /// <summary>
+        /// hdnStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnStatus;
+        
+        /// <summary>
+        /// hdnExpDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnExpDate;
+        
+        /// <summary>
         /// title control.
         /// </summary>
         /// <remarks>
@@ -92,6 +128,24 @@ namespace IPS_Prototype {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl memfee;
+        
+        /// <summary>
+        /// cbInstallment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox cbInstallment;
+        
+        /// <summary>
+        /// txtInstallment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl txtInstallment;
         
         /// <summary>
         /// PaymentMode control.

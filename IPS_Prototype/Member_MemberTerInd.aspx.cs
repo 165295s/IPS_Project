@@ -16,7 +16,9 @@ namespace IPS_Prototype
         {
             if (!IsPostBack)
             {
-                string IndividualID = (string)(Session["IndividualID"]);
+                string IndividualID = (string)(Session["IndividualID"]);//ContributionID
+                string ContributionID = (string)(Session["ContributionID"]);//ContributionID
+
                 DALMembership dao = new DALMembership();
                 MemberInfo member = new MemberInfo();
                 member = dao.GetIndividualData(IndividualID);
@@ -26,6 +28,7 @@ namespace IPS_Prototype
                     title.InnerText = "Membership > Member TER";
                     individualName.Value = member.IndividualName;
                     individualID.Value = IndividualID;
+                    contributionID.Value = ContributionID;
                     UserTerHeader.InnerText = "TER For " + individualName.Value;
                     sentdate.Value = DateTime.Now.ToString("dd/MM/yyyy");
                     receiveddate.Value = DateTime.Now.ToString("dd/MM/yyyy");
@@ -51,8 +54,8 @@ namespace IPS_Prototype
                 if (!string.IsNullOrEmpty(sent_date) && !string.IsNullOrEmpty(received_date))
                 {
                     DALMembership mem = new DALMembership();
-                    createindcheck = mem.EditTerIndividual(individualID.Value, DateTime.Parse(sent_date), DateTime.Parse(received_date), ter_details, DateTime.Now);
-                    if (createindcheck == 0)
+                    createindcheck = mem.EditTerIndividual(individualID.Value, DateTime.Parse(sent_date), DateTime.Parse(received_date), ter_details, DateTime.Now, contributionID.Value);
+                    if (createindcheck > 0)
                     {
                         ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Renewed!');", true);
                     }

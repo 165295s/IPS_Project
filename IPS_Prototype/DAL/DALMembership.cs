@@ -194,6 +194,30 @@ where p.PERSON_ID ="+personId+";";
             return dt;
         }
 
+        public DataTable getAllMembershipRenewalDetailOrg()
+        {
+            //For the new Membership Renewal page (Qiqi)
+            string queryStr = /*"SELECT O.ORG_ID, o.NAME, m.DONOR_TIER, m.EXPIRY_DT FROM membership.TBL_ORGANISATION o INNER JOIN membership.TBL_MEMBERSHIP m ON o.ORG_ID = m.ORG_ID";*/
+                @"SELECT distinct o.ORG_ID, o.NAME, m.DONOR_TIER, m.EXPIRY_DT, c.CONTRIBUTION_STATUS, Sum(ct.Amount) as Amount_Paid, Count(ct.Amount) As Times_Paid 
+FROM membership.TBL_ORGANISATION o INNER JOIN membership.TBL_MEMBERSHIP m ON o.ORG_ID = m.ORG_ID
+LEFT JOIN shared.Tbl_Contribution c on m.MEMBER_ID= c.MEMBER_ID
+LEFT JOIN shared.TBL_CONTRIBUTION_TRANSACTION ct on ct.CONTRIBUTION_ID =c.CONTRIBUTION_ID Group by o.ORG_ID, o.NAME, m.DONOR_TIER, m.EXPIRY_DT, c.CONTRIBUTION_STATUS";
+            DataTable dt = dbhelp.ExecDataReader(queryStr);
+            return dt;
+        }
+
+        public DataTable getAllMembershipRenewalDetailPerson()
+        {
+            //For the new Membership Renewal page (Qiqi)
+            string queryStr = @"SELECT distinct p.PERSON_ID, CONCAT(p.FIRST_NAME, ' ', p.SURNAME) AS FULLNAME, p.EMAIL_ADDR, m.DONOR_TIER,
+m.EXPIRY_DT, c.CONTRIBUTION_STATUS, Sum(ct.Amount) as Amount_Paid, Count(ct.Amount) As Times_Paid, c.Contribution_Id FROM membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m ON p.PERSON_ID = m.PERSON_ID
+LEFT JOIN shared.Tbl_Contribution c on m.MEMBER_ID= c.MEMBER_ID
+LEFT JOIN shared.TBL_CONTRIBUTION_TRANSACTION ct on ct.CONTRIBUTION_ID =c.CONTRIBUTION_ID Group by p.PERSON_ID, p.FIRST_NAME,p.SURNAME,c.Contribution_Id
+, p.EMAIL_ADDR, m.DONOR_TIER, m.EXPIRY_DT, c.CONTRIBUTION_STATUS";
+            DataTable dt = dbhelp.ExecDataReader(queryStr);
+            return dt;
+        }
+
         public DataTable getAllCategory()
         {
             string commandtext = "SELECT * FROM membership.TBL_PERSON Order By PERSON_ID";
@@ -211,6 +235,31 @@ where p.PERSON_ID ="+personId+";";
             member.ExpiryDate = dt.Rows[0]["EXPIRY_DT"].ToString();
             member.DonorTier = dt.Rows[0]["DONOR_TIER"].ToString();
             member.IndividualName = dt.Rows[0]["FULLNAME"].ToString();
+            return member;
+        }
+
+        public MemberInfo GetIndividualDataRenewal(string IndividualID)
+        {
+            MemberInfo member = new MemberInfo();
+            DataTable dt;
+            string commandtext = "SELECT m.Member_ID, m.DONOR_TIER, m.EXPIRY_DT, CONCAT(p.FIRST_NAME, ' ', p.SURNAME) AS FULLNAME FROM membership.TBL_PERSON p INNER JOIN membership.TBL_MEMBERSHIP m ON p.PERSON_ID = m.PERSON_ID WHERE p.EMAIL_ADDR = @EMAIL_ADDR";
+            dt = dbhelp.ExecDataReader(commandtext, "@EMAIL_ADDR", IndividualID);
+            member.ExpiryDate = dt.Rows[0]["EXPIRY_DT"].ToString();
+            member.DonorTier = dt.Rows[0]["DONOR_TIER"].ToString();
+            member.IndividualName = dt.Rows[0]["FULLNAME"].ToString();
+            member.MemberId = int.Parse(dt.Rows[0]["Member_ID"].ToString());
+            return member;
+        }
+
+        public MemberInfo GetOrganisationDataRenewal(string OrganisationID)
+        {
+            MemberInfo member = new MemberInfo();
+            DataTable dt;
+            string commandtext = "SELECT m.Member_ID, m.DONOR_TIER, m.EXPIRY_DT FROM membership.TBL_ORGANISATION o INNER JOIN membership.TBL_MEMBERSHIP m ON o.ORG_ID = m.ORG_ID WHERE o.NAME = @NAME";
+            dt = dbhelp.ExecDataReader(commandtext, "@NAME", OrganisationID);
+            member.ExpiryDate = dt.Rows[0]["EXPIRY_DT"].ToString();
+            member.DonorTier = dt.Rows[0]["DONOR_TIER"].ToString();
+            member.MemberId = int.Parse(dt.Rows[0]["Member_ID"].ToString());
             return member;
         }
 
@@ -259,7 +308,51 @@ where p.PERSON_ID ="+personId+";";
             return hasPaid;
         }
 
-            // to insert for renewal
+        public bool HasMemberPaidOrg(int orgId)
+        {
+            bool hasPaid = false;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+
+            string query = "Select * from  shared.TBL_CONTRIBUTION where Member_Id=(Select Member_Id from membership.TBL_MEMBERSHIP " +
+                " Where Org_Id =" + orgId + ")";
+            DataTable dataTable = dbhelp.ExecDataReader(query);
+            if (dataTable != null && dataTable.Rows.Count > 0)
+                hasPaid = true;
+            return hasPaid;
+        }
+
+        public bool HasMemberPartiallyPaid(int memberId)
+        {
+            bool hasPaid = false;
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+
+            string query = "Select * from  shared.TBL_CONTRIBUTION where Contribution_Status='Installment' and Member_Id=" + memberId;
+            DataTable dataTable = dbhelp.ExecDataReader(query);
+            if (dataTable != null && dataTable.Rows.Count > 0)
+                hasPaid = true;
+            return hasPaid;
+        }
+
+        public float GetPartialPayment(int contibutionId)
+        {
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            float amountPaid = 0;
+            string query = "Select * from shared.TBL_CONTRIBUTION_Transaction where Contribution_Id=" + contibutionId ;
+            DataTable dataTable = dbhelp.ExecDataReader(query);
+            if (dataTable != null && dataTable.Rows.Count > 0)
+            {
+                foreach (DataRow dataRow in dataTable.Rows)
+                {
+                    amountPaid += float.Parse(dataRow[1].ToString());
+                }
+            }
+            return amountPaid;
+        }
+
+        // to insert for renewal
         public int InsertIndividualContribution(IndividualContribution individualContribution)
         {
             int result = 0;
@@ -269,18 +362,55 @@ where p.PERSON_ID ="+personId+";";
                 SqlCommand mycmd = new SqlCommand();
                 SqlCommand mycmd1 = new SqlCommand();
 
-                string commandtext_Contribution = "INSERT INTO shared.TBL_CONTRIBUTION (MEMBER_ID, TOTAL_AMOUNT, CONTRIBUTION_DT, CREATED_DT, CONTRIBUTION_STATUS) VALUES ((select" +
-                    " Member_Id from membership.TBL_Membership where Person_Id=@personId), @totalamount, @contributiondt, @createddate,@status)";
+                string commandtext_Contribution = "INSERT INTO shared.TBL_CONTRIBUTION (MEMBER_ID, TOTAL_AMOUNT, CONTRIBUTION_DT, CREATED_DT, CONTRIBUTION_STATUS, Contribution_Paid) VALUES ((select" +
+                    " Member_Id from membership.TBL_Membership where Person_Id=@personId), @totalamount, @contributiondt, @createddate,@status,0)";
                 mycmd1 = dbhelp.CreateCommand(commandtext_Contribution, CommandType.Text, "@personId", individualContribution.PersonId, "@totalamount", individualContribution.TotalAmount,
                     "@contributiondt", individualContribution.ContributionDate, "@createddate", individualContribution.ContributionCreatedDate, "@status", individualContribution.Status);
 
                 string commandtext_contributiontransaction = "INSERT INTO shared.TBL_CONTRIBUTION_TRANSACTION (CONTRIBUTION_ID, AMOUNT, PAYMENT_RECEIVED_DT, CREATED_DT, PAYMENT_DETAILS, PAYMENT_MODE," +
                     " PAYMENT_PURPOSE) VALUES ((SELECT MAX(CONTRIBUTION_ID) FROM shared.TBL_CONTRIBUTION), @amount, @paymentreceiveddate, @createddate, @paymentdets, @paymentmode, @paymentpurpose)";
                 mycmd = dbhelp.CreateCommand(commandtext_contributiontransaction, CommandType.Text, "@amount", individualContribution.Amoount, "@paymentreceiveddate",
-                    individualContribution.PaymentReceivedDate, "@createddate", individualContribution.CreatedDate, "@paymentdets", individualContribution.PaymentDetails, 
+                    individualContribution.PaymentReceivedDate, "@createddate", individualContribution.CreatedDate, "@paymentdets", individualContribution.PaymentDetails,
                     "@paymentmode", individualContribution.PaymentMode, "@paymentpurpose", individualContribution.PaymentPurpose);
 
-                dbhelp.ExecNonQuery("UPDATE c SET c.CONTRIBUTION_PAID = CONTRIBUTION_PAID + @amount FROM shared.TBL_CONTRIBUTION c inner join shared.TBL_CONTRIBUTION_TRANSACTION ct ON c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID");
+               //bhelp.ExecNonQuery("UPDATE c SET c.CONTRIBUTION_PAID = CONTRIBUTION_PAID + @amount FROM shared.TBL_CONTRIBUTION c inner join shared.TBL_CONTRIBUTION_TRANSACTION ct ON c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID");
+
+                transcommand.Add(mycmd1);
+                transcommand.Add(mycmd);
+
+                result = dbhelp.ExecTrans(transcommand);
+                UpdatePaymentStatus(individualContribution);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+            }
+            return result;
+        }
+
+        //To create new contribution in Member_MemberRenewal.aspx
+        public int InsertOrganisationContribution(IndividualContribution individualContribution)
+        {
+            int result = 0;
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+                SqlCommand mycmd = new SqlCommand();
+                SqlCommand mycmd1 = new SqlCommand();
+
+                string commandtext_Contribution = "INSERT INTO shared.TBL_CONTRIBUTION (MEMBER_ID, TOTAL_AMOUNT, CONTRIBUTION_DT, CREATED_DT, CONTRIBUTION_STATUS) VALUES ((select" +
+                    " Member_Id from membership.TBL_Membership where Org_Id=@orgId), @totalamount, @contributiondt, @createddate,@status)";
+                mycmd1 = dbhelp.CreateCommand(commandtext_Contribution, CommandType.Text, "@orgId", individualContribution.OrgId, "@totalamount", individualContribution.TotalAmount,
+                    "@contributiondt", individualContribution.ContributionDate, "@createddate", individualContribution.ContributionCreatedDate, "@status", individualContribution.Status);
+
+                string commandtext_contributiontransaction = "INSERT INTO shared.TBL_CONTRIBUTION_TRANSACTION (CONTRIBUTION_ID, AMOUNT, PAYMENT_RECEIVED_DT, CREATED_DT, PAYMENT_DETAILS, PAYMENT_MODE," +
+                    " PAYMENT_PURPOSE) VALUES ((SELECT MAX(CONTRIBUTION_ID) FROM shared.TBL_CONTRIBUTION), @amount, @paymentreceiveddate, @createddate, @paymentdets, @paymentmode, @paymentpurpose)";
+                mycmd = dbhelp.CreateCommand(commandtext_contributiontransaction, CommandType.Text, "@amount", individualContribution.Amoount, "@paymentreceiveddate",
+                    individualContribution.PaymentReceivedDate, "@createddate", individualContribution.CreatedDate, "@paymentdets", individualContribution.PaymentDetails,
+                    "@paymentmode", individualContribution.PaymentMode, "@paymentpurpose", individualContribution.PaymentPurpose);
+
+                dbhelp.ExecNonQuery(string.Format("UPDATE c SET c.CONTRIBUTION_PAID = CONTRIBUTION_PAID + {0} FROM shared.TBL_CONTRIBUTION Where Contribution_Id={1}", individualContribution.Amoount, individualContribution.ContributionId));
 
                 transcommand.Add(mycmd1);
                 transcommand.Add(mycmd);
@@ -295,36 +425,94 @@ where p.PERSON_ID ="+personId+";";
             return result;
         }
 
+        // to insert for renewal
+        public int InsertIndividualContributionInstallment(IndividualContribution individualContribution)
+        {
+            int result = 0;
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+                SqlCommand mycmd = new SqlCommand();
+
+                string commandtext_contributiontransaction = "INSERT INTO shared.TBL_CONTRIBUTION_TRANSACTION (CONTRIBUTION_ID, AMOUNT, PAYMENT_RECEIVED_DT, CREATED_DT, PAYMENT_DETAILS, PAYMENT_MODE," +
+                    " PAYMENT_PURPOSE) VALUES (@contributionId,@amount, @paymentreceiveddate, @createddate, @paymentdets, @paymentmode, @paymentpurpose)";
+                mycmd = dbhelp.CreateCommand(commandtext_contributiontransaction, CommandType.Text, "@contributionId", individualContribution.ContributionId, "@personId", individualContribution.PersonId, "@amount", individualContribution.Amoount, "@paymentreceiveddate",
+                    individualContribution.PaymentReceivedDate, "@createddate", individualContribution.CreatedDate, "@paymentdets", individualContribution.PaymentDetails,
+                    "@paymentmode", individualContribution.PaymentMode, "@paymentpurpose", individualContribution.PaymentPurpose);
+                transcommand.Add(mycmd);
+
+                result = dbhelp.ExecTrans(transcommand);
+                UpdatePaymentStatus(individualContribution);
+               // dbhelp.ExecNonQuery(string.Format("UPDATE shared.TBL_CONTRIBUTION SET CONTRIBUTION_PAID = CONTRIBUTION_PAID + {0}  Where Contribution_Id={1}", individualContribution.Amoount, individualContribution.ContributionId));
+               
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+            }
+             
+            return result;
+        }
+
+        // to insert for renewal
+        public int InsertIndividualContributionInstallmentOrganisation(IndividualContribution individualContribution)
+        {
+            int result = 0;
+            try
+            {
+                List<SqlCommand> transcommand = new List<SqlCommand>();
+                SqlCommand mycmd = new SqlCommand();
+
+                string commandtext_contributiontransaction = "INSERT INTO shared.TBL_CONTRIBUTION_TRANSACTION (CONTRIBUTION_ID, AMOUNT, PAYMENT_RECEIVED_DT, CREATED_DT, PAYMENT_DETAILS, PAYMENT_MODE," +
+                    " PAYMENT_PURPOSE) VALUES ((SELECT c.CONTRIBUTION_ID FROM shared.TBL_CONTRIBUTION c INNER JOIN membership.TBL_MEMBERSHIP m ON c.MEMBER_ID = m.MEMBER_ID WHERE m.ORG_ID=@orgId)," +
+                    " @amount, @paymentreceiveddate, @createddate, @paymentdets, @paymentmode, @paymentpurpose)";
+                mycmd = dbhelp.CreateCommand(commandtext_contributiontransaction, CommandType.Text, "@orgId", individualContribution.OrgId, "@amount", individualContribution.Amoount, "@paymentreceiveddate",
+                    individualContribution.PaymentReceivedDate, "@createddate", individualContribution.CreatedDate, "@paymentdets", individualContribution.PaymentDetails,
+                    "@paymentmode", individualContribution.PaymentMode, "@paymentpurpose", individualContribution.PaymentPurpose);
+                transcommand.Add(mycmd);
+
+                result = dbhelp.ExecTrans(transcommand);
+                dbhelp.ExecNonQuery("UPDATE c SET c.CONTRIBUTION_PAID = CONTRIBUTION_PAID + @amount FROM shared.TBL_CONTRIBUTION c inner join shared.TBL_CONTRIBUTION_TRANSACTION ct ON c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID");
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.WriteErrorLog(ex.ToString());
+            }
+            //  UpdatePaymentStatus(individualContribution);
+            return result;
+        }
+
         public void UpdatePaymentStatus(IndividualContribution individualContribution)
         {
             List<SqlCommand> transcommand = new List<SqlCommand>();
             SqlCommand mycmd = new SqlCommand();
-            try {
-                string commandtext_Contribution = "SELECT c.MEMBER_ID, c.TOTAL_AMOUNT, c.CONTRIBUTION_PAID from shared.TBL_CONTRIBUTION c INNER JOIN shared.TBL_CONTRIBUTION_TRANSACTION ct" +
-                    " on c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID where c.Member_Id=(Select Member_Id from membership.TBL_MEMBERSHIP VALUES ((select Member_Id from membership.TBL_Membership " +
-                    " where Person_Id=@personId))";
-                mycmd = dbhelp.CreateCommand(commandtext_Contribution, CommandType.Text, "@personId", individualContribution.PersonId);
+            try
+            {
+                string commandtext_Contribution =string.Format( @"SELECT top 1  ct.TOTAL_AMOUNT, Sum(c.AMOUNT) as Total_Paid from 
+            shared.TBL_CONTRIBUTION_TRANSACTION c INNER JOIN shared.TBL_CONTRIBUTION ct
+        on c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID where ct.Contribution_Id={1} and ct.Member_Id = (select Member_Id from membership.TBL_Membership
+          where Person_Id = {0}) group by ct.TOTAL_AMOUNT, ct.CONTRIBUTION_ID order by ct.CONTRIBUTION_ID desc", individualContribution.PersonId,  individualContribution.ContributionId);
+                mycmd = dbhelp.CreateCommand(commandtext_Contribution, CommandType.Text);
                 transcommand.Add(mycmd);
-                DataTable dataTable = dbhelp.ExecDataReader(commandtext_Contribution);
-
+                mycmd.Connection = dbhelp._conn;
+                dbhelp._conn.Open();
                 var dataReader = mycmd.ExecuteReader();
-            individualContribution.Status = "Partial";                  
-                if (dataReader.HasRows)
+                individualContribution.Status = "Installment";
+                if (dataReader!=null && dataReader.HasRows)
                 {
-                    while (dataReader.Read())
-                    {
-
-                        var TotalAmount = dataReader.GetDecimal(1);
-                        var paidAmount = dataReader.GetDecimal(2);
-                        if (paidAmount >= TotalAmount)
-                            individualContribution.Status = "Paid";
-                    }
+                    dataReader.Read();
+                    var TotalAmount = dataReader.GetDecimal(0);
+                    var paidAmount = dataReader.GetDecimal(1);
+                    if (paidAmount >= TotalAmount)
+                        individualContribution.Status = "Full";
                     dataReader.Close();
                 }
-                string newQuery = string.Format("update shared.TBL_CONTRIBUTION set CONTRIBUTION_STATUS ='{0}' (Select Member_Id from membership.TBL_MEMBERSHIP VALUES ((select Member_Id from membership.TBL_Membership " +
-                    " where Person_Id=@personId))", individualContribution.Status);
+               
+                string newQuery = string.Format("update shared.TBL_CONTRIBUTION set CONTRIBUTION_STATUS ='{0}', Contribution_Paid=Contribution_Paid+{1} Where Member_Id=(select Member_Id from membership.TBL_Membership " +
+                    " where Person_Id={3}) and Contribution_Id={2}", individualContribution.Status, individualContribution.Amoount, individualContribution.ContributionId, individualContribution.PersonId);
                 mycmd.CommandText = newQuery;
                 mycmd.ExecuteNonQuery();
+                dbhelp._conn.Close();
             }
             catch (Exception ex)
             {
@@ -334,17 +522,38 @@ where p.PERSON_ID ="+personId+";";
 
 
         // Member_MemberTerInd.aspx : Individual
-        public int EditTerIndividual(string email, DateTime sentdate, DateTime receiveddate, string details, DateTime modified)
+        //public int EditTerIndividual(string email, DateTime sentdate, DateTime receiveddate, string details, DateTime modified)
+        //{
+        //    int result = 0;
+        //    try
+        //    {
+        //        dbhelp.ExecNonQuery("UPDATE c SET c.TER_SENT_DT = @SentDate, c.TER_RECEIVED_DT = @ReceivedDate, c.TER_DETAILS = @Details, c.MODIFIED_DT = @modified_date FROM shared.TBL_CONTRIBUTION c inner join membership.TBL_MEMBERSHIP m ON c.CONTRIBUTION_ID = m.CONTRIBUTION_ID inner join membership.TBL_PERSON p ON m.PERSON_ID = p.PERSON_ID WHERE p.EMAIL_ADDR = @email;", "@SentDate", sentdate, "@ReceivedDate", receiveddate, "@Details", details, "@modified_date", modified, "@email", email);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorLog.WriteErrorLog(ex.ToString());
+        //    }
+        //    return result;
+        //}
+
+        public int EditTerIndividual(string email, DateTime sentdate, DateTime receiveddate, string details, DateTime modified, string contributionId)
         {
             int result = 0;
-            try
-            {
-                dbhelp.ExecNonQuery("UPDATE c SET c.TER_SENT_DT = @SentDate, c.TER_RECEIVED_DT = @ReceivedDate, c.TER_DETAILS = @Details, c.MODIFIED_DT = @modified_date FROM shared.TBL_CONTRIBUTION c inner join membership.TBL_MEMBERSHIP m ON c.CONTRIBUTION_ID = m.CONTRIBUTION_ID inner join membership.TBL_PERSON p ON m.PERSON_ID = p.PERSON_ID WHERE p.EMAIL_ADDR = @email;", "@SentDate", sentdate, "@ReceivedDate", receiveddate, "@Details", details, "@modified_date", modified, "@email", email);
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.WriteErrorLog(ex.ToString());
-            }
+            List<SqlCommand> transcommand = new List<SqlCommand>();
+            SqlCommand mycmd = new SqlCommand();
+            //string commandtext = "UPDATE ct SET ct.TER_SENT_DT = @tersentdate, ct.TER_RECEIVED_DT = @terreceiveddate, ct.TER_DETAILS = @terdetails, ct.MODIFIED_DT = @modified_date FROM shared.TBL_CONTRIBUTION ct inner join shared.TBL_CONTRIBUTION c" +
+            //    "ON c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID INNER JOIN membership.TBL_MEMBERSHIP m ON m.MEMBER_ID = c.MEMBER_ID INNER JOIN TBL_PERSON p ON p.PERSON_ID = m.PERSON_ID WHERE p.EMAIL_ADDR = @EMAIL_ADDR1;";
+            string commandtext = @"UPDATE ct SET ct.TER_SENT_DT = CONVERT(date,@tersentdate,103), ct.TER_RECEIVED_DT = CONVERT(date,@terreceiveddate,103), ct.TER_DETAILS = @terdetails, ct.MODIFIED_DT = CONVERT(date,@modified_date,103)
+            FROM shared.TBL_CONTRIBUTION_TRANSACTION ct inner join shared.TBL_CONTRIBUTION c
+                ON c.CONTRIBUTION_ID = ct.CONTRIBUTION_ID INNER JOIN membership.TBL_MEMBERSHIP m
+                ON m.MEMBER_ID = c.MEMBER_ID INNER JOIN membership.TBL_PERSON p
+                ON p.PERSON_ID = m.PERSON_ID
+                WHERE p.EMAIL_ADDR = @EMAIL_ADDR1 and ct.CONTRIBUTION_ID = @contributionID";
+            mycmd = dbhelp.CreateCommand(commandtext, CommandType.Text, "@tersentdate", sentdate, "@terreceiveddate", receiveddate, "@terdetails", details, "@modified_date", modified, "@EMAIL_ADDR", email, "@EMAIL_ADDR1", email, "@contributionID", contributionId);
+
+
+            transcommand.Add(mycmd);
+            result = dbhelp.ExecTrans(transcommand);
             return result;
         }
 
@@ -391,6 +600,7 @@ where p.PERSON_ID ="+personId+";";
             return result;
         }
 
+        //not used 
         //To create new contribution in Member_MemberRenewal.aspx
         public int InsertOrgContribution(string name, decimal amount, string paymentreceiveddate, DateTime createddate, string paymentdets, string paymentmode, string paymentpurpose)
         {

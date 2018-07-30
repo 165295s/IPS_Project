@@ -152,14 +152,14 @@ namespace IPS_Prototype
             if (hidden.Value == "org")
             {
                 organisation.Attributes.CssStyle.Add("display", "block");
-                grouping.Attributes.CssStyle.Add("display", "block");
+                //grouping.Attributes.CssStyle.Add("display", "block");
                 person.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
                 person.Attributes.CssStyle.Add("display", "block");
                 organisation.Attributes.CssStyle.Add("display", "none");
-                grouping.Attributes.CssStyle.Add("display", "none");
+                //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonToDelete.Value = indid.ToString();
             }
 
@@ -218,6 +218,7 @@ namespace IPS_Prototype
             GridViewRow row = (GridViewRow)((Button)sender).NamingContainer;
             int ORG_ID = int.Parse(row.Cells[2].Text);
             Session["EDIT_ORG_ID"] = ORG_ID;
+            Session["Person"] = null;
             Response.Redirect("Membership_Registration_OrganisationDetail.aspx");
 
 
@@ -312,14 +313,14 @@ namespace IPS_Prototype
             if (hidden.Value == "org")
             {
                 organisation.Attributes.CssStyle.Add("display", "block");
-                grouping.Attributes.CssStyle.Add("display", "block");
+                //grouping.Attributes.CssStyle.Add("display", "block");
                 person.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
                 person.Attributes.CssStyle.Add("display", "block");
                 organisation.Attributes.CssStyle.Add("display", "none");
-                grouping.Attributes.CssStyle.Add("display", "none");
+                //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonEdit.Value = indid.ToString();
             }
         }
@@ -406,14 +407,14 @@ namespace IPS_Prototype
             if (hidden.Value == "org")
             {
                 organisation.Attributes.CssStyle.Add("display", "block");
-                grouping.Attributes.CssStyle.Add("display", "block");
+                //grouping.Attributes.CssStyle.Add("display", "block");
                 person.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
                 person.Attributes.CssStyle.Add("display", "block");
                 organisation.Attributes.CssStyle.Add("display", "none");
-                grouping.Attributes.CssStyle.Add("display", "none");
+                //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonEdit.Value = CAREP_PERSON_ID.ToString();
             }
         }
@@ -448,16 +449,34 @@ namespace IPS_Prototype
             if (hidden.Value == "org")
             {
                 organisation.Attributes.CssStyle.Add("display", "block");
-                grouping.Attributes.CssStyle.Add("display", "block");
+                //grouping.Attributes.CssStyle.Add("display", "block");
                 person.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
                 person.Attributes.CssStyle.Add("display", "block");
                 organisation.Attributes.CssStyle.Add("display", "none");
-                grouping.Attributes.CssStyle.Add("display", "none");
+                //grouping.Attributes.CssStyle.Add("display", "none");
             }
         }
+        protected void INDIV_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvPerson.PageIndex = e.NewPageIndex;
+            //rebind your gridview - GetSource(),Datasource of your GirdView
+            DataTable dt1 = mem.getAllMembershipDetailPerson();
+            gvPerson.DataSource = dt1;
+            gvPerson.DataBind();
+        }
+        protected void ORG_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvOrg.PageIndex = e.NewPageIndex;
+            //rebind your gridview - GetSource(),Datasource of your GirdView
+            //DataTable dt1 = mem.getAllMembershipDetailOrg();
+            //gvOrg.DataSource = dt1;
+            //gvOrg.DataBind();
+        }
+
+
 
 
     }

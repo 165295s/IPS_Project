@@ -4,15 +4,15 @@
     <siteMapNode url="none.aspx" title="&lt;img src='../Images/Membership.svg' style='width:23px; height:23px;' class='icons' id='MembershipIcon'&gt;Membership"  description="Membership">
       <siteMapNode url="Member_MemberManagement.aspx" title="Member Management"  description="Member Management" />
       <siteMapNode url="Membership_Registration.aspx" title="Member Registration"  description="Member Registration" />
-      <siteMapNode url="EditMember.aspx" title="Edit"  description="Edit" />
+      <siteMapNode url="Member_MemberRenewal.aspx" title="Member Renewal"  description="Member Renewal" />
     </siteMapNode>
     <siteMapNode url="none0.aspx" title="&lt;img src='../Images/Event.svg' style='width:23px; height:23px; margin-left:3px;' class='icons' id='EventIcon'&gt;Events"  description="Events" >
       <siteMapNode url="Events_Add.aspx" title="Create Event"  description="Create Event" />
-      <siteMapNode url="EditEvent.aspx" title="Edit Event"  description="Edit Event" />
       <siteMapNode url="Events_Management.aspx" title="Event Management" description="Event Management"></siteMapNode>
     </siteMapNode>
     <siteMapNode url="none1.aspx" title="&lt;img src='../Images/Donation.svg' style='width:23px; height:23px; margin-left:3px;' class='icons' id='DonationIcon'&gt;Donations"  description="Donation">
-      <siteMapNode url="AddDonations.aspx" title="Add Donations"  description="Add Donation" />
+      <siteMapNode url="Fundraising_Management.aspx" title="Fundraising Management"  description="Fundraising Management" />
+      <siteMapNode url="Fundraising_AddDonations.aspx" title="Fundraising Campaign"  description="Add Donation" />
     </siteMapNode>
     <siteMapNode url="none2.aspx" title="&lt;img src='../Images/Administrator.svg' style='width:23px; height:23px; margin-left:7px;' class='icons' id='AdministratorIcon'&gt;Administrator"  description="Administrator">
       <siteMapNode url="User_Management.aspx" title="User Management"  description="Manage Users" />

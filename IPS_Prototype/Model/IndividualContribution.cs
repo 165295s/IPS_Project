@@ -18,8 +18,10 @@ namespace IPS_Prototype.Model
         public DateTime ContributionCreatedDate { get; set; }
         public int MemberId { get; set; }
         public int PersonId { get; set; }
+        public int OrgId { get; set; }
         public string DonorTier { get; set; }
         public string ExpiryDate { get; set; }
+        public string ContributionId { get; set; }
         public string Status { get; set; }
     }
 }

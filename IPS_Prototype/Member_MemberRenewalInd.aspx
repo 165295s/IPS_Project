@@ -2,10 +2,21 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script>       
-        // checkbox checked
+            // checkbox checked
         function showControlsAfterPostBackChecked() {
             $("#ContentPlaceHolder1_grouping").css("display", "block");
             displaySuccess('Successfully Renewed!');
+            $('#ContentPlaceHolder1_cbpaid').click();
+            $('#ContentPlaceHolder1_cbInstallment').click();
+            var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
+            handleDropDownChange1(dropdownValuerefreshed);
+        }
+
+        function showControlsAfterPostBackCheckedInstallmentFailure() {
+            $("#ContentPlaceHolder1_grouping").css("display", "block");
+            $('#ContentPlaceHolder1_cbpaid').click();
+            $('#ContentPlaceHolder1_cbInstallment').click();
+            displayFailure();
             var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
             handleDropDownChange1(dropdownValuerefreshed);
         }
@@ -13,6 +24,12 @@
         function showControlsAfterPostBackCheckedFailure() {
             $("#ContentPlaceHolder1_grouping").css("display", "block");
             displayFailure();
+            var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
+            handleDropDownChange1(dropdownValuerefreshed);
+        }
+        function showControlsAfterPostBackCheckedNoInstallment() {
+               $("#ContentPlaceHolder1_grouping").css("display", "block");
+            displaySuccess('Successfully Renewed!');
             var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
             handleDropDownChange1(dropdownValuerefreshed);
         }
@@ -55,8 +72,6 @@
             }
         }
 
-
-
         function handleDropDownChange(dropdownValue) {
             console.log("event called");
             // Filter ddl w/ date
@@ -96,9 +111,26 @@
         $(document).ready(function () {
 
             $('#ContentPlaceHolder1_cbInstallment').click(function () {
-
-                $('#dvInstallment').toggle();
+                $('#dvInstallment').toggle();              
             });
+
+             var status = $('#ContentPlaceHolder1_hdnStatus').val();
+                console.log("Status - " + status);
+                if (status == "Partial") {
+                    var donorTier = $('#ContentPlaceHolder1_hdnDonor').val();
+                    var expDate =  $('#ContentPlaceHolder1_hdnExpDate').val();
+                    $('#ContentPlaceHolder1_Donor_Tier').val(donorTier);
+                    handleDropDownChange1(donorTier);
+                    $('#ContentPlaceHolder1_datetime').val(expDate);
+                    var membershipFee = $('#ContentPlaceHolder1_memfee').val();
+                    var amountPaid = $('#ContentPlaceHolder1_hdnInstallment').val();
+                    $('#ContentPlaceHolder1_txtInstallment').val(membershipFee - amountPaid);
+                    $('#ContentPlaceHolder1_cbpaid').click();
+                    $('#ContentPlaceHolder1_cbInstallment').click();
+                    $("#ContentPlaceHolder1_grouping").css("display", "block");  // checked
+                    $("#ContentPlaceHolder1_Donor_Tier").prop("disabled", "true"); 
+                    $("#ContentPlaceHolder1_datetime").prop("disabled", "true"); 
+                }
 
             var now = new Date();
             var nextyr = now.getFullYear() + 1;
@@ -171,6 +203,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <asp:HiddenField ID="hdnDonor" runat="server" />
+    <asp:HiddenField ID="hdnInstallment" runat="server" />
+    <asp:HiddenField ID="hdnStatus" runat="server" />    
+    <asp:HiddenField ID="hdnExpDate" runat="server" />
+
     <div id="SuccessAlert" class="alert alert-success">
         <strong>Success!</strong>
         <label id="SuccessMsg"></label>
@@ -210,7 +247,6 @@
             </div>
 
             <div id="grouping" runat="server" style="display: none; margin-top: -12px;">
-
                 <div class="form-group" style="width: 350px;">
                     <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Membership Fee:</label>
                     <div class="input-group mb-3">
@@ -225,14 +261,6 @@
                     <label for="lblInstallment">Installment:</label>
                     <input type="checkbox" name="cbInstallment" class="form-control" style="width: 17px; height: 17px; margin-top: -3px" id="cbInstallment" runat="server" value="cbInstallment">
                 </div>
-
-                <%--              <div class="input-group" style="display:none;width: 350px;" id="dvInstallment">
-                        <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Installment Amount:</label>               
-                        <div class="input-group-prepend mb-3">
-                            <span class="input-group-text">$</span>
-                        </div>
-                        <input class="form-control" type="number" id="txtInstallment" runat="server">
-                    </div>--%>
 
                 <div class="input-group" style="display: none; width: 350px;" id="dvInstallment">
                     <div class="form-group" style="width: 350px;">
@@ -270,7 +298,6 @@
 
 
             <div class="form-group">
-                <%-- type="button"--%>
                 <button type="button" id="UserSubmit" class="btn btn-primary" runat="server" onserverclick="Submit_Renewal">RENEW</button>
             </div>
 

@@ -18,14 +18,13 @@ namespace IPS_Prototype
         {
             if (!IsPostBack)
             {
+               
                 string IndividualID = (string)(Session["IndividualID"]);
                 DALMembership dao = new DALMembership();
                 MemberInfo member = new MemberInfo();
-                member = dao.GetIndividualData(IndividualID);
+                member = dao.GetIndividualDataRenewal(IndividualID);
                 if (member.DonorTier != null)
                 {
-                    // if show date from gv to tb
-                    // datetime.Value = (member.ExpiryDate).ToShortDateString();
                     datetime.Value = DateTime.Now.AddYears(1).ToString("dd/MM/yyyy");
                     paymentreceiveddate.Value = DateTime.Now.ToString("dd/MM/yyyy");
                     individualName.Value = member.IndividualName;
@@ -36,65 +35,116 @@ namespace IPS_Prototype
                 {
                     ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
                 }
-
+                if (member != null && member.MemberId > 0)
+                    PopulateControlsIfPartiallyPaid(member.MemberId, IndividualID);
             }
+        }
 
+        private void PopulateControlsIfPartiallyPaid(int memberId, string emailAddress)
+        {
+            DALMembership dao = new DALMembership();
+            bool hasPartialPayment = dao.HasMemberPartiallyPaid(memberId);
+            if (hasPartialPayment)
+            {
+                int  contributionId= Convert.ToInt32(Session["ContributionID"]);
+                float amountPaid = dao.GetPartialPayment(contributionId);
+                var member = dao.GetIndividualDataRenewal(emailAddress);
+                hdnDonor.Value = member.DonorTier;
+                hdnInstallment.Value = amountPaid.ToString();
+                hdnExpDate.Value = member.ExpiryDate; 
+                hdnStatus.Value = "Partial";
+                memfee.Disabled = true;
+            }
+            else
+            {
+                hdnStatus.Value = "Full";
+            }
         }
 
         protected void Submit_Renewal(object sender, EventArgs e)
         {
+            DALMembership mem = new DALMembership();
             if (cbpaid.Checked)
             {
                 int createindcheck = 0;
                 IndividualContribution individualContribution = new IndividualContribution();
-                individualContribution.Amoount = decimal.Parse(memfee.Value);
                 individualContribution.PaymentReceivedDate = DateTime.Parse(paymentreceiveddate.Value);
-                individualContribution.PaymentPurpose= "Membership";
+                individualContribution.PaymentPurpose = "Membership";
                 individualContribution.PaymentMode = PaymentMode.Value;
                 individualContribution.ExpiryDate = datetime.Value;
                 individualContribution.DonorTier = Donor_Tier.Value;
-                individualContribution.TotalAmount = decimal.Parse(memfee.Value);
                 individualContribution.PaymentDetails = remarks.Value;
                 individualContribution.CreatedDate = DateTime.Now;
                 individualContribution.ContributionCreatedDate = DateTime.Now;
+                individualContribution.ContributionId = (string)(Session["ContributionID"]);
                 individualContribution.ContributionDate = DateTime.Now;
                 individualContribution.PersonId = int.Parse(Session["PersonId"].ToString());
                 individualContribution.Status = "Full";
-                if (cbInstallment.Checked)
-                {
-                    individualContribution.Amoount = decimal.Parse(txtInstallment.Value);
-                    individualContribution.Status = "Installment";
-                }
-                if (!string.IsNullOrEmpty(individualContribution.DonorTier) && !string.IsNullOrEmpty(individualContribution.PaymentMode))
-                {
-                    if (individualContribution.DonorTier == "Friend of IPS")
-                    {
-                        individualContribution.ExpiryDate = datetime.Value;
-                    }
-                    else if (individualContribution.DonorTier == "Lifetime Friend of IPS" || individualContribution.DonorTier == "Lifetime Benefactor of IPS"
-                      || individualContribution.DonorTier == "Lifetime Patron of IPS")
-                    {
-                       datetime.Value= individualContribution.ExpiryDate = "NA";
-                    }
 
-                    DALMembership mem = new DALMembership();
-                    // individual
-                    int updateindcheck = mem.EditIndividual(individualContribution.DonorTier, individualContribution.ExpiryDate, individualID.Value, DateTime.Now);
-                                   
-                   createindcheck = mem.InsertIndividualContribution(individualContribution);
-                    //decimal amt, string paymentreceiveddate, DateTime createddate, string paymentdets, string paymentmode, string paymentpurpose, decimal totalamt, DateTime contridate
-                    if (createindcheck == 0)
+                if (hdnStatus.Value.Contains("Partial"))
+                {
+                    if (!string.IsNullOrEmpty(individualContribution.PaymentMode))
                     {
-                        //ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Renewed!');", true);
-                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "showControlsAfterPostBackChecked();", true);
+                        if (cbInstallment.Checked)
+                        {
+                            individualContribution.Amoount = decimal.Parse(txtInstallment.Value);
+                            individualContribution.Status = "Installment";
+                        }
+
+                        int insertInstallment = 0;
+                        insertInstallment = mem.InsertIndividualContributionInstallment(individualContribution);
+                        if (insertInstallment > 0)
+                        {
+                            ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "showControlsAfterPostBackChecked();", true);
+
+                            DALMembership dao = new DALMembership();
+                                int contributionId = Convert.ToInt32(Session["ContributionID"]);
+                                float amountPaid = dao.GetPartialPayment(contributionId);
+                                hdnInstallment.Value = amountPaid.ToString();
+                                hdnStatus.Value = "Partial";
+                                memfee.Disabled = true;
+                                txtInstallment.Value = amountPaid.ToString();                         
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showControlsAfterPostBackCheckedInstallmentFailure();", true);
                     }
                 }
-                else
+                else if (memfee.Disabled.Equals(false))
                 {
-                    //ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showControlsAfterPostBackCheckedFailure();", true);
-                }
+                    if (!string.IsNullOrEmpty(individualContribution.DonorTier) && !string.IsNullOrEmpty(individualContribution.PaymentMode))
+                    {
+                        individualContribution.Amoount = decimal.Parse(memfee.Value);
+                        individualContribution.TotalAmount = decimal.Parse(memfee.Value);
 
+                        if (cbInstallment.Checked)
+                        {
+                            individualContribution.Amoount = decimal.Parse(txtInstallment.Value);
+                            individualContribution.Status = "Installment";
+                        }
+
+                        if (individualContribution.DonorTier == "Friend of IPS")
+                        {
+                            individualContribution.ExpiryDate = datetime.Value;
+                        }
+                        else if (individualContribution.DonorTier == "Lifetime Friend of IPS" || individualContribution.DonorTier == "Lifetime Benefactor of IPS"
+                          || individualContribution.DonorTier == "Lifetime Patron of IPS")
+                        {
+                            datetime.Value = individualContribution.ExpiryDate = "NA";
+                        }
+                        int updateindcheck = mem.EditIndividual(individualContribution.DonorTier, individualContribution.ExpiryDate, individualID.Value, DateTime.Now);
+                        createindcheck = mem.InsertIndividualContribution(individualContribution);
+                        if (createindcheck > 0)
+                        {
+                            ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "showControlsAfterPostBackCheckedNoInstallment();", true);
+                        }
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "showControlsAfterPostBackCheckedFailure();", true);
+                    }
+                }
             }
             else
             {
@@ -113,16 +163,11 @@ namespace IPS_Prototype
                         expiry_date = "NA";
                         datetime.Value = expiry_date;
                     }
-
-                    DALMembership mem = new DALMembership();
-
                     //individual
-                    int indcheck = mem.EditIndividual(donortier, expiry_date, individualID.Value, DateTime.Now); 
+                    int indcheck = mem.EditIndividual(donortier, expiry_date, individualID.Value, DateTime.Now);
                     if (indcheck > 0)
                     {
-                        // ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Renewed!');", true);
                         ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "showControlsAfterPostBackUnchecked();", true);
-
                     }
                 }
                 else
@@ -131,10 +176,12 @@ namespace IPS_Prototype
                 }
             }
 
+            }
+
         }
 
 
     }
-}
+
 
 

@@ -313,6 +313,11 @@
             $("#ContentPlaceHolder1_btnDel").css('display', 'none');
 
         }
+        function hidebtnSave() {
+            $('ContentPlaceHolder1_btnSave').css('display', 'none');
+            $('ContentPlaceHolder1_btnUpdate').css('display', 'block');
+
+        }
          function clearFields()
         {
                              $('#ContentPlaceHolder1_txtFirstName').val("");

@@ -20,190 +20,93 @@ namespace IPS_Prototype
         MembershipDAO db = new MembershipDAO();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["Person"] != null)
+
+            if (!IsPostBack)
             {
-                orgList = (ArrayList)Session["Person"];
+                if (Session["Person"] != null)
+                {
+                    Session["EDIT_ORG_ID"] = null;
+                    orgList = (ArrayList)Session["Person"];
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "hideToggle();", true);
+                }
+                else
+                {
+                    Session["Person"] = null;
+
+
+
+
+                }
+
+                if (Session["EDIT_ORG_ID"] != null)
+                {
+                    Session["Person"] = null;
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "hideBtnNext();", true);
+
+                    OrgInfo o1 = new OrgInfo();
+                    MembershipDAO dalMem = new MembershipDAO();
+                    string org_id = Session["EDIT_ORG_ID"].ToString();
+                    o1 = dalMem.getAllOrgInfo(org_id);
+
+                    txtOrgNameField.Value = o1.orgName.ToString();
+                    txtMailAddrLine1.Value = o1.mailLine1.ToString();
+                    txtMailAddrLine2.Value = o1.mailLine2.ToString();
+                    txtCity.Value = o1.city.ToString();
+                    txtPostalCode.Value = o1.postalCode.ToString();
+                    txtTelephone.Value = o1.telNo.ToString();
+                    txtOffice.Value = o1.officeNo.ToString();
+                    txtWebsiteURL.Value = o1.websiteURL.ToString();
+                    txtbDesc.Value = o1.busDesc.ToString();
+                    pointOfContact.Value = o1.PoC.ToString();
+                    txtnotes.Value = o1.notes.ToString();
+                    txtUEN.Value = o1.uen.ToString();
+                    orgID.Value = org_id.ToString();
+
+
+                    disableFields();
+
+                }
+
             }
-            else {
-                Session["Person"] = null;
-
-
-
-
-            }
-
-            if (Session["EDIT_ORG_ID"] != null)
+            else
             {
-                Session["Person"] = null;
-                OrgInfo o1 = new OrgInfo();
-                MembershipDAO dalMem = new MembershipDAO();
-                string org_id = Session["EDIT_ORG_ID"].ToString();
-                o1 = dalMem.getAllOrgInfo(org_id);
+                if (Session["Person"] != null)
+                {
+                    Session["EDIT_ORG_ID"] = null;
+                    orgList = (ArrayList)Session["Person"];
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "hideToggle();", true);
+                }
+                else
+                {
+                    Session["Person"] = null;
 
-                txtOrgNameField.Value = o1.orgName.ToString();
-                txtMailAddrLine1.Value = o1.mailLine1.ToString();
-                txtMailAddrLine2.Value = o1.mailLine2.ToString();
-                txtCity.Value = o1.city.ToString();
-                txtPostalCode.Value = o1.postalCode.ToString();
-                txtTelephone.Value = o1.telNo.ToString();
-                txtOffice.Value = o1.officeNo.ToString();
-                txtWebsiteURL.Value = o1.websiteURL.ToString();
-                txtbDesc.Value = o1.busDesc.ToString();
-                pointOfContact.Value = o1.PoC.ToString();
-                txtnotes.Value = o1.notes.ToString();
-                txtUEN.Value = o1.uen.ToString();
 
+
+
+                }
             }
-
-
-
         }
 
 
         protected void button_next(object sender, EventArgs e)
         {
-            bool flag = false;
+
             //STORE RESPONSE INTO A SESSION
-
-
-            if (string.IsNullOrEmpty(txtOrgNameField.Value.ToString()) || txtOrgNameField.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Organisaton Name Field.')", true);
-
-            }
-            else
+            if (validateORGFields() != false)
             {
                 orgList.Add(txtOrgNameField.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtMailAddrLine1.Value.ToString()) || txtMailAddrLine1.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Mailing Address Line 1 Field.')", true);
-
-            }
-            else
-            {
                 orgList.Add(txtMailAddrLine1.Value.ToString());
                 orgList.Add(txtMailAddrLine2.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtCity.Value.ToString()) || txtCity.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please City Field.')", true);
-            }
-            else
-            {
                 orgList.Add(txtCity.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtPostalCode.Value.ToString()) || txtPostalCode.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Postal Code Field.')", true);
-            }
-            else
-            {
                 orgList.Add(txtPostalCode.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Telephone Number Field.')", true);
-            }
-            else
-            {
                 orgList.Add(txtTelephone.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtOffice.Value.ToString()) || txtOffice.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Office Number Field.')", true);
-
-            }
-            else
-            {
                 orgList.Add(txtOffice.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtWebsiteURL.Value.ToString()) || txtWebsiteURL.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Field.')", true);
-            }
-            else
-            {
-                if (IsUrlValid(txtWebsiteURL.Value.ToString()).Equals(true))
-                {
-                    orgList.Add(txtWebsiteURL.Value.ToString());
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Field. (URL not valid format)')", true);
-
-                }
-
-
-            }
-            if (string.IsNullOrEmpty(pointOfContact.Value.ToString()) || pointOfContact.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Point of Contact Field.')", true);
-            }
-            else
-            {
-                orgList.Add(pointOfContact.Value.ToString());
+                orgList.Add(txtWebsiteURL.Value.ToString());
                 orgList.Add(txtbDesc.Value.ToString());
-                flag = true;
-
-            }
-            if (string.IsNullOrEmpty(txtnotes.Value.ToString()) || txtnotes.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Notes Field.')", true);
-            }
-            else
-            {
+                orgList.Add(pointOfContact.Value.ToString());
                 orgList.Add(txtnotes.Value.ToString());
-                flag = true;
+                orgList.Add(txtUEN.Value.ToString());
 
-            }
-            if (string.IsNullOrEmpty(txtUEN.Value.ToString()) || txtUEN.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please UEN Field.')", true);
-            }
-            else
-            {
-                if (IsUENValid(txtUEN.Value.ToString()).Equals(true))
-                {
-                    orgList.Add(txtUEN.Value.ToString());
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('UEN is not valid.')", true);
-
-                }
-                
-
-            }
-
-            if (flag != false)
-            {
                 int check = 0;
                 try
                 {
@@ -212,7 +115,7 @@ namespace IPS_Prototype
                     {
                         Response.Redirect("Membership_Registration_CorperateAssociateRepresentative.aspx");
 
-                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Org: " + txtOrgNameField.Value + "');", true);
+                        //ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Org: " + txtOrgNameField.Value + "');", true);
 
 
                     }
@@ -238,6 +141,49 @@ namespace IPS_Prototype
             }
 
         }
+
+        protected void btn_Update(object sender, EventArgs e)
+        {
+            if (validateORGFields() != false)
+            {
+                int check = 0;
+                try
+                {
+                    check = db.updateORG(txtOrgNameField.Value, txtMailAddrLine1.Value, txtMailAddrLine2.Value, txtCity.Value, txtPostalCode.Value, txtTelephone.Value, txtOffice.Value, txtWebsiteURL.Value, txtbDesc.Value, pointOfContact.Value, txtnotes.Value, txtUEN.Value, orgID.Value);
+                    if (check == 1)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccessMsg('Successfully Updated Org: " + txtOrgNameField.Value + "');", true);
+                        enableFields();
+
+
+
+
+
+                    }
+                    else if (check == 0)
+                    {
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                    }
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "hideBtnNext();", true);
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.WriteErrorLog(ex.ToString());
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
+                }
+
+            }
+            else
+            {
+
+            }
+
+
+
+        }
+
+
         private bool IsUrlValid(string url)
         {
 
@@ -252,6 +198,156 @@ namespace IPS_Prototype
             return reg.IsMatch(uen);
 
         }
+
+        protected void disableFields()
+        {
+            txtOrgNameField.Disabled = true;
+            txtMailAddrLine1.Disabled = true;
+            txtMailAddrLine2.Disabled = true;
+            txtCity.Disabled = true;
+            txtPostalCode.Disabled = true;
+            txtTelephone.Disabled = true;
+            txtOffice.Disabled = true;
+            txtWebsiteURL.Disabled = true;
+            txtbDesc.Disabled = true;
+            pointOfContact.Disabled = true;
+            txtnotes.Disabled = true;
+            txtUEN.Disabled = true;
+
+
+
+        }
+        protected void enableFields()
+        {
+            txtOrgNameField.Disabled = false;
+            txtMailAddrLine1.Disabled = false;
+            txtMailAddrLine2.Disabled = false;
+            txtCity.Disabled = false;
+            txtPostalCode.Disabled = false;
+            txtTelephone.Disabled = false;
+            txtOffice.Disabled = false;
+            txtWebsiteURL.Disabled = false;
+            txtbDesc.Disabled = false;
+            pointOfContact.Disabled = false;
+            txtnotes.Disabled = false;
+            txtUEN.Disabled = false;
+
+
+
+        }
+
+        protected bool validateORGFields()
+        {
+
+            if (string.IsNullOrEmpty(txtOrgNameField.Value.ToString()) || txtOrgNameField.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Check Organisaton Name Field');", true);
+
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtMailAddrLine1.Value.ToString()) || txtMailAddrLine1.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Mailing Address Line 1 Field.');", true);
+
+                return false;
+            }
+
+
+            else if (string.IsNullOrEmpty(txtCity.Value.ToString()) || txtCity.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please City Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtPostalCode.Value.ToString()) || txtPostalCode.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Postal Code Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Telephone Number Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtOffice.Value.ToString()) || txtOffice.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Office Number Field.');", true);
+
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtWebsiteURL.Value.ToString()) || txtWebsiteURL.Value.Trim().ToString().Equals(""))
+            {
+                //if (IsUrlValid(txtWebsiteURL.Value.ToString()).Equals(false))
+                //{
+                //    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Not Valid. (URL not valid format)');", true);
+                //    return false;
+                //}
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(pointOfContact.Value.ToString()) || pointOfContact.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Point of Contact Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtnotes.Value.ToString()) || txtnotes.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Notes Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtbDesc.Value.ToString()) || txtbDesc.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Business Description Field.');", true);
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtUEN.Value.ToString()) || txtUEN.Value.Trim().ToString().Equals(""))
+            {
+
+                //error message
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please UEN Field.');", true);
+
+                return false;
+            }
+            else
+            {
+
+                return true;
+            }
+
+
+
+
+        }
+
     }
 
 }

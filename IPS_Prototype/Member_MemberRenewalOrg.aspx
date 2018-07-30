@@ -1,111 +1,135 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/IPS_Vertical.Master" AutoEventWireup="true" CodeBehind="Member_MemberRenewalOrg.aspx.cs" Inherits="IPS_Prototype.Member_MemberRenewalOrg" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
        <script>       
-        // checkbox checked
+          // checkbox checked
         function showControlsAfterPostBackChecked() {
-           $("#ContentPlaceHolder1_grouping").css("display", "block");
+            $("#ContentPlaceHolder1_grouping").css("display", "block");
             displaySuccess('Successfully Renewed!');
             var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
             handleDropDownChange1(dropdownValuerefreshed);
-           }
+        }
 
-           function showControlsAfterPostBackCheckedFailure() {
+        function showControlsAfterPostBackCheckedFailure() {
             $("#ContentPlaceHolder1_grouping").css("display", "block");
             displayFailure();
             var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
             handleDropDownChange1(dropdownValuerefreshed);
-           }
+        }
 
-         function showControlsAfterPostBackUnchecked() {
+        function showControlsAfterPostBackUnchecked() {
             displaySuccess('Successfully Renewed!');
             var dropdownValue = $('#ContentPlaceHolder1_Donor_Tier').val();
             handleDropDownChange1(dropdownValuerefreshed);
-           }
-
-           function handleDropDownChange1(dropdownValuerefreshed) {
-               console.log("event called");
-               // Filter ddl w/ date
-               if (dropdownValuerefreshed === "Friend of IPS" || dropdownValuerefreshed === "") {
-                   $('#ContentPlaceHolder1_datetime')
-                       .prop({ "disabled": false })
-                       .val($.datepicker.formatDate("dd/mm/yy"));
-               } else {
-                   console.log("set to readonly");
-                   $('#ContentPlaceHolder1_datetime')
-                       .prop({ "disabled": true })
-                       .val("NA");
-               }
-
-               // Change tb according to ddl
-               if (dropdownValuerefreshed === "") {
-                   document.getElementById("ContentPlaceHolder1_memfee").value = ""
-               }
-               if (dropdownValuerefreshed === "Friend of IPS") {
-                   $('#ContentPlaceHolder1_memfee').val(10000);
-               }
-               if (dropdownValuerefreshed === "Lifetime Friend of IPS") {
-                   $('#ContentPlaceHolder1_memfee').val(100000);
-               }
-               if (dropdownValuerefreshed === "Lifetime Benefactor of IPS") {
-                   $('#ContentPlaceHolder1_memfee').val(500000);
-               }
-               if (dropdownValuerefreshed === "Lifetime Patron of IPS") {
-                   document.getElementById("ContentPlaceHolder1_memfee").value = 1000000;
-               }
-           }
- 
-         function handleDropDownChange(dropdownValue) {
-                console.log("event called");
-                // Filter ddl w/ date
-                  var now = new Date();
-                  var nextyr = now.getFullYear() + 1; 
-                  now.setFullYear(nextyr);
-
-                  if (dropdownValue === "Friend of IPS" || dropdownValue === "") {                 
-                      $('#ContentPlaceHolder1_datetime')
-                          .prop({ "disabled": false })
-                          .val($.datepicker.formatDate("dd/mm/yy", now)); 
-                  } else {
-                      console.log("set to readonly");
-                      $('#ContentPlaceHolder1_datetime')
-                          .prop({ "disabled": true })
-                          .val("NA");
-                  }
-
-                  // Change tb according to ddl
-                  if (dropdownValue === "") {
-                      document.getElementById("ContentPlaceHolder1_memfee").value = ""
-                  }
-                  if (dropdownValue=== "Friend of IPS") {
-                      $('#ContentPlaceHolder1_memfee').val(10000);
-                  } 
-                   if (dropdownValue === "Lifetime Friend of IPS") {
-                       $('#ContentPlaceHolder1_memfee').val(100000);
-                  }
-                  if (dropdownValue === "Lifetime Benefactor of IPS") {
-                      $('#ContentPlaceHolder1_memfee').val(500000);
-                  }
-                  if (dropdownValue === "Lifetime Patron of IPS") {
-                      document.getElementById("ContentPlaceHolder1_memfee").value = 1000000;
-                  }         
         }
 
-           $(document).ready(function () {
+        function handleDropDownChange1(dropdownValuerefreshed) {
+            console.log("event called");
+            // Filter ddl w/ date
+            if (dropdownValuerefreshed === "Friend of IPS" || dropdownValuerefreshed === "") {
+                $('#ContentPlaceHolder1_datetime')
+                    .prop({ "disabled": false })
+                    .val($.datepicker.formatDate("dd/mm/yy"));
+            } else {
+                console.log("set to readonly");
+                $('#ContentPlaceHolder1_datetime')
+                    .prop({ "disabled": true })
+                    .val("NA");
+            }
 
-                var now = new Date();
-                  var nextyr = now.getFullYear() + 1; 
-                  now.setFullYear(nextyr);
-       
+            // Change tb according to ddl
+            if (dropdownValuerefreshed === "") {
+                document.getElementById("ContentPlaceHolder1_memfee").value = ""
+            }
+            if (dropdownValuerefreshed === "Friend of IPS") {
+                $('#ContentPlaceHolder1_memfee').val(10000);
+            }
+            if (dropdownValuerefreshed === "Lifetime Friend of IPS") {
+                $('#ContentPlaceHolder1_memfee').val(100000);
+            }
+            if (dropdownValuerefreshed === "Lifetime Benefactor of IPS") {
+                $('#ContentPlaceHolder1_memfee').val(500000);
+            }
+            if (dropdownValuerefreshed === "Lifetime Patron of IPS") {
+                document.getElementById("ContentPlaceHolder1_memfee").value = 1000000;
+            }
+        }
+
+
+
+        function handleDropDownChange(dropdownValue) {
+            console.log("event called");
+            // Filter ddl w/ date
+            var now = new Date();
+            var nextyr = now.getFullYear() + 1;
+            now.setFullYear(nextyr);
+
+            if (dropdownValue === "Friend of IPS" || dropdownValue === "") {
+                $('#ContentPlaceHolder1_datetime')
+                    .prop({ "disabled": false })
+                    .val($.datepicker.formatDate("dd/mm/yy", now));
+            } else {
+                console.log("set to readonly");
+                $('#ContentPlaceHolder1_datetime')
+                    .prop({ "disabled": true })
+                    .val("NA");
+            }
+
+            // Change tb according to ddl
+            if (dropdownValue === "") {
+                document.getElementById("ContentPlaceHolder1_memfee").value = ""
+            }
+            if (dropdownValue === "Friend of IPS") {
+                $('#ContentPlaceHolder1_memfee').val(10000);
+            }
+            if (dropdownValue === "Lifetime Friend of IPS") {
+                $('#ContentPlaceHolder1_memfee').val(100000);
+            }
+            if (dropdownValue === "Lifetime Benefactor of IPS") {
+                $('#ContentPlaceHolder1_memfee').val(500000);
+            }
+            if (dropdownValue === "Lifetime Patron of IPS") {
+                document.getElementById("ContentPlaceHolder1_memfee").value = 1000000;
+            }
+        }
+
+        $(document).ready(function () {
+
+            $('#ContentPlaceHolder1_cbInstallment').click(function () {
+                $('#dvInstallment').toggle();              
+
+            });
+
+             var status = $('#ContentPlaceHolder1_hdnStatus').val();
+                console.log("Status - " + status);
+                if (status == "Partial") {
+                    var donorTier = $('#ContentPlaceHolder1_hdnDonor').val();
+                    var expDate =  $('#ContentPlaceHolder1_hdnExpDate').val();
+                    $('#ContentPlaceHolder1_Donor_Tier').val(donorTier);
+                    handleDropDownChange1(donorTier);
+                    $('#ContentPlaceHolder1_datetime').val(expDate);
+                    var membershipFee = $('#ContentPlaceHolder1_memfee').val();
+                    var amountPaid = $('#ContentPlaceHolder1_hdnInstallment').val();
+                    $('#ContentPlaceHolder1_txtInstallment').val(membershipFee - amountPaid);
+                    $('#ContentPlaceHolder1_cbpaid').click();
+                    $('#ContentPlaceHolder1_cbInstallment').click();
+                    $("#ContentPlaceHolder1_grouping").css("display", "block");  // checked
+                    $("#ContentPlaceHolder1_Donor_Tier").prop("disabled", "true"); 
+                    $("#ContentPlaceHolder1_datetime").prop("disabled", "true"); 
+                }
+
+            var now = new Date();
+            var nextyr = now.getFullYear() + 1;
+            now.setFullYear(nextyr);
+
             $('#UserRenewalHeader > .fas').toggleClass('active');
-              $('#UserRenewal').collapse();
-              $('#ContentPlaceHolder1_datetime').datepicker({
-                  dateFormat:"dd/mm/yy" , now
-              });
+            $('#UserRenewal').collapse();
+            $('#ContentPlaceHolder1_datetime').datepicker({
+                dateFormat: "dd/mm/yy", now
+            });
+            $('#ContentPlaceHolder1_paymentreceiveddate').datepicker({
+                dateFormat: "dd/mm/yy"
+            });
 
-              $('#ContentPlaceHolder1_paymentreceiveddate').datepicker({
-                  dateFormat: "dd/mm/yy"
-              });
-                  
             $('#ContentPlaceHolder1_memfee').blur(function () {
                 // when there's a blur we need to switch based of selected Donor tier
                 var donorTier = $('#ContentPlaceHolder1_Donor_Tier').val()
@@ -129,39 +153,45 @@
                     }
                     case "Lifetime Benefactor of IPS": {
                         if (v > 999999) {
-                        $(this).val('999999');
-                                 }
+                            $(this).val('999999');
+                        }
                         else if (v < 500000) {
-                                       $(this).val("500000");
-                                 }
+                            $(this).val("500000");
+                        }
                         break;
                     }
-                         case "Lifetime Patron of IPS": {
-                        if (v < 1000000){
-                        $(this).val('1000000');
-                          }
+                    case "Lifetime Patron of IPS": {
+                        if (v < 1000000) {
+                            $(this).val('1000000');
+                        }
                         break;
                     }
                 }
             });
-                   
-              $('#ContentPlaceHolder1_Donor_Tier').change(function () {
-                  var dropdownValue = $(this).val();
-                  handleDropDownChange(dropdownValue);
-             });      
 
-              // show attributes if check box is checked
-              $('#ContentPlaceHolder1_cbpaid').click(function () {
-                  if ($("#ContentPlaceHolder1_cbpaid").is(':checked'))
-                      $("#ContentPlaceHolder1_grouping").css("display", "block");  // checked
-                  else
-                      $("#ContentPlaceHolder1_grouping").css("display", "none");  // unchecked
-            });          
+            $('#ContentPlaceHolder1_Donor_Tier').change(function () {
+                var dropdownValue = $(this).val();
+                handleDropDownChange(dropdownValue);
+            });
 
-           });      
+            // show attributes if check box is checked
+            $('#ContentPlaceHolder1_cbpaid').click(function () {
+                if ($("#ContentPlaceHolder1_cbpaid").is(':checked'))
+                    $("#ContentPlaceHolder1_grouping").css("display", "block");  // checked
+                else
+                    $("#ContentPlaceHolder1_grouping").css("display", "none");  // unchecked
+            });
+
+        });
          </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+    <asp:HiddenField ID="hdnDonor" runat="server" />
+    <asp:HiddenField ID="hdnInstallment" runat="server" />
+    <asp:HiddenField ID="hdnStatus" runat="server" />    
+    <asp:HiddenField ID="hdnExpDate" runat="server" />
+
           <div id="SuccessAlert" class="alert alert-success">
   <strong>Success!</strong> <label id="SuccessMsg"></label>
     </div>
@@ -199,36 +229,54 @@
 
         <div id="grouping" runat="server" style="display:none; margin-top:-12px;">
 
-          <div class="form-group" style="width:350px;">
-              <label style="margin-bottom:-10px; margin-top:10px" for="lblMembershipFee">Membership Fee:</label>    
-        <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text">$</span>
-  </div>
-  <input class="form-control" type="number"  id="memfee" runat="server">
-</div>
-              </div>
-
-         <div class="form-group">
-    <label for="lblPaymentMode">Payment Mode:</label>
-    <select class="form-control" id='PaymentMode' runat="server" style="width:350px; left: -1px; top: -2px;">
-      <option value="">Select payment mode</option>
-      <option value="Cheque">Cheque</option>
-      <option value="Credit Card">Credit Card</option>
-      <option value="InterBank">InterBank</option>
-    </select></div>
-
-                   <div class="form-group">
-    <label for="lblPaymentReceivedDate">Payment Received Date:</label>
-        <input runat="server" type="text" class="form-control" style="width:350px;" id="paymentreceiveddate" />
-              </div>
-
-        <div class="form-group">
-    <label for="lblremarks">Remarks:</label>
-            <textarea id="remarks" class="form-control" name="remarks" runat="server"  cols="20" rows="4"></textarea>
-        </div>
-
+            <div class="form-group" style="width: 350px;">
+                <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Membership Fee:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input class="form-control" type="number" id="memfee" runat="server">
+                </div>
             </div>
+
+            <div class="form-group">
+                <label for="lblInstallment">Installment:</label>
+                <input type="checkbox" name="cbInstallment" class="form-control" style="width: 17px; height: 17px; margin-top: -3px" id="cbInstallment" runat="server" value="cbInstallment">
+            </div>
+
+            <div class="input-group" style="display: none; width: 350px;" id="dvInstallment">
+                <div class="form-group" style="width: 350px;">
+                    <label style="margin-bottom: -10px; margin-top: 10px" for="lblMembershipFee">Installment Amount:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input class="form-control" type="number" id="txtInstallment" runat="server">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lblPaymentMode">Payment Mode:</label>
+                <select class="form-control" id='PaymentMode' runat="server" style="width: 350px; left: -1px; top: -2px;">
+                    <option value="">Select payment mode</option>
+                    <option value="Cheque">Cheque</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="InterBank">InterBank</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="lblPaymentReceivedDate">Payment Received Date:</label>
+                <input runat="server" type="text" class="form-control" style="width: 350px;" id="paymentreceiveddate" />
+            </div>
+
+            <div class="form-group">
+                <label for="lblremarks">Remarks:</label>
+                <textarea id="remarks" class="form-control" name="remarks" runat="server" cols="20" rows="4"></textarea>
+            </div>
+
+        </div>
 
     
 

@@ -14,7 +14,7 @@ namespace IPS_Prototype.Class
         // Internal members
         protected string _connString = null;
         //    protected SqlConnection _conn = null;
-        protected SqlConnection _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["IPS"].ConnectionString);
+        public SqlConnection _conn = new SqlConnection(ConfigurationManager.ConnectionStrings["IPS"].ConnectionString);
         protected SqlTransaction _trans = null;
         protected bool _disposed = false;
 
