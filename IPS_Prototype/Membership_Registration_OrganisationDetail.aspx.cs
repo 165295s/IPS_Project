@@ -295,13 +295,14 @@ namespace IPS_Prototype
             }
             else if (string.IsNullOrEmpty(txtWebsiteURL.Value.ToString()) || txtWebsiteURL.Value.Trim().ToString().Equals(""))
             {
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Website URL Field.');", true);
+
                 //if (IsUrlValid(txtWebsiteURL.Value.ToString()).Equals(false))
                 //{
                 //    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Not Valid. (URL not valid format)');", true);
                 //    return false;
                 //}
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Website URL Field.');", true);
 
                 return false;
             }
@@ -309,23 +310,16 @@ namespace IPS_Prototype
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Point of Contact Field.');", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Point of Contact Field.');", true);
 
                 return false;
             }
-            else if (string.IsNullOrEmpty(txtnotes.Value.ToString()) || txtnotes.Value.Trim().ToString().Equals(""))
-            {
-
-                //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Notes Field.');", true);
-
-                return false;
-            }
+           
             else if (string.IsNullOrEmpty(txtbDesc.Value.ToString()) || txtbDesc.Value.Trim().ToString().Equals(""))
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Business Description Field.');", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please Business Description Field.');", true);
 
                 return false;
             }
@@ -333,7 +327,7 @@ namespace IPS_Prototype
             {
 
                 //error message
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please UEN Field.');", true);
+                ScriptManager.RegisterStartupScript(Page, GetType(), "script", "displayFailureMsg('Please UEN Field.');", true);
 
                 return false;
             }

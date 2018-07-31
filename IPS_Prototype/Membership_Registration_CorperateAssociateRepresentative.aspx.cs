@@ -146,6 +146,8 @@ namespace IPS_Prototype
                     ddlCat1.SelectedValue = perModel.cat1.ToString();
                     ddlCat2.SelectedValue = perModel.cat2.ToString();
                     ddlList.SelectedValue = perModel.honorific.ToString();
+                    btnSave.Visible = false;
+                    btnUpdate.Attributes.CssStyle.Remove("display");
                     bindTableEdit(CAREP_ORG_ID);
                     if (perModel.role.Equals("F") == false)
                     {
@@ -331,7 +333,41 @@ namespace IPS_Prototype
 
 
         }
-     
+        public void enableCAREPFields()
+        {
+            ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "hidebtnSave();", true);
+
+            txtSalutationField.Disabled = false;
+            txtFirstName.Disabled = false;
+            txtSurname.Disabled = false;
+            txtFullNameNameTag.Disabled = false;
+            txtEmail.Disabled = false;
+            txtTelephone.Disabled = false;
+            txtOrg1.Disabled = false;
+            txtDept1.Disabled = false;
+            txtDesig1.Disabled = false;
+            txtOrg2.Disabled = false;
+            txtDept2.Disabled = false;
+            txtDesig2.Disabled = false;
+            txtSDR.Disabled = false;
+            ddlList.Attributes.Remove("disabled");
+            ddlNationality.Attributes.Remove("disabled");
+            ddlSource.Attributes.Remove("disabled");
+            ddlCat1.Attributes.Remove("disabled");
+            ddlCat2.Attributes.Remove("disabled");
+            ddlStatus.Attributes.Remove("disabled");
+            ddlRole.Attributes.Remove("disabled");
+            btnSave.Disabled = false;
+            btnSave.Visible = false;
+            welcomeEmail.Disabled = false;
+            FacilitatorBriefed.Disabled = false;
+            btnUpdate.Attributes.Remove("display");
+
+            //btnDelCAREP.Disabled = true;
+
+
+        }
+
 
 
         public void button_save(object sender, EventArgs e)
@@ -672,26 +708,28 @@ namespace IPS_Prototype
                 emailChk = "NA";
 
             }
-
-            int personId = int.Parse(hiddentext.Value);
-            MembershipDAO d1 = new MembershipDAO();
-            //DALMembership user = new DALMembership();
-            int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlRole.SelectedValue, ddlStatus.SelectedValue, faciChk, emailChk, ddlCat1.SelectedValue.ToString(),ddlCat2.SelectedValue.ToString());
-            if (check == 2)
+            if (validateCAREPFields() == true)
             {
-                clearPAModal();
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Coporate Associate: " + txtFullNameNameTag.Value + "');", true);
-                enableFields();
-                //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
-                //gvPerson.DataBind();
-                //gvPerson.HeaderRow.TableSection = TableRowSection.TableHeader;
-            }
-            else if (check == 0)
-            {
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-            }
 
+                int personId = int.Parse(hiddentext.Value);
+                MembershipDAO d1 = new MembershipDAO();
+                //DALMembership user = new DALMembership();
+                int check = d1.UpdateCAREP(personId, txtFirstName.Value, txtSurname.Value, genderChk, ddlSource.SelectedValue, ddlList.SelectedValue, txtSalutationField.Value, txtTelephone.Value, txtEmail.Value, ddlNationality.SelectedValue, DateTime.Now, txtDesig1.Value, txtDept1.Value, txtOrg1.Value, txtDesig2.Value, txtDept2.Value, txtOrg2.Value, txtSDR.Value, txtFullNameNameTag.Value, ddlRole.SelectedValue, ddlStatus.SelectedValue, faciChk, emailChk, ddlCat1.SelectedValue.ToString(), ddlCat2.SelectedValue.ToString());
+                if (check == 2)
+                {
+                    clearPAModal();
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Updated for Coporate Associate: " + txtFullNameNameTag.Value + "');", true);
+                    enableFields();
+                    //gvPerson.DataSource = mem.getAllMembershipDetailPerson();
+                    //gvPerson.DataBind();
+                    //gvPerson.HeaderRow.TableSection = TableRowSection.TableHeader;
+                }
+                else if (check == 0)
+                {
+                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+                }
 
+            }
 
 
         }
@@ -941,6 +979,86 @@ namespace IPS_Prototype
             {
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Full Name Name Tag Field.')", true);
 
+                return false;
+
+            }
+            else
+            {
+                return true;
+            }
+        }
+        protected bool validateCAREPFields()
+        {
+            if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check First Name Field.');", true);
+                enableCAREPFields();
+                return false;
+
+
+            }
+            else if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Surname Field.');", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Salutation Field.')", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Telephone Field.')", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Email Field.')", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Designation 1 Field.')", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Department 1 Field.')", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Organisation 1 Field.')", true);
+                enableCAREPFields();
+                return false;
+
+            }
+            else if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Full Name Name Tag Field.')", true);
+                enableCAREPFields();
                 return false;
 
             }

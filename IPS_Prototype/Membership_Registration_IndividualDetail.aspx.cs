@@ -20,7 +20,7 @@ namespace IPS_Prototype
         string gender, memRegType, memRegDonorTier, memRegExpDate;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+         
             if (!IsPostBack)
             {
                 MembershipDAO d1 = new MembershipDAO();
@@ -122,6 +122,8 @@ namespace IPS_Prototype
                     txtDept2.Disabled = true;
                     txtDesig2.Disabled = true;
                     txtSDR.Disabled = true;
+                    btnSave.Visible = false;
+                    btnUpdate.Attributes.CssStyle.Remove("display");
                     ddlList.Attributes.Add("disabled", "disabled");
                     ddlNationality.Attributes.Add("disabled", "disabled");
                     ddlSource.Attributes.Add("disabled", "disabled");
@@ -175,7 +177,7 @@ namespace IPS_Prototype
 
         protected void Button_Save(Object sender, EventArgs e)
         {
-            bool flag = false;
+           
             pList = (ArrayList)Session["Person"];
             Session["p1"] = Session["Person"];
 
@@ -191,240 +193,83 @@ namespace IPS_Prototype
                 gender = Female.Value;
             }
 
-              
 
-            if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check First Name Field.')", true);
 
-            }
-            else
+
+            if (validateFields() == true)
             {
                 pList.Add(txtFirstName.Value); //3
-                flag = true;
-            }
-
-            if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Surname Field.')", true);
-
-            }
-            else
-            {
-                pList.Add(txtSurname.Value); //4
-                flag = true;
-            }
-
-
-
-
-
-
-            
-
-
-
-
-
-            pList.Add(gender); //5
-
-
-
-
-            pList.Add(ddlList.SelectedValue.ToString()); //6
-
-
-            if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Salutation Field.')", true);
-
-            }
-            else
-            {
+                pList.Add(txtSurname.Value); //4 
+                pList.Add(gender); //5
+                pList.Add(ddlList.SelectedValue.ToString()); //6
                 pList.Add(txtSalutationField.Value); //7
-                flag = true;
-            }
-
-
-            if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Telephone Number Field.')", true);
-
-            }
-            else
-            {
                 pList.Add(txtTelephone.Value); //8
-                flag = true;
-            }
-
-
-
-            if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Email Field.')", true);
-
-            }
-            else
-            {
                 pList.Add(txtEmail.Value); //9
-                flag = true;
-            }
-
-
-            if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Designation 1 Field.')", true);
-
-            }
-            else
-            {
-                pList.Add(txtDesig1.Value); //10
-                flag = true;
-            }
-
-
-            if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Department 1 Field.')", true);
-
-            }
-            else
-            {
+                pList.Add(txtDesig1.Value); //10         
                 pList.Add(txtDept1.Value); //11
-                flag = true;
-            }
-
-
-            if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Organisation 1 Field.')", true);
-
-            }
-            else
-            {
                 pList.Add(txtOrg1.Value); //12
-                flag = true;
-            }
-
-
-
-            pList.Add(txtDesig2.Value); //13
-
-
-
-            pList.Add(txtDept2.Value); //14
-
-
-
-
-            pList.Add(txtOrg2.Value); //15
-
-
-
-
-            pList.Add(txtSDR.Value); //16
-
-
-
-            pList.Add(ddlNationality.SelectedValue.ToString()); //17
-
-
-
-            if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
-            {
-                flag = false;
-                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Full Name Name Tag Field.')", true);
-
-            }
-            else
-            {
+                pList.Add(txtDesig2.Value); //13
+                pList.Add(txtDept2.Value); //14
+                pList.Add(txtOrg2.Value); //15
+                pList.Add(txtSDR.Value); //16
+                pList.Add(ddlNationality.SelectedValue.ToString()); //17
                 pList.Add(txtFullNameNameTag.Value); //18
-                flag = true;
-            }
+                pList.Add(ddlStatus.SelectedValue.ToString()); //19
+                pList.Add(ddlSource.SelectedValue); //20
+                pList.Add(ddlCat1.SelectedValue); //21
+                pList.Add(ddlCat2.SelectedValue);//22
+
+
+                Session["indvPerson"] = pList;
 
 
 
-            
-
-            pList.Add(ddlStatus.SelectedValue.ToString()); //19
-
-            pList.Add(ddlSource.SelectedValue); //20
-
-            pList.Add(ddlCat1.SelectedValue); //21
-
-            pList.Add(ddlCat2.SelectedValue);//22
-
-
-
-
-
-
-
-
-
-
-
-
-            Session["indvPerson"] = pList;
-
-
-
-            if (flag != false)
-            {
-                int check = 0;
-                try
-                {
-                    check = db.AddPerson(pList);
-
-                    if (check == 2)
+                 int check = 0;
+                    try
                     {
-                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+                        check = db.AddPerson(pList);
 
-                        disableFields();
-                        PersonModel p1 = new PersonModel();
-                        p1 = db.getRecentlyAddedINDIVId();
-                        hiddentextPersonID.Value = p1.id;
-                        
+                        if (check == 2)
+                        {
+                            ScriptManager.RegisterStartupScript(Page, GetType(), "AlertDisplay", "displaySuccess('Successfully Created New Individual: " + txtSurname.Value + " " + txtFirstName.Value + "');", true);
+
+                            disableFields();
+                            PersonModel p1 = new PersonModel();
+                            p1 = db.getRecentlyAddedINDIVId();
+                            hiddentextPersonID.Value = p1.id;
+
+
+                        }
+                        else if (check == 0)
+                        {
+                            ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure('There seems to be an error! Please notify the Administrators.');", true);
+                        }
+
+
+
 
                     }
-                    else if (check == 0)
+                    catch (Exception ex)
                     {
-                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure('There seems to be an error! Please notify the Administrators.');", true);
+                        ErrorLog.WriteErrorLog(ex.ToString());
+                        ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
+
                     }
 
 
+                    try
+                    {
+                        //clearFields();
+                        //clearArrayList();
+                    }
+                    catch (Exception ex)
+                    {
 
+                    }
 
-                }
-                catch (Exception ex)
-                {
-                    ErrorLog.WriteErrorLog(ex.ToString());
-                    ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
-
-                }
-
-
-                try
-                {
-                    //clearFields();
-                    //clearArrayList();
-                }
-                catch (Exception ex)
-                {
-
-                }
+                
 
             }
-
-
 
 
 
@@ -605,7 +450,7 @@ namespace IPS_Prototype
             {
                 genderChk = Female.Value;
             }
-
+            if (validateUpdateFields() == true) { 
 
             int personId = int.Parse(hiddentextPersonID.Value);
             MembershipDAO d1 = new MembershipDAO();
@@ -620,7 +465,7 @@ namespace IPS_Prototype
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('testing');", true);
             }
 
-
+           }
 
 
         }
@@ -868,10 +713,161 @@ namespace IPS_Prototype
             ddlStatus.Attributes.Remove("disabled");
             btnSave.Disabled = false;
             AddPA.Disabled = false;
+            sliderToggle.Checked = true;
 
 
         }
+        public void enableUpdateFields()
+        {
 
+            txtSalutationField.Disabled = false;
+            txtFirstName.Disabled = false;
+            txtSurname.Disabled = false;
+            txtFullNameNameTag.Disabled = false;
+            txtEmail.Disabled = false;
+            txtTelephone.Disabled = false;
+            txtOrg1.Disabled = false;
+            txtDept1.Disabled = false;
+            txtDesig1.Disabled = false;
+            txtOrg2.Disabled = false;
+            txtDept2.Disabled = false;
+            txtDesig2.Disabled = false;
+            txtSDR.Disabled = false;
+            ddlList.Attributes.Remove("disabled");
+            ddlNationality.Attributes.Remove("disabled");
+            ddlSource.Attributes.Remove("disabled");
+            ddlCat1.Attributes.Remove("disabled");
+            ddlCat2.Attributes.Remove("disabled");
+            ddlStatus.Attributes.Remove("disabled");
+            btnSave.Visible = false;
+            AddPA.Disabled = false;
+            btnUpdate.Attributes.Remove("display");
+
+
+        }
+        protected bool validateFields()
+        {
+            if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
+            {
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check First Name Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
+            {
+
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Surname Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Salutation Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
+            {
+                
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Telephone Number Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Email Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Designation 1 Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Department 1 Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Organisation 1 Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
+            {
+               
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsg('Please Check Full Name Name Tag Field.')", true);
+                return false;
+            }
+            else {
+                return true;
+            }
+
+        }
+        protected bool validateUpdateFields()
+        {
+            if (string.IsNullOrEmpty(txtFirstName.Value.ToString()) || txtFirstName.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check First Name Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtSurname.Value.ToString()) || txtSurname.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Surname Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtSalutationField.Value.ToString()) || txtSalutationField.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Salutation Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtTelephone.Value.ToString()) || txtTelephone.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Telephone Number Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtEmail.Value.ToString()) || txtEmail.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Email Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtDesig1.Value.ToString()) || txtDesig1.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Designation 1 Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtDept1.Value.ToString()) || txtDept1.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Department 1 Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtOrg1.Value.ToString()) || txtOrg1.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Organisation 1 Field.')", true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(txtFullNameNameTag.Value.ToString()) || txtFullNameNameTag.Value.Trim().ToString() == "")
+            {
+                enableUpdateFields();
+                ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailureMsgUpdate('Please Check Full Name Name Tag Field.')", true);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
 
     }
 

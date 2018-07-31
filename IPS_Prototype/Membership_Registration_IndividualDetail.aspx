@@ -43,7 +43,7 @@
                     $('#ContentPlaceHolder1_ddlStatus').removeAttr('disabled');
                     $('#ContentPlaceHolder1_ddlRole').removeAttr('disabled');
                     $('#ContentPlaceHolder1_txtEmail').removeAttr('disabled');
-                    $('#ContentPlaceHolder1_btnSave').removeAttr('disabled');
+                    //$('#ContentPlaceHolder1_btnSave').removeAttr('disabled');
                     $('#ContentPlaceHolder1_AddPA').removeAttr('disabled');
                     $('#ContentPlaceHolder1_btnSave').remove();
                     $('#ContentPlaceHolder1_btnUpdate').show();
@@ -72,7 +72,7 @@
                     $('#ContentPlaceHolder1_ddlStatus').attr("disabled", true);
                     $('#ContentPlaceHolder1_ddlRole').attr("disabled", true);
                     $('#ContentPlaceHolder1_txtEmail').attr("disabled", true);
-                    $('#ContentPlaceHolder1_btnSave').attr("disabled", true);
+                    $('#ContentPlaceHolder1_btnSave').remove();
                     $('#ContentPlaceHolder1_AddPA').attr("disabled", true);
                     $('#ContentPlaceHolder1_btnUpdate').attr("disabled", true);
                     // $('#ContentPlaceHolder1_FacilitatorBriefed').prop('disabled',true);
@@ -108,6 +108,15 @@
 
             $('#FailureAlert').css('display', 'block');
             $('#FailureMsg').text(msg);
+            hideToggle();
+
+        };
+        function displayFailureMsgUpdate(msg) {
+
+            $('#FailureAlert').css('display', 'block');
+            $('#FailureMsg').text(msg);
+     
+
 
         };
 

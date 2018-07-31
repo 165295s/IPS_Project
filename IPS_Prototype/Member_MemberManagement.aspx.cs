@@ -23,13 +23,13 @@ namespace IPS_Prototype
                 QuestionOptions.SelectedIndex = 0;
                 if (QuestionOptions.SelectedIndex == 0)
                 {
-                    Panel2.Attributes.CssStyle.Add("display", "none");
-                    Panel1.Attributes.CssStyle.Add("display", "block");
+                    panPerson.Attributes.CssStyle.Add("display", "none");
+                    panOrg.Attributes.CssStyle.Add("display", "block");
                 }
                 else if (QuestionOptions.SelectedIndex == 1)
                 {
-                    Panel2.Attributes.CssStyle.Add("display", "block");
-                    Panel1.Attributes.CssStyle.Add("display", "none");
+                    panPerson.Attributes.CssStyle.Add("display", "block");
+                    panOrg.Attributes.CssStyle.Add("display", "none");
                 }
                 gvOrg.DataSource = mem.getAllMembershipDetailOrg();
                 gvOrg.DataBind();
@@ -57,13 +57,13 @@ namespace IPS_Prototype
                 //If error, display failure message
                 if (QuestionOptions.SelectedIndex == 0)
                 {
-                    Panel2.Attributes.CssStyle.Add("display", "none");
-                    Panel1.Attributes.CssStyle.Add("display", "block");
+                    panPerson.Attributes.CssStyle.Add("display", "none");
+                    panOrg.Attributes.CssStyle.Add("display", "block");
                 }
                 else if (QuestionOptions.SelectedIndex == 1)
                 {
-                    Panel2.Attributes.CssStyle.Add("display", "block");
-                    Panel1.Attributes.CssStyle.Add("display", "none");
+                    panPerson.Attributes.CssStyle.Add("display", "block");
+                    panOrg.Attributes.CssStyle.Add("display", "none");
                 }
                 ScriptManager.RegisterStartupScript(Page, GetType(), "AlertFailureDisplay", "displayFailure();", true);
             }
@@ -177,14 +177,14 @@ namespace IPS_Prototype
 
             if (hidden.Value == "org")
             {
-                Panel1.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                Panel2.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                Panel2.Attributes.CssStyle.Add("display", "block");
-                Panel1.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonToDelete.Value = indid.ToString();
             }
@@ -338,14 +338,14 @@ namespace IPS_Prototype
             }       
             if (hidden.Value == "org")
             {
-                Panel1.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                Panel2.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                Panel2.Attributes.CssStyle.Add("display", "block");
-                Panel1.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonEdit.Value = indid.ToString();
             }
@@ -432,14 +432,14 @@ namespace IPS_Prototype
             }
             if (hidden.Value == "org")
             {
-                Panel1.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                Panel2.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                Panel2.Attributes.CssStyle.Add("display", "block");
-                Panel1.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
                 hdnPersonEdit.Value = CAREP_PERSON_ID.ToString();
             }
@@ -474,14 +474,14 @@ namespace IPS_Prototype
             ScriptManager.RegisterStartupScript(Page, GetType(), "AlertUnauthorised", "modalViewIND();", true);
             if (hidden.Value == "org")
             {
-                Panel1.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "block");
                 //grouping.Attributes.CssStyle.Add("display", "block");
-                Panel2.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "none");
             }
             else
             {
-                Panel2.Attributes.CssStyle.Add("display", "block");
-                Panel1.Attributes.CssStyle.Add("display", "none");
+                panPerson.Attributes.CssStyle.Add("display", "block");
+                panOrg.Attributes.CssStyle.Add("display", "none");
                 //grouping.Attributes.CssStyle.Add("display", "none");
             }
         }

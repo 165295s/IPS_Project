@@ -36,7 +36,7 @@ namespace IPS_Prototype
             else {
                 type = IA.Value;
             }
-            donorTier = MemebershipDDL.SelectedItem.ToString();
+            donorTier = MemebershipDDL.SelectedValue.ToString();
             expDate = hiddentext.Value;
 
             //ArrayList arPerson = Session["Person"] as ArrayList;
